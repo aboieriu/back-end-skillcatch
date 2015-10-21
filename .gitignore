@@ -1,3 +1,6 @@
+/.idea/
+/__MACOSX/
+/compiled/
 .idea
 target
 *.iml
