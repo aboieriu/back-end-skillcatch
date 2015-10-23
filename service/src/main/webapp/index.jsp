@@ -8,7 +8,6 @@
 <div style="width: 100%">
   <div style="width: 33.3%;float: left">
     <button>Group</button>
-
   </div>
   <div style="width: 33.3%; float: left">
    <a href="http://192.168.105.84/" ><button>User</button></a>
