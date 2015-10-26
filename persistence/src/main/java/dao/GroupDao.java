@@ -32,33 +32,36 @@ public class GroupDao implements IGroupDao {
         } else {
             return entityManager.find(Group.class, id);
         }
-
     }
 
-
-    public Group getGroupById(Long id)
-
+    public Group getGroupByDate(Date startDate,Date endDate)
     {
-        Query query = this.entityManager.createQuery("from Group WHERE id=:id");
-        query.setParameter("id",id);
+        Query query = this.entityManager.createQuery("from Group WHERE startDate=:startDate AND endDate=:endDate");
+        query.setParameter("startDate",startDate);
+        query.setParameter("endDate",endDate);
         return (Group)query.getSingleResult();
 
     }
 
 
-
     @Transactional
     public void addGroup(Group item){
-
+        Group groupFromDbs=this.getGroupByDate(item.getStartDate(),item.getEndDate());
+        if (groupFromDbs!=null)
+        {
+            groupFromDbs.setStartDate(item.getStartDate());
+            groupFromDbs.setEndDate(item.getEndDate());
+        }
         entityManager.persist(item);
     }
 
     @Transactional
     public void updateGroup(Group group){
-        Group groupFromDbs = this.getGroup(group.getId());
+        Group groupFromDbs = this.getGroup(group.getGroupId());
         if (groupFromDbs != null) {
-            groupFromDbs.setUser_name(group.getUser_name());
-            groupFromDbs.setPassword(group.getPassword());
+            groupFromDbs.setName(group.getName());
+            groupFromDbs.setEndDate(group.getEndDate());
+            groupFromDbs.setStartDate(group.getStartDate());
             entityManager.persist(groupFromDbs);
         }
     }

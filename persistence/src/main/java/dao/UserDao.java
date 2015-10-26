@@ -21,8 +21,11 @@ public class UserDao implements IUserDao {
         this.entityManager = entityManager;
     }
 
-    public List<User> getAllUsers(Long id) {
-        return this.entityManager.createQuery("from User").getResultList();
+    public List<User> getAllUsers(Long groupId) {
+
+        Query query =  this.entityManager.createQuery("from User WHERE groupId = :targetGroupId");
+        query.setParameter("targetGroupId" , groupId);
+        return query.getResultList();
     }
 
 
@@ -71,11 +74,10 @@ public class UserDao implements IUserDao {
         if (itemFromDbs != null) {
             itemFromDbs.setName(myUser.getName());
             itemFromDbs.setSurname(myUser.getSurname());
-            itemFromDbs.setUser_name(myUser.getUser_name());
+            itemFromDbs.setUsername(myUser.getUsername());
             itemFromDbs.setPassword(myUser.getPassword());
             itemFromDbs.setEmail(myUser.getEmail());
             itemFromDbs.setPhone(myUser.getPhone());
-            itemFromDbs.setRepositoryUrl(myUser.getRepositoryUrl());
             entityManager.persist(itemFromDbs);
         }
     }

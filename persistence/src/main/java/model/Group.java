@@ -3,54 +3,64 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-
+import java.util.Date;
 
 
 @Entity
-@Table(name = "login_group")
+@Table(name = "group_local")
 public class Group {
 
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id
-    private Long id;
+    private Long groupId;
 
-    @Column(name = "user_name")
-    private String user_name;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "startDate")
+    private Date startDate;
 
+    @Column(name = "endDate")
+    private Date endDate;
 
-
-    public Group() {}
-
-    public Group(String user_name, String password) {
-        this.user_name = user_name;
-        this.password = password;
+    public Group() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getGroupId() {
+        return groupId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public Group(String name, Date startDate, Date endDate) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+    public String getName() {
+        return name;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

@@ -19,9 +19,9 @@ public class UserService {
 
     @RequestMapping(value = "/api/group/{groupId}/user" , method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getAllUser(Long id)
+    public List<User> getAllUser(@PathVariable("groupId") Long groupId)
     {
-        return this.userFacade.getAllUser(id);
+        return this.userFacade.getAllUser(groupId);
     }
 
     @RequestMapping(value = "/api/group/{groupId}/user/{userId}",method = RequestMethod.GET)
