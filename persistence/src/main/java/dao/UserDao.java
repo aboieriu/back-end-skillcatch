@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Created by Mirela_2 on 10/21/2015.
  */
-public class UserDao {
+public class UserDao implements IUserDao {
 
     private EntityManager entityManager;
 
