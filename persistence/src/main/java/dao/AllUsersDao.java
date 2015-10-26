@@ -4,6 +4,7 @@ import model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class AllUsersDao implements IAllUsersDao {
         this.entityManager=entityManager;
     }
 
+    @Transactional
     public List<User> getAllUsers() {
         return this.entityManager.createQuery("from User").getResultList();
     }
