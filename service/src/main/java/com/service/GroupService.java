@@ -5,6 +5,7 @@ package com.service;
  */
 
 
+import facade.IGroupFacade;
 import model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,14 +44,14 @@ public class GroupService {
     public void updateGroup(@PathVariable("groupId") Long id,@RequestBody Group group)
     {
         group.setId(id);
-        return this.groupFacade.updateGroup(group);
+        this.groupFacade.updateGroup(group);
     }
 
     @RequestMapping(value = "{groupId}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteGroup(@PathVariable("groupId") Long id)
     {
-        return this.groupFacade.deleteGroup(id);
+        this.groupFacade.deleteGroup(id);
     }
 
     public IGroupFacade getGroupFacade() {
