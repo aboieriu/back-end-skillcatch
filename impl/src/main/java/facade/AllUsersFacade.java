@@ -1,5 +1,6 @@
 package facade;
 
+import dao.IAllUsersDao;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
