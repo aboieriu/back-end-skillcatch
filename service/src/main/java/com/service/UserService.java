@@ -1,5 +1,6 @@
 package com.service;
 
+import facade.IUserFacade;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class UserService {
     @ResponseBody
     public void deleteUser(@PathVariable("groupId") Long groupId , @PathVariable("userId") Long userId)
     {
-        return this.userFacade.deleteUser(groupId, userId);
+        this.userFacade.deleteUser(groupId, userId);
     }
 
     @RequestMapping(value = "/api/group/{groupId}/user/" , method = RequestMethod.POST)
@@ -42,7 +43,7 @@ public class UserService {
     public void addUser(@PathVariable("groupId") Long groupId,@RequestBody User userId)
     {
         userId.setGroupId(groupId);
-        return this.userFacade.addUser(userId);
+        this.userFacade.addUser(userId);
     }
 
     @RequestMapping(value = "/api/group/{groupId}/user/{userId}", method = RequestMethod.PUT)
