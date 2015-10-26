@@ -1,5 +1,6 @@
 package com.service;
 
+import facade.IAllUsersFacade;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,9 @@ import java.util.List;
  * Created by CataVlad on 26-Oct-15.
  */
 @Controller
-@RequestMapping("/api/allusers")
+@RequestMapping("/users")
 public class AllUsersService {
+
 
     @Autowired
     private IAllUsersFacade allUsersFacade;
@@ -24,5 +26,12 @@ public class AllUsersService {
     public List<User> getAllUsers()
     {
         return this.allUsersFacade.getAllUsers();
+    }
+    public IAllUsersFacade getAllUsersFacade() {
+        return allUsersFacade;
+    }
+
+    public void setAllUsersFacade(IAllUsersFacade allUsersFacade) {
+        this.allUsersFacade = allUsersFacade;
     }
 }
