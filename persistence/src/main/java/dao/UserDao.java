@@ -79,5 +79,4 @@ public class UserDao {
             entityManager.persist(itemFromDbs);
         }
     }
-
 }
