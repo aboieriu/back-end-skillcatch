@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface IUserDao {
 
+    User findByUserName(String username);
     public List<User> getAllUsers(Long id);
     public void addUser(User userId);
     public void updateUser(User myUser);

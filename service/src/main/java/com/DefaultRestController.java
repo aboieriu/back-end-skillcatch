@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class DefaultRestController {
-    @RequestMapping("/")
+    @RequestMapping("/skillCATch/")
     public String SkillCatch() {
         return "index.jsp";
     }

@@ -1,6 +1,7 @@
 package dao;
 
 import model.User;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +15,31 @@ import java.util.*;
 public class UserDao implements IUserDao {
 
     private EntityManager entityManager;
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    private SessionFactory sessionFactory;
+
+    public  User findByUserName(String username) {
+
+        List<User> users = new ArrayList<User>();
+
+        users = getSessionFactory().getCurrentSession().createQuery("from User where username=?")
+                .setParameter(0, username).list();
+
+        if (users.size() > 0) {
+            return users.get(0);
+        } else {
+            return null;
+        }
+
+    }
 
 
     @PersistenceContext

@@ -3,6 +3,8 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -34,6 +36,22 @@ public class User {
 
     @Column(name = "groupId")
     private Long groupId;
+    private Set<UserRole> userRole = new HashSet<UserRole>(0);
+
+
+    public Set<UserRole> getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Set<UserRole> userRole) {
+        this.userRole = userRole;
+    }
+
+    public User(Set<UserRole> userRole) {
+
+        this.userRole = userRole;
+    }
+
 
     public User() {}
 
