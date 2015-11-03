@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     private IUserDao iUserDao;
 
-    @Override
+
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
 

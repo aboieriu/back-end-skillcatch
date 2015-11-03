@@ -2,6 +2,7 @@ package facade;
 
 import dao.IUserDao;
 import model.User;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -13,6 +14,20 @@ public class UserFacade implements IUserFacade{
 
     @Autowired
     private IUserDao userDao;
+
+    private SessionFactory sessionFactory;
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    public SessionFactory.SessionFactoryOptions findByUserName(String username){
+        return this.sessionFactory.getSessionFactoryOptions();
+    }
 
     public IUserDao getUserDao() {
         return userDao;
