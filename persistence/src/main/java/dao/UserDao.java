@@ -2,16 +2,16 @@ package dao;
 
 import model.User;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.*;
+import org.springframework.stereotype.Repository;
 
-/**
- * Created by Mirela_2 on 10/21/2015.
- */
+@Repository
 public class UserDao implements IUserDao {
 
     private EntityManager entityManager;
@@ -24,8 +24,10 @@ public class UserDao implements IUserDao {
         this.sessionFactory = sessionFactory;
     }
 
+    @Autowired
     private SessionFactory sessionFactory;
 
+    @SuppressWarnings("unchecked")
     public  User findByUserName(String username) {
 
         List<User> users = new ArrayList<User>();

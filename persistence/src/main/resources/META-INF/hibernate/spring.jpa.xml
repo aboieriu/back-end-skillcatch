@@ -51,32 +51,8 @@
         </property>
     </bean>
 
-    <bean id="userDao" class="dao.UserDao">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-
-    <bean id="myUserDetailsService" class="com.service.MyUserDetailsService">
-        <property name="iUserDao" ref="userDao" />
-    </bean>
-
-
-
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="get*" read-only="true" />
-            <tx:method name="find*" read-only="true" />
-            <tx:method name="*" />
-        </tx:attributes>
-    </tx:advice>
-
-    <aop:config>
-        <aop:pointcut id="userServicePointCut"
-                      expression="execution(* com.service.MyUserDetailsService.*(..))" />
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" />
-    </aop:config>
 
 
 </beans>

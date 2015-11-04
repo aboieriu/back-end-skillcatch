@@ -21,7 +21,7 @@
         <!-- enable csrf protection -->
         <csrf />
     </http>
-    <beans:import resource="classpath*:META-INF/hibernate/spring.jpa.xml"/>
+
     <authentication-manager>
         <authentication-provider user-service-ref="myUserDetailsService" >
             <password-encoder hash="sha" />
@@ -29,4 +29,8 @@
     </authentication-manager>
 
 
+    <beans:bean id="myUserDetailsService" class="com.service.MyUserDetailsService">
+    <beans:property name="iUserDao" ref="userDao"/>
+    </beans:bean>
+    <beans:bean id="userDao" class="dao.UserDao"/>
 </beans:beans>
