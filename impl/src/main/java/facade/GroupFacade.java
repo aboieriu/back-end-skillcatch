@@ -23,14 +23,14 @@ public class GroupFacade implements IGroupFacade{
     }
 
     public List<Group> getAllGroup(){
-        return this.groupDao.getAllGroup();
+        return this.groupDao.getAll();
             }
 
     public Group getGroup(Long groupId){
     return this.groupDao.getGroup(groupId);}
 
     public void addGroup(Group group){
-        this.groupDao.addGroup(group);
+        this.groupDao.add(group);
     }
 
     public void deleteGroup(Long groupId){

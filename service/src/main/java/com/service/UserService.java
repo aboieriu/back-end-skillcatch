@@ -21,7 +21,7 @@ public class UserService {
     @ResponseBody
     public List<User> getAllUser(@PathVariable("groupId") Long groupId)
     {
-        return this.userFacade.getAllUser(groupId);
+        return this.userFacade.getAll();
     }
 
     @RequestMapping(value = "/api/group/{groupId}/user/{userId}",method = RequestMethod.GET)
@@ -43,7 +43,7 @@ public class UserService {
     public void addUser(@PathVariable("groupId") Long groupId,@RequestBody User userId)
     {
         userId.setGroupId(groupId);
-        this.userFacade.addUser(userId);
+        this.userFacade.add(userId);
     }
 
     @RequestMapping(value = "/api/group/{groupId}/user/{userId}", method = RequestMethod.PUT)

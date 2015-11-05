@@ -7,10 +7,8 @@ import java.util.List;
 /**
  * Created by Mirela_2 on 10/21/2015.
  */
-public interface IUserDao {
+public interface IUserDao extends IGenericDao<User> {
 
-    public List<User> getAllUsers(Long id);
-    public void addUser(User userId);
     public void updateUser(User myUser);
     public void deleteUser(Long groupId , Long userId);
     public User getUser(Long groupId,Long userId);

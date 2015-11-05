@@ -1,5 +1,6 @@
 package dao;
 
+import model.Group;
 import model.User;
 
 import javax.persistence.EntityManager;
@@ -11,25 +12,11 @@ import java.util.*;
 /**
  * Created by Mirela_2 on 10/21/2015.
  */
-public class UserDao implements IUserDao {
+public class UserDao extends GenericDao<User> implements IUserDao{
 
-    private EntityManager entityManager;
-
-
-    @PersistenceContext
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public UserDao() {
+        super(User.class);
     }
-
-    public List<User> getAllUsers(Long groupId) {
-
-        Query query =  this.entityManager.createQuery("from User WHERE groupId = :targetGroupId");
-        query.setParameter("targetGroupId" , groupId);
-        return query.getResultList();
-    }
-
-
-
     @Transactional
     public void deleteUser(Long groupId , Long userId) {
         User itemFromDbs = this.getUser(groupId, userId);
@@ -38,8 +25,6 @@ public class UserDao implements IUserDao {
             entityManager.remove(itemFromDbs);
         }
     }
-
-
 
     @Transactional
     public User getUser(Long groupId,Long userId) {
@@ -57,11 +42,6 @@ public class UserDao implements IUserDao {
         return null;
     }
 
-    @Transactional
-    public void addUser(User userId)
-    {
-        entityManager.persist(userId);
-    }
 
     public User getUserById (Long userId)
     {

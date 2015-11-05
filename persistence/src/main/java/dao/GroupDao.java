@@ -12,17 +12,10 @@ import java.util.List;
 /**
  * Created by Mirela_2 on 10/21/2015.
  */
-public class GroupDao implements IGroupDao {
+public class GroupDao extends GenericDao<Group> implements IGroupDao {
 
-    private EntityManager entityManager ;
-    @PersistenceContext
-    private void setEntityManager(EntityManager entityManager){
-        this.entityManager=entityManager;
-    }
-
-
-    public List<Group> getAllGroup (){
-        return this.entityManager.createQuery("from Group").getResultList();
+    public GroupDao() {
+        super(Group.class);
     }
 
     @Transactional
@@ -40,20 +33,8 @@ public class GroupDao implements IGroupDao {
         query.setParameter("startDate",startDate);
         query.setParameter("endDate",endDate);
         return (Group)query.getSingleResult();
-
     }
 
-
-    @Transactional
-    public void addGroup(Group item){
-        Group groupFromDbs=this.getGroupByDate(item.getStartDate(),item.getEndDate());
-        if (groupFromDbs!=null)
-        {
-            groupFromDbs.setStartDate(item.getStartDate());
-            groupFromDbs.setEndDate(item.getEndDate());
-        }
-        entityManager.persist(item);
-    }
 
     @Transactional
     public void updateGroup(Group group){
