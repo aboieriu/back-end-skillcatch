@@ -43,7 +43,7 @@ public class GroupService {
     @ResponseBody
     public void updateGroup(@PathVariable("groupId") Long id,@RequestBody Group group)
     {
-        group.setGroupId(id);
+        group.setId(id);
         this.groupFacade.updateGroup(group);
     }
 

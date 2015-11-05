@@ -27,22 +27,13 @@ public class GroupDao extends GenericDao<Group> implements IGroupDao {
         }
     }
 
-    public Group getGroupByDate(Date startDate,Date endDate)
-    {
-        Query query = this.entityManager.createQuery("from Group WHERE startDate=:startDate AND endDate=:endDate");
-        query.setParameter("startDate",startDate);
-        query.setParameter("endDate",endDate);
-        return (Group)query.getSingleResult();
-    }
-
-
     @Transactional
     public void updateGroup(Group group){
-        Group groupFromDbs = this.getGroup(group.getGroupId());
+        Group groupFromDbs = this.getGroup(group.getId());
         if (groupFromDbs != null) {
             groupFromDbs.setName(group.getName());
-            groupFromDbs.setEndDate(group.getEndDate());
-            groupFromDbs.setStartDate(group.getStartDate());
+            groupFromDbs.setDescriptions(group.getDescriptions());
+            groupFromDbs.setStatus(group.getStatus());
             entityManager.persist(groupFromDbs);
         }
     }

@@ -30,21 +30,17 @@ public class User {
     private String email;
 
     @Column(name = "phone")
-    private Long phone;
-
-    @Column(name = "groupId")
-    private Long groupId;
+    private String phone;
 
     public User() {}
 
-    public User(String name, String surname, String username, String password, String email, Long phone, Long groupId) {
+    public User(String name, String surname, String username, String password, String email, String phone) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.groupId = groupId;
     }
 
     public Long getId() {
@@ -95,19 +91,12 @@ public class User {
         this.email = email;
     }
 
-    public Long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
-    }
 }

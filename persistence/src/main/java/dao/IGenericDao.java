@@ -8,6 +8,4 @@ import java.util.List;
 public interface IGenericDao<T> {
     public List<T> getAll();
     public void add(T item);
-
-
 }

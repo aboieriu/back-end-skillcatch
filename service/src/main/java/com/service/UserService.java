@@ -42,7 +42,7 @@ public class UserService {
     @ResponseBody
     public void addUser(@PathVariable("groupId") Long groupId,@RequestBody User userId)
     {
-        userId.setGroupId(groupId);
+      //  userId.setGroupId(groupId);
         this.userFacade.add(userId);
     }
 
@@ -50,7 +50,7 @@ public class UserService {
     @ResponseBody
     public void updateUser(@PathVariable("userId") Long id ,@PathVariable("groupId") Long groupId,@RequestBody User user) {
         user.setId(id);
-        user.setGroupId(groupId);
+      //  user.setGroupId(groupId);
         this.userFacade.updateUser(user);
     }
 

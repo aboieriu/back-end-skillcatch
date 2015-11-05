@@ -7,39 +7,41 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "group_local")
+@Table(name = "project_group")
 public class Group {
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id
-    private Long groupId;
+    private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "startDate")
-    private Date startDate;
+    @Column(name = "descriptions")
+    private String descriptions;
 
-    @Column(name = "endDate")
-    private Date endDate;
+    @Column(name = "status")
+    private Long status;
 
-    public Group() {
-    }
+    public Group() {}
 
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
-    }
-
-    public Group(String name, Date startDate, Date endDate) {
+    public Group(String name, String descriptions, Long status) {
         this.name = name;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.descriptions = descriptions;
+        this.status = status;
     }
+
+
+
     public String getName() {
         return name;
     }
@@ -48,19 +50,19 @@ public class Group {
         this.name = name;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public String getDescriptions() {
+        return descriptions;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Long getStatus() {
+        return status;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setStatus(Long status) {
+        this.status = status;
     }
 }

@@ -28,6 +28,7 @@ public class AllUsersService {
     {
         return this.allUsersFacade.getAll();
     }
+
     public IUserFacade getAllUsersFacade() {
         return allUsersFacade;
     }
