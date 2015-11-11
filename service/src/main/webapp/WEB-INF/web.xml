@@ -17,7 +17,10 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/mvc-dispatcher-servlet-security.xml</param-value>
+        <param-value>
+            /WEB-INF/mvc-dispatcher-servlet.xml
+            /WEB-INF/mvc-dispatcher-servlet-security.xml
+        </param-value>
     </context-param>
 
     <listener>

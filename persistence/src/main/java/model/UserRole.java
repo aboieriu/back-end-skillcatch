@@ -1,8 +1,8 @@
 package model;
 
-/**
- * Created by Johnny on 02.11.2015.
- */
+
+
+
 public class UserRole {
 
     private Integer userRoleId;

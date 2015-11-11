@@ -1,6 +1,9 @@
 package dao;
 
 import model.User;
+import model.UserRole;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,15 +34,25 @@ public class UserDao implements IUserDao {
     public  User findByUserName(String username) {
 
         List<User> users = new ArrayList<User>();
+        Hibernate.initialize(users);
+        Session session = this.sessionFactory.getCurrentSession();
+
+        session.beginTransaction();
+
 
         users = getSessionFactory().getCurrentSession().createQuery("from User where username=?")
                 .setParameter(0, username).list();
+
+
+        session.getTransaction().commit();
+        //session.close();
 
         if (users.size() > 0) {
             return users.get(0);
         } else {
             return null;
         }
+
 
     }
 

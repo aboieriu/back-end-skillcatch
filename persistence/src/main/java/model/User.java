@@ -1,14 +1,18 @@
 package model;
 
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Entity;
+
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
+
 public class User {
 
     @GeneratedValue(generator = "idIncrementor")
@@ -36,10 +40,15 @@ public class User {
 
     @Column(name = "groupId")
     private Long groupId;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user_roles",cascade = CascadeType.ALL)
     private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
+    
 
     public Set<UserRole> getUserRole() {
+
+
         return userRole;
     }
 
@@ -47,8 +56,9 @@ public class User {
         this.userRole = userRole;
     }
 
-    public User(Set<UserRole> userRole) {
 
+    public User(Set<UserRole> userRole) {
+        Hibernate.initialize(userRole);
         this.userRole = userRole;
     }
 
