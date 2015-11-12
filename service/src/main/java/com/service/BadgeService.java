@@ -1,7 +1,7 @@
 package com.service;
 
-
 import facade.IUserFacade;
+import model.Badge;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,28 +12,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * Created by CataVlad on 26-Oct-15.
+ * Created by CataVlad on 12-Nov-15.
  */
 @Controller
-@RequestMapping("/skillcatch/api/user")
-public class AllUsersService {
-
+@RequestMapping("/skillcatch/api/badge")
+public class BadgeService {
 
     @Autowired
-    private IUserFacade allUsersFacade;
+    private IBadgeFacade badgeFacade;
 
     @RequestMapping(value = "" , method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getAllUsers()
+    public List<Badge> getAllBadges()
     {
-        return this.allUsersFacade.getAll();
+        return this.badgeFacade.getAll();
     }
 
-    public IUserFacade getAllUsersFacade() {
-        return allUsersFacade;
+    public IBadgeFacade getBadgeFacade() {
+        return badgeFacade;
     }
 
-    public void setAllUsersFacade(IUserFacade allUsersFacade) {
-        this.allUsersFacade = allUsersFacade;
+    public void setBadgeFacade(IBadgeFacade badgeFacade) {
+        this.badgeFacade = badgeFacade;
     }
 }
+

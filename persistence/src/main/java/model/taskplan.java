@@ -13,7 +13,7 @@ public class Taskplan {
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id
-    private Long taskId;
+    private Long taskPlanId;
 
     @Column(name = "name")
     private String name;
@@ -26,12 +26,12 @@ public class Taskplan {
         this.description = description;
     }
 
-    public Long getTaskId() {
-        return taskId;
+    public Long getTaskPlanId() {
+        return taskPlanId;
     }
 
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
+    public void setTaskPlanId(Long taskPlanId) {
+        this.taskPlanId = taskPlanId;
     }
 
     public String getName() {
