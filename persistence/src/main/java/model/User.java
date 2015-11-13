@@ -6,13 +6,13 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "login_user")
+@Table(name = "user")
 public class User {
 
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id
-    private Long id;
+    private Long Id;
 
     @Column(name = "name")
     private String name;
@@ -20,8 +20,8 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "user_name")
-    private String user_name;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -30,33 +30,39 @@ public class User {
     private String email;
 
     @Column(name = "phone")
-    private Long phone;
+    private String phone;
 
-    @Column(name = "repositoryUrl")
-    private String repositoryUrl;
+    @Column(name="address")
+    private String address;
 
-    @Column(name = "groupId")
-    private Long groupId;
+
 
     public User() {}
 
-    public User(String name, String surname, String user_name, String password, String email, Long phone, String repositoryUrl, Long groupId) {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public User(String name, String surname, String username, String password, String email, String phone,String address) {
         this.name = name;
         this.surname = surname;
-        this.user_name = user_name;
+        this.username = username;
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.repositoryUrl = repositoryUrl;
-        this.groupId = groupId;
+        this.address=address;
     }
 
     public Long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        Id = id;
     }
 
     public String getName() {
@@ -75,12 +81,12 @@ public class User {
         this.surname = surname;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -99,27 +105,12 @@ public class User {
         this.email = email;
     }
 
-    public Long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public String getRepositoryUrl() {
-        return repositoryUrl;
-    }
-
-    public void setRepositoryUrl(String repositoryUrl) {
-        this.repositoryUrl = repositoryUrl;
-    }
-
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
-    }
 }

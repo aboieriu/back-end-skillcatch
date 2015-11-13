@@ -1,5 +1,6 @@
 package dao;
 
+import model.Group;
 import model.User;
 
 import javax.persistence.EntityManager;
@@ -11,31 +12,11 @@ import java.util.*;
 /**
  * Created by Mirela_2 on 10/21/2015.
  */
-public class UserDao implements IUserDao {
+public class UserDao extends GenericDao<User> implements IUserDao{
 
-    private EntityManager entityManager;
-
-
-    @PersistenceContext
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public UserDao() {
+        super(User.class);
     }
-
-    public List<User> getAllUsers(Long id) {
-        return this.entityManager.createQuery("from User").getResultList();
-    }
-
-
-
-    @Transactional
-    public void deleteUser(Long groupId , Long userId) {
-        User itemFromDbs = this.getUser(groupId, userId);
-        //Article itemFromDbs = entityManager.find(Article.class, id);
-        if (itemFromDbs != null) {
-            entityManager.remove(itemFromDbs);
-        }
-    }
-
 
 
     @Transactional
@@ -55,27 +36,15 @@ public class UserDao implements IUserDao {
     }
 
     @Transactional
-    public void addUser(User userId)
-    {
-        entityManager.persist(userId);
-    }
-
-    public User getUserById (Long userId)
-    {
-        return this.entityManager.find(User.class,userId);
-    }
-
-    @Transactional
     public void updateUser(User myUser){
-        User itemFromDbs = this.getUserById(myUser.getId());
+        User itemFromDbs = this.getById(myUser.getId());
         if (itemFromDbs != null) {
             itemFromDbs.setName(myUser.getName());
             itemFromDbs.setSurname(myUser.getSurname());
-            itemFromDbs.setUser_name(myUser.getUser_name());
+            itemFromDbs.setUsername(myUser.getUsername());
             itemFromDbs.setPassword(myUser.getPassword());
             itemFromDbs.setEmail(myUser.getEmail());
             itemFromDbs.setPhone(myUser.getPhone());
-            itemFromDbs.setRepositoryUrl(myUser.getRepositoryUrl());
             entityManager.persist(itemFromDbs);
         }
     }

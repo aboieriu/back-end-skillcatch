@@ -22,9 +22,9 @@ public class UserFacade implements IUserFacade{
         this.userDao = userDao;
     }
 
-    public List<User> getAllUser(Long groupId)
+    public List<User> getAll()
     {
-        return this.userDao.getAllUsers(groupId);
+        return this.userDao.getAll();
     }
 
     public User getUser(Long groupId, Long userId)
@@ -37,9 +37,9 @@ public class UserFacade implements IUserFacade{
         this.userDao.deleteUser(groupId, userId);
     }
 
-    public void addUser(User group)
+    public void add(User group)
     {
-        this.userDao.addUser(group);
+        this.userDao.add(group);
     }
 
     public void updateUser(User group)
