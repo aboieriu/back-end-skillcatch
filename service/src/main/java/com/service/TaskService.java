@@ -1,4 +1,4 @@
-package com.service;
+/**package com.service;
 
 import model.Task;
 import model.Taskplan;
@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by CataVlad on 12-Nov-15.*/
+
 @Controller
 public class TaskService {
 
@@ -61,6 +60,6 @@ public class TaskService {
         //  user.setGroupId(groupId);
         this.taskFacade.updateTask(task);
     }
-}
+}*/
 
 

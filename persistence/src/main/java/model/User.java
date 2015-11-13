@@ -32,15 +32,29 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name="address")
+    private String address;
+
+
+
     public User() {}
 
-    public User(String name, String surname, String username, String password, String email, String phone) {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public User(String name, String surname, String username, String password, String email, String phone,String address) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.password = password;
         this.email = email;
         this.phone = phone;
+        this.address=address;
     }
 
     public Long getId() {

@@ -15,7 +15,7 @@ import java.util.List;
  * Created by CataVlad on 26-Oct-15.
  */
 @Controller
-@RequestMapping("/skillcatch/api/user")
+@RequestMapping("/api/user")
 public class AllUsersService {
 
 

@@ -17,14 +17,7 @@ public class UserDao extends GenericDao<User> implements IUserDao{
     public UserDao() {
         super(User.class);
     }
-    @Transactional
-    public void deleteUser(Long groupId , Long userId) {
-        User itemFromDbs = this.getUser(groupId, userId);
-        //Article itemFromDbs = entityManager.find(Article.class, id);
-        if (itemFromDbs != null) {
-            entityManager.remove(itemFromDbs);
-        }
-    }
+
 
     @Transactional
     public User getUser(Long groupId,Long userId) {
@@ -42,15 +35,9 @@ public class UserDao extends GenericDao<User> implements IUserDao{
         return null;
     }
 
-
-    public User getUserById (Long userId)
-    {
-        return this.entityManager.find(User.class,userId);
-    }
-
     @Transactional
     public void updateUser(User myUser){
-        User itemFromDbs = this.getUserById(myUser.getId());
+        User itemFromDbs = this.getById(myUser.getId());
         if (itemFromDbs != null) {
             itemFromDbs.setName(myUser.getName());
             itemFromDbs.setSurname(myUser.getSurname());

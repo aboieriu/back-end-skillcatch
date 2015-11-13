@@ -9,8 +9,6 @@ import java.util.List;
  */
 public interface IGroupDao extends IGenericDao<Group> {
 
-    Group getGroup(Long id);
-
     void updateGroup(Group group);
-    void deleteGroup(Long id);
+
 }

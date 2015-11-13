@@ -18,18 +18,10 @@ public class GroupDao extends GenericDao<Group> implements IGroupDao {
         super(Group.class);
     }
 
-    @Transactional
-    public Group getGroup(Long id){
-        if (id == null) {
-            return null;
-        } else {
-            return entityManager.find(Group.class, id);
-        }
-    }
 
     @Transactional
     public void updateGroup(Group group){
-        Group groupFromDbs = this.getGroup(group.getId());
+        Group groupFromDbs = this.getById(group.getId());
         if (groupFromDbs != null) {
             groupFromDbs.setName(group.getName());
             groupFromDbs.setDescriptions(group.getDescriptions());
@@ -37,11 +29,5 @@ public class GroupDao extends GenericDao<Group> implements IGroupDao {
             entityManager.persist(groupFromDbs);
         }
     }
-    @Transactional
-    public void deleteGroup(Long id) {
-        Group groupFromDbs= this.getGroup(id);
-        if (groupFromDbs != null) {
-            entityManager.remove(groupFromDbs);
-        }
-    }
+
 }
