@@ -27,6 +27,10 @@ public class UserFacade implements IUserFacade{
         return this.userDao.getAll();
     }
 
+    public List<User> getAll(Long id) {
+        return null;
+    }
+
     public User getUser(Long groupId, Long userId)
     {
         return this.userDao.getUser(groupId,userId);
