@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Controller
-@RequestMapping("skillcatch/api/projectGroup")
+@RequestMapping("/api/projectGroup")
 public class GroupService {
 
     @Autowired

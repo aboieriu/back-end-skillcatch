@@ -113,4 +113,7 @@ public class User {
         this.phone = phone;
     }
 
+    public void setGroupId(Long groupId) {
+
+    }
 }
