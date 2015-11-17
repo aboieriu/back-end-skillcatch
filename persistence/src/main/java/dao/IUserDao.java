@@ -10,8 +10,8 @@ import java.util.List;
 public interface IUserDao extends IGenericDao<User> {
 
     public void updateUser(User myUser);
-   // public void deleteUser(Long userId);
+
     public User getUser(Long groupId,Long userId);
 
-    void deleteUser(Long groupId, Long userId);
+
 }

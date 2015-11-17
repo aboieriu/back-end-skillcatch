@@ -12,10 +12,10 @@ public interface IGroupFacade {
     public List<Group> getAllGroup();
 
 
-    public Group getGroup(Long groupId);
+    //public Group getGroup(Long groupId);
 
 
-    public void deleteGroup(Long groupId);
+    //public void deleteGroup(Long groupId);
 
 
     public void addGroup(Group group);
