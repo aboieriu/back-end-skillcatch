@@ -26,17 +26,17 @@ public class GroupFacade implements IGroupFacade{
         return this.groupDao.getAll();
             }
 
-   /* public Group getGroup(Long groupId){
+    public Group getGroup(Long groupId){
     return this.groupDao.getGroup(groupId);}
-*/
+
     public void addGroup(Group group){
         this.groupDao.add(group);
     }
-/*
+
     public void deleteGroup(Long groupId){
         this.groupDao.deleteGroup(groupId);
     }
-*/
+
     public void updateGroup(Group group){
         this.groupDao.updateGroup(group);
     }

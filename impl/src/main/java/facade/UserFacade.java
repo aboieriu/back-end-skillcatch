@@ -36,10 +36,10 @@ public class UserFacade implements IUserFacade{
         return this.userDao.getUser(groupId,userId);
     }
 
-   /* public void deleteUser(Long groupId, Long userId)
+    public void deleteUser(Long groupId, Long userId)
     {
         this.userDao.deleteUser(groupId, userId);
-    }*/
+    }
 
     public void add(User group)
     {

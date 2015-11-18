@@ -35,6 +35,9 @@ public class UserDao extends GenericDao<User> implements IUserDao{
         return null;
     }
 
+    public void deleteUser(Long groupId, Long userId) {
+
+    }
 
     @Transactional
     public void updateUser(User myUser){

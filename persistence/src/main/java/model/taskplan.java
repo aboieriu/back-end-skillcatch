@@ -1,8 +1,7 @@
-
 package model;
-        import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.GenericGenerator;
 
-        import javax.persistence.*;
+import javax.persistence.*;
 
 /**
  * Created by CataVlad on 05-Nov-15.

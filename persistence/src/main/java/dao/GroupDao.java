@@ -30,5 +30,12 @@ public class GroupDao extends GenericDao<Group> implements IGroupDao {
         }
     }
 
+    public Group getGroup(Long groupId) {
+        return null;
+    }
+
+    public void deleteGroup(Long groupId) {
+
+    }
 
 }

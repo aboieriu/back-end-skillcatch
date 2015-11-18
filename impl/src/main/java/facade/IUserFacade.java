@@ -15,7 +15,7 @@ public interface IUserFacade {
     public User getUser(Long groupId, Long userId);
 
 
-    //public void deleteUser(Long groupId, Long userId);
+    public void deleteUser(Long groupId, Long userId);
 
 
     public void add(User group);
