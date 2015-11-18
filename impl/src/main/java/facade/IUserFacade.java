@@ -9,8 +9,6 @@ import java.util.List;
  */
 public interface IUserFacade {
 
-    public List<User> getAll(Long id);
-
 
     public User getUser(Long groupId, Long userId);
 
@@ -18,10 +16,4 @@ public interface IUserFacade {
     public void deleteUser(Long groupId, Long userId);
 
 
-    public void add(User group);
-
-
-    public void updateUser(User group);
-
-    List<User> getAll();
 }
