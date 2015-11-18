@@ -20,7 +20,9 @@ public abstract class GenericFacade<T> implements IGenericFacade<T> {
     }
 
     public List<T> getAll() {
+
         return this.item.getAll();
+
     }
 
     public void add(T item2) {
