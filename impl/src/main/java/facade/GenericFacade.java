@@ -34,11 +34,6 @@ public abstract class GenericFacade<T> implements IGenericFacade<T> {
         //this.item.update(item2);
     }
 
-    @Transactional
-    public void deleteById (Long id)
-    {
-        T itemFromDb = this.getById(id);
-        this.item.remove(itemFromDb);
-    }
+
 }
 
