@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Adi on 10/26/2015.
  */
-public class UserFacade implements IUserFacade{
+public class UserFacade extends GenericFacade<User> implements IUserFacade{
 
     @Autowired
     private IUserDao userDao;

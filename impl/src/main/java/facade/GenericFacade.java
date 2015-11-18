@@ -2,6 +2,9 @@ package facade;
 
 import dao.IGenericDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import model.Badge;
+import model.Group;
+import model.User;
 
 import java.util.List;
 
@@ -24,6 +27,8 @@ public abstract class GenericFacade<T> implements IGenericFacade<T> {
         return this.item.getAll();
 
     }
+
+
 
     public void add(T item2) {
         this.item.add(item2);
