@@ -22,6 +22,12 @@ After this a token will be generated, and it will look something like this:
 
 }
 
-Insert into your browser the link http://localhost:port/api/projectGroup/?token=Andrei:1447955417257:f95110a654dd0a79b871f98eb2f0d05d   and there you are.
+Insert into your browser the link:  
 
-/api/user/ still has some dificulties.Please use only /api/projectGroup for testing
+http://localhost:port/api/projectGroup/?token=Andrei:1447955417257:f95110a654dd0a79b871f98eb2f0d05d   
+
+and there you are.
+
+/api/user/ still has some dificulties.Please use only /api/projectGroup for testing,
+
+ AND USE skillcatch_refactored_+login_tables.sql in your MySQL Workbench/phpMyAdmin
