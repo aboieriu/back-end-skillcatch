@@ -1,8 +1,11 @@
 package model;
 
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -116,4 +119,24 @@ public class User {
     public void setGroupId(Long groupId) {
 
     }
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<UserRole> userRole = new HashSet<UserRole>(0);
+
+
+
+    public Set<UserRole> getUserRole() {
+
+        return userRole;
+    }
+
+    public void setUserRole(Set<UserRole> userRole) {
+        this.userRole = userRole;
+    }
+
+
+    public User(Set<UserRole> userRole) {
+        Hibernate.initialize(userRole);
+        this.userRole = userRole;
+    }
+
 }

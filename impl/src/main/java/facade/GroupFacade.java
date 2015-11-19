@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-/**
- * Created by Adi on 10/26/2015.
- */
+
+
 public class GroupFacade implements IGroupFacade{
 
     @Autowired

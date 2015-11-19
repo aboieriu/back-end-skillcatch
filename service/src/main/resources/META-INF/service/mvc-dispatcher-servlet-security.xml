@@ -34,9 +34,9 @@
 
 
     <bean id="myUserDetailsService" class="com.security.MyUserDetailsService">
-
+        <property name="iUserDao" ref="userDao"/>
     </bean>
-
+    <bean id="userDao" class="dao.UserDao"/>
 
 
     <bean id="unauthorizedEntryPoint" class="com.security.UnauthorizedEntryPoint">
@@ -47,4 +47,5 @@
     <bean class="com.security.AuthenticationTokenProcessingFilter" id="authenticationTokenProcessingFilter">
         <constructor-arg ref="myUserDetailsService" />
     </bean>
+
 </beans>
