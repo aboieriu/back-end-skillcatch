@@ -1,5 +1,6 @@
-/**package com.service;
+package com.service;
 
+import facade.IBadgeFacade;
 import facade.IUserFacade;
 import model.Badge;
 import model.User;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 
- * Created by CataVlad on 12-Nov-15.
 
 @Controller
 @RequestMapping("/skillcatch/api/badge")
@@ -25,7 +25,7 @@ public class BadgeService {
     @ResponseBody
     public List<Badge> getAllBadges()
     {
-        return this.badgeFacade.getAll();
+        return this.badgeFacade.getAllBadge();
     }
 
     public IBadgeFacade getBadgeFacade() {
@@ -36,5 +36,5 @@ public class BadgeService {
         this.badgeFacade = badgeFacade;
     }
 }
-*/
+
 

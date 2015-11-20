@@ -1,5 +1,6 @@
-/**package com.service;
+package com.service;
 
+import facade.ITaskFacade;
 import model.Task;
 import model.Taskplan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +29,14 @@ public class TaskService {
     @ResponseBody
     public List<Task> getAllTasks(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId)
     {
-        return this.taskFacade.getAll();
+        return this.taskFacade.getAllTask();
     }
-
+/*
     @RequestMapping(value = "skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}",method = RequestMethod.GET)
     @ResponseBody
     public Taskplan getTask(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId)
     {
-        return this.taskFacade.getTask(groupId, taskPlanId, taskId);
+        return this.taskFacade.getT(groupId, taskPlanId, taskId);
     }
 
     @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}",method = RequestMethod.DELETE)
@@ -43,14 +44,14 @@ public class TaskService {
     public void deleteTask(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId)
     {
         this.taskFacade.deleteTask(groupId, taskPlanId, taskId);
-    }
+    }*/
 
     @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task" , method = RequestMethod.POST)
     @ResponseBody
     public void addTask(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId ,@RequestBody Task taskId)
     {
         //  userId.setGroupId(groupId);
-        this.taskFacade.add(taskId);
+        this.taskFacade.addTask(taskId);
     }
 
     @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}", method = RequestMethod.PUT)
@@ -60,6 +61,6 @@ public class TaskService {
         //  user.setGroupId(groupId);
         this.taskFacade.updateTask(task);
     }
-}*/
+}
 
 
