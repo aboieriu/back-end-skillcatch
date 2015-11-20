@@ -1,36 +1,35 @@
-import model.Badge;
-import model.Group;
+package facade;
+import dao.ITaskDao;
+import facade.ITaskFacade;
 import model.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import dao.IGenericDao;
+
+import java.util.List;
 
 
-public class TaskFacade extends GenericFacade<Task> implements ITaskFacade {
-
-    public TaskFacade() {
-        super(Task.class);
-    }
+public class TaskFacade implements ITaskFacade {
 
     @Autowired
-    private IGenericDao item;
+    private ITaskDao TaskDao;
 
-    public IGenericDao getItem() {
-        return item;
+    public List<Task> getAllTask(){
+        return this.TaskDao.getAll();
     }
 
+    public Task getTaskById(Long taskId){
+        return this.TaskDao.getById(taskId);}
 
-    public void setItem(IGenericDao item) {
-        this.item = item;
+    public void addTask(Task task){
+        this.TaskDao.add(task);
     }
 
-    @Transactional
+    public void deleteTask(Long groupId){
+        this.TaskDao.deleteById(groupId);
+    }
+
     public void updateTask(Task task){
-        Task taskFromDbs = this.getById(task.getTaskId());
-        if (taskFromDbs != null) {
-            taskFromDbs.setName(task.getName());
-            taskFromDbs.setDescription(task.getDescription());
-            item.add(taskFromDbs);
-        }
+        this.TaskDao.updateTask(task);
     }
 
 }

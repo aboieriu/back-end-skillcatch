@@ -5,5 +5,9 @@
 
     <import resource="classpath:/META-INF/hibernate/group.dao.xml" />
     <import resource="classpath:/META-INF/hibernate/user.dao.xml" />
+    <import resource="classpath:/META-INF/hibernate/task.dao.xml" />
+    <import resource="classpath:/META-INF/hibernate/taskplan.dao.xml" />
+    <import resource="classpath:/META-INF/hibernate/badge.dao.xml" />
+
 
 </beans>

@@ -1,34 +1,37 @@
+package  facade;
+import dao.IBadgeDao;
+import dao.IGroupDao;
 import model.Badge;
 import model.Group;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import dao.IGenericDao;
 
+import java.util.List;
 
-public class BadgeFacade extends GenericFacade<Badge> implements IBadgeFacade {
-    public BadgeFacade() {
-        super(Badge.class);
-    }
+
+public class BadgeFacade implements IBadgeFacade {
 
     @Autowired
-    private IGenericDao item;
+    private IBadgeDao badgeDao;
 
-    public IGenericDao getItem() {
-        return item;
+    public List<Badge> getAllBadge(){
+        return this.badgeDao.getAll();
     }
 
+    public Badge getBadgeById(Long badgeId){
+        return this.badgeDao.getById(badgeId);}
 
-    public void setItem(IGenericDao item) {
-        this.item = item;
+    public void addBadge(Badge badge){
+        this.badgeDao.add(badge);
     }
 
-    @Transactional
+    public void deleteBadge(Long groupId){
+        this.badgeDao.deleteById(groupId);
+    }
+
     public void updateBadge(Badge badge){
-        Badge badgeFromDbs = this.getById(badge.getBadgeId());
-        if (badgeFromDbs != null) {
-            badgeFromDbs.setName(badge.getName());
-            badgeFromDbs.setDescription(badge.getDescription());
-            item.add(badgeFromDbs);
-        }
+        this.badgeDao.updateBadge(badge);
     }
 
 }

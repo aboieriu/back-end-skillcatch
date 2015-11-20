@@ -11,7 +11,4 @@ public interface IGroupDao extends IGenericDao<Group> {
 
     void updateGroup(Group group);
 
-    Group getGroup(Long groupId);
-
-    void deleteGroup(Long groupId);
 }

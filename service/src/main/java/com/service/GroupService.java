@@ -29,7 +29,7 @@ public class GroupService {
     @ResponseBody
     public Group getGroup(@PathVariable("groupId") Long id)
     {
-        return this.groupFacade.getGroup(id);
+        return this.groupFacade.getGroupById(id);
     }
 
     @RequestMapping(value = "" , method = RequestMethod.POST)

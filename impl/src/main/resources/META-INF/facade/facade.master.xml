@@ -6,4 +6,8 @@
 
     <import resource="classpath:/META-INF/facade/group.facade.xml"/>
     <import resource="classpath:/META-INF/facade/user.facade.xml"/>
+    <import resource="classpath:/META-INF/facade/badge.facade.xml"/>
+    <import resource="classpath:/META-INF/facade/task.facade.xml"/>
+    <import resource="classpath:/META-INF/facade/taskplan.facade.xml"/>
+
 </beans>
