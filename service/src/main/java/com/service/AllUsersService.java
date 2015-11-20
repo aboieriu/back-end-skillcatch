@@ -36,4 +36,5 @@ public class AllUsersService {
     public void setAllUsersFacade(IUserFacade allUsersFacade) {
         this.allUsersFacade = allUsersFacade;
     }
+
 }

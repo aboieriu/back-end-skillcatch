@@ -10,4 +10,5 @@ public interface IGenericDao<T> {
     public void add(T item);
     public void deleteById(Long id);
     public T getById(Long id);
+
 }

@@ -32,5 +32,4 @@ public class TaskplanFacade implements ITaskplanFacade {
     public void updateTaskplan(Taskplan taskplan){
         this.TaskplanDao.updateTaskplan(taskplan);
     }
-
 }

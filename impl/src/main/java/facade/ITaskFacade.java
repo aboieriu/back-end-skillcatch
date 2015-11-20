@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface ITaskFacade {
 
-
     public void addTask(Task task);
     public List<Task> getAllTask();
     public Task getTaskById(Long taskId);

@@ -35,6 +35,7 @@ public class BadgeService {
     public void setBadgeFacade(IBadgeFacade badgeFacade) {
         this.badgeFacade = badgeFacade;
     }
+
 }
 
 

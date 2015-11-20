@@ -52,15 +52,5 @@ public abstract class GenericDao<T> implements IGenericDao<T>{
         T itemFromDb = this.getById(id);
         this.entityManager.remove(itemFromDb);
     }
-    /* @Transactional
-    public void update(T item){
-        T badgeFromDbs = this.getById(item.id());
-        if (badgeFromDbs != null) {
-            badgeFromDbs.setName(item.getName());
-            badgeFromDbs.setDescription(item.getDescription());
-            entityManager.persist(badgeFromDbs);
-        }
-    }*/
-
 
 }

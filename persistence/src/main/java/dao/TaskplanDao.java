@@ -22,5 +22,4 @@ public class TaskplanDao extends GenericDao<Taskplan> implements ITaskplanDao {
             entityManager.persist(taskplanFromDbs);
         }
     }
-
 }

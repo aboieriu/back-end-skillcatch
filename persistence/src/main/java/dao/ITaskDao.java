@@ -9,5 +9,4 @@ import model.Task;
 public interface ITaskDao extends IGenericDao<Task>  {
 
     void updateTask(Task task);
-
 }

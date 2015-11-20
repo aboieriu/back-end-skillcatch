@@ -26,12 +26,11 @@ public class BadgeFacade implements IBadgeFacade {
         this.badgeDao.add(badge);
     }
 
-    public void deleteBadge(Long groupId){
-        this.badgeDao.deleteById(groupId);
+    public void deleteBadge(Long badgeId){
+        this.badgeDao.deleteById(badgeId);
     }
 
     public void updateBadge(Badge badge){
         this.badgeDao.updateBadge(badge);
     }
-
 }

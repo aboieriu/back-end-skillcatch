@@ -61,4 +61,5 @@ public class GroupService {
     public void setGroupFacade(IGroupFacade groupFacade) {
         this.groupFacade = groupFacade;
     }
+
 }

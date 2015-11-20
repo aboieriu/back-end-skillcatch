@@ -9,5 +9,4 @@
     <import resource="classpath:/META-INF/hibernate/taskplan.dao.xml" />
     <import resource="classpath:/META-INF/hibernate/badge.dao.xml" />
 
-
 </beans>

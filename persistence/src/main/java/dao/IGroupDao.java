@@ -10,5 +10,4 @@ import java.util.List;
 public interface IGroupDao extends IGenericDao<Group> {
 
     void updateGroup(Group group);
-
 }

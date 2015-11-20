@@ -25,5 +25,4 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
             entityManager.persist(taskFromDbs);
         }
     }
-
 }

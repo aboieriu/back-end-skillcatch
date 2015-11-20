@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ITaskplanFacade {
 
-
     public void addTaskplan(Taskplan taskplan);
     public List<Taskplan> getAllTaskplan();
     public Taskplan getTaskplanById(Long taskplanId);

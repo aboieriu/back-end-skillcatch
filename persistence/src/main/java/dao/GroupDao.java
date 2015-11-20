@@ -18,7 +18,6 @@ public class GroupDao extends GenericDao<Group> implements IGroupDao {
         super(Group.class);
     }
 
-
     @Transactional
     public void updateGroup(Group group){
         Group groupFromDbs = this.getById(group.getId());

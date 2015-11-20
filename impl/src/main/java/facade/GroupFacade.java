@@ -41,5 +41,4 @@ public class GroupFacade implements IGroupFacade{
     public void updateGroup(Group group){
         this.groupDao.updateGroup(group);
     }
-
 }

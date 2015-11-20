@@ -35,9 +35,9 @@ public class UserFacade implements IUserFacade{
        return this.userDao.getById(userId) ;
     }
 
-    public void deleteUser(Long groupId, Long userId) {
+    /*public void deleteUser(Long groupId, Long userId) {
         this.userDao.deleteUser(groupId, userId);
-    }
+    }*/
 
 
     public void deleteUserById(Long userId){
@@ -53,5 +53,4 @@ public class UserFacade implements IUserFacade{
     {
         this.userDao.updateUser(group);
     }
-
 }
