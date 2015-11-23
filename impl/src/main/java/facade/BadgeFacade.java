@@ -34,3 +34,4 @@ public class BadgeFacade implements IBadgeFacade {
         this.badgeDao.updateBadge(badge);
     }
 }
+

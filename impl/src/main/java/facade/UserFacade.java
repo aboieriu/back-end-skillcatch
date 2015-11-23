@@ -54,3 +54,4 @@ public class UserFacade implements IUserFacade{
         this.userDao.updateUser(group);
     }
 }
+
