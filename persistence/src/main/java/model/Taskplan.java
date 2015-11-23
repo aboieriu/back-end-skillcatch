@@ -4,9 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-/**
- * Created by CataVlad on 05-Nov-15.
- */
+
 @Entity
 @Table(name="task_plan")
 public class Taskplan {

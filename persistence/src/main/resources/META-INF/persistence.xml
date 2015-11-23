@@ -12,6 +12,16 @@
         <class>
             model.User
         </class>
+        <class>
+            model.Role
+        </class>
+        <class>
+            model.UserHasRole
+        </class>
+        <class>
+            model.Badge
+        </class>
+
 
     </persistence-unit>
 </persistence>
