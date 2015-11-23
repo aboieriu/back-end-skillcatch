@@ -1,5 +1,6 @@
 package facade;
 
+import dao.IGenericDao;
 import dao.IGroupDao;
 import model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +24,20 @@ public class GroupFacade implements IGroupFacade{
 
     public List<Group> getAllGroup(){
         return this.groupDao.getAll();
-            }
+    }
 
-    public Group getGroup(Long groupId){
-    return this.groupDao.getGroup(groupId);}
+    public Group getGroupById(Long groupId){
+        return this.groupDao.getById(groupId);}
 
     public void addGroup(Group group){
         this.groupDao.add(group);
     }
 
     public void deleteGroup(Long groupId){
-        this.groupDao.deleteGroup(groupId);
+        this.groupDao.deleteById(groupId);
     }
 
     public void updateGroup(Group group){
         this.groupDao.updateGroup(group);
     }
-
-
 }

@@ -9,5 +9,4 @@ import model.Taskplan;
 public interface ITaskplanDao extends IGenericDao<Taskplan> {
 
     void updateTaskplan(Taskplan taskplan);
-
 }

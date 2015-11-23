@@ -18,7 +18,6 @@ public class GroupDao extends GenericDao<Group> implements IGroupDao {
         super(Group.class);
     }
 
-
     @Transactional
     public void updateGroup(Group group){
         Group groupFromDbs = this.getById(group.getId());
@@ -28,14 +27,6 @@ public class GroupDao extends GenericDao<Group> implements IGroupDao {
             groupFromDbs.setStatus(group.getStatus());
             entityManager.persist(groupFromDbs);
         }
-    }
-
-    public Group getGroup(Long groupId) {
-        return null;
-    }
-
-    public void deleteGroup(Long groupId) {
-
     }
 
 }

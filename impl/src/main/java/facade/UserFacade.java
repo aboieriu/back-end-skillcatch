@@ -22,26 +22,29 @@ public class UserFacade implements IUserFacade{
         this.userDao = userDao;
     }
 
-    public List<User> getAll()
-    {
+    public List<User> getAll() {
         return this.userDao.getAll();
     }
 
-    public List<User> getAll(Long id) {
-        return null;
+    public User getUser(Long groupId, Long userId) {
+        return this.userDao.getUser(groupId, userId);
     }
 
-    public User getUser(Long groupId, Long userId)
-    {
-        return this.userDao.getUser(groupId,userId);
+
+    public User getUserById(Long userId){
+       return this.userDao.getById(userId) ;
     }
 
-    public void deleteUser(Long groupId, Long userId)
-    {
+    /*public void deleteUser(Long groupId, Long userId) {
         this.userDao.deleteUser(groupId, userId);
+    }*/
+
+
+    public void deleteUserById(Long userId){
+        this.userDao.deleteById(userId);
     }
 
-    public void add(User group)
+    public void addUser(User group)
     {
         this.userDao.add(group);
     }
@@ -50,7 +53,5 @@ public class UserFacade implements IUserFacade{
     {
         this.userDao.updateUser(group);
     }
-
-
-
 }
+

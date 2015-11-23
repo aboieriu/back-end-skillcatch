@@ -1,5 +1,6 @@
 package facade;
 
+import model.Taskplan;
 import model.User;
 
 import java.util.List;
@@ -9,19 +10,13 @@ import java.util.List;
  */
 public interface IUserFacade {
 
-    public List<User> getAll(Long id);
-
 
     public User getUser(Long groupId, Long userId);
+   // public void deleteUser(Long groupId, Long userId);
 
-
-    public void deleteUser(Long groupId, Long userId);
-
-
-    public void add(User group);
-
-
-    public void updateUser(User group);
-
-    List<User> getAll();
+    public void addUser(User user);
+    public List<User> getAll();
+    public User getUserById(Long userId);
+    public void deleteUserById(Long userId);
+    public void updateUser(User user);
 }

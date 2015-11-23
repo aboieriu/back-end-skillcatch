@@ -1,6 +1,6 @@
-/**package com.service;
+package com.service;
 
-import facade.IUserFacade;
+import facade.ITaskplanFacade;
 import model.Taskplan;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
- * Created by CataVlad on 12-Nov-15.
-
 
 @Controller
 public class TaskplanService {
 
     @Autowired
-    ITaskPlanFacade taskPlanFacade;
+    ITaskplanFacade taskPlanFacade;
 
-    public ITaskPlanFacade getTaskPlanFacade() {
+    public ITaskplanFacade getTaskPlanFacade() {
         return taskPlanFacade;
     }
 
-    public void setTaskPlanFacade(ITaskPlanFacade taskPlanFacade) {
+    public void setTaskPlanFacade(ITaskplanFacade taskPlanFacade) {
         this.taskPlanFacade = taskPlanFacade;
     }
 
@@ -31,10 +29,10 @@ public class TaskplanService {
     @ResponseBody
     public List<Taskplan> getAllTaskPlans(@PathVariable("groupId") Long groupId)
     {
-        return this.taskPlanFacade.getAll();
+        return this.taskPlanFacade.getAllTaskplan();
     }
 
-    @RequestMapping(value = "skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.GET)
+    /*@RequestMapping(value = "skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.GET)
     @ResponseBody
     public Taskplan getTaskPlan(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId)
     {
@@ -47,13 +45,13 @@ public class TaskplanService {
     {
         this.taskPlanFacade.deleteTaskPlan(groupId, taskPlanId);
     }
-
+*/
     @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/" , method = RequestMethod.POST)
     @ResponseBody
     public void addTaskPlan(@PathVariable("groupId") Long groupId,@RequestBody Taskplan taskPlanId)
     {
         //  userId.setGroupId(groupId);
-        this.taskPlanFacade.add(taskPlanId);
+        this.taskPlanFacade.addTaskplan(taskPlanId);
     }
 
     @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}", method = RequestMethod.PUT)
@@ -61,6 +59,8 @@ public class TaskplanService {
     public void updateTaskPlan(@PathVariable("taskPlanId") Long id ,@PathVariable("groupId") Long groupId,@RequestBody Taskplan taskPlan) {
         taskPlan.setTaskPlanId(id);
         //  user.setGroupId(groupId);
-        this.taskPlanFacade.updateTaskPlan(taskPlan);
+        this.taskPlanFacade.updateTaskplan(taskPlan);
     }
-} */
+
+}
+

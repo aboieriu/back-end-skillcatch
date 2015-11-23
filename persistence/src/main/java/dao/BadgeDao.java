@@ -21,5 +21,4 @@ public class BadgeDao extends GenericDao<Badge> implements IBadgeDao {
             entityManager.persist(badgeFromDbs);
         }
     }
-
 }
