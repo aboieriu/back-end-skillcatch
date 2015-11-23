@@ -1,4 +1,3 @@
-
 package model;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -48,5 +47,4 @@ public class Taskplan {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }
