@@ -3,6 +3,9 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by CataVlad on 05-Nov-15.
@@ -10,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name ="role")
 public class Role {
+
 
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
@@ -22,6 +26,12 @@ public class Role {
     @Column(name="description")
     private String description;
 
+
+
+
+
+
+
     public Role (){}
 
     public Role(String name, String description) {
@@ -30,7 +40,6 @@ public class Role {
     }
 
     public Long getRoleId() {
-
         return roleId;
     }
 

@@ -1,5 +1,7 @@
 package dao;
 
+import model.Badge;
+
 import java.util.List;
 
 /**

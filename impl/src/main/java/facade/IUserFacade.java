@@ -1,4 +1,4 @@
-package facade;
+1package facade;
 
 import model.Taskplan;
 import model.User;
@@ -19,4 +19,5 @@ public interface IUserFacade {
     public void deleteUserById(Long userId);
     public void updateUser(User user);
     public List<User> getAllUsers(Long groupId);
+    public User findByUserName(String username);
 }

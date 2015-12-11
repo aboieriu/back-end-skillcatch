@@ -5,7 +5,7 @@ import model.Badge;
 import model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import dao.IGenericDao;
+import dao.GenericDao;
 
 import java.util.List;
 

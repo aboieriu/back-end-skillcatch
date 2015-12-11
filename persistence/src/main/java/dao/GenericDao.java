@@ -67,40 +67,5 @@ public abstract class GenericDao<T> implements IGenericDao<T>{
         }
     }*/
 
-    @Autowired
-    private SessionFactory sessionFactory;
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @SuppressWarnings("unchecked")
-    public  T findBy(String username) {
-
-        List<T> users = new ArrayList<T>();
-        Hibernate.initialize(users);
-        Session session = this.sessionFactory.getCurrentSession();
-
-        session.beginTransaction();
-
-
-        users = getSessionFactory().getCurrentSession().createQuery("from " + type.getName() + " where  username=?")
-                .setParameter(0, username).list();
-
-
-        session.getTransaction().commit();
-        //session.close();
-
-        if (users.size() > 0) {
-            return (T) users.get(0);
-        } else {
-            return null;
-        }
-
-
-    }
 }

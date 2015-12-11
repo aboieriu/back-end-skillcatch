@@ -36,9 +36,9 @@ public class UserService {
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}",method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteUser(@PathVariable("groupId") Long groupId , @PathVariable("userId") Long userId)
+    public void deleteUserById(@PathVariable("userId") Long userId)
     {
-        this.userFacade.deleteUser(groupId, userId);
+        this.userFacade.deleteUserById(userId);
     }
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/user/" , method = RequestMethod.POST)
