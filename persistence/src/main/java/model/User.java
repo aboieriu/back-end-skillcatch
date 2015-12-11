@@ -40,6 +40,8 @@ public class User {
 
 
 
+
+
     public User() {}
 
     public String getAddress() {
@@ -54,11 +56,26 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.username = username;
-        this.password = password;
+        this.password=password;
         this.email = email;
         this.phone = phone;
         this.address=address;
     }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_has_role",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<Role> userRole=new HashSet<Role>();
+
+
+    public Set<Role> getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Set<Role> userRole) {
+        this.userRole = userRole;
+    }
+
 
     public Long getId() {
         return Id;
@@ -119,24 +136,6 @@ public class User {
     public void setGroupId(Long groupId) {
 
     }
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
-
-
-    public Set<UserRole> getUserRole() {
-
-        return userRole;
-    }
-
-    public void setUserRole(Set<UserRole> userRole) {
-        this.userRole = userRole;
-    }
-
-
-    public User(Set<UserRole> userRole) {
-        Hibernate.initialize(userRole);
-        this.userRole = userRole;
-    }
 
 }

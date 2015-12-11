@@ -19,4 +19,6 @@ public interface IUserFacade {
     public User getUserById(Long userId);
     public void deleteUserById(Long userId);
     public void updateUser(User user);
+    public User findByUserName(String username);
+
 }

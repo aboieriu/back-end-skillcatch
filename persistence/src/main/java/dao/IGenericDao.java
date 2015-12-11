@@ -1,5 +1,7 @@
 package dao;
 
+import model.Badge;
+
 import java.util.List;
 
 /**
@@ -9,5 +11,6 @@ public interface IGenericDao<T> {
     public List<T> getAll();
     public void add(T item);
     public void deleteById(Long id);
-    T findBy(String username);
+
+    T getById(Long badgeId);
 }

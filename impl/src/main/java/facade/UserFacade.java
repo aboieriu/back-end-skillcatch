@@ -2,8 +2,20 @@ package facade;
 
 import dao.IUserDao;
 import model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
+import org.hibernate.jpa.HibernateEntityManager;
+import org.hibernate.jpa.HibernateEntityManagerFactory;
+import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +25,10 @@ public class UserFacade implements IUserFacade{
 
     @Autowired
     private IUserDao userDao;
+
+
+
+
 
     public IUserDao getUserDao() {
         return userDao;
@@ -53,5 +69,15 @@ public class UserFacade implements IUserFacade{
     {
         this.userDao.updateUser(group);
     }
+
+
+
+    public User findByUserName(String username) {
+
+        return this.userDao.findByUserName(username);
+        }
+
+
+
 }
 

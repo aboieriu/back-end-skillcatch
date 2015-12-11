@@ -48,4 +48,25 @@ public class UserDao extends GenericDao<User> implements IUserDao{
             entityManager.persist(itemFromDbs);
         }
     }
+    @Transactional
+    public User findByUserName(String username){
+
+        if(username!=null) {
+            Query query = this.entityManager.createQuery("from User WHERE username=:username",User.class);
+            query.setParameter("username", username);
+
+
+            List<User> result = query.getResultList();
+            if (!result.isEmpty()) {
+                return result.get(0);
+
+            }
+
+
+
+        }
+
+        return null;
+
+    }
 }
