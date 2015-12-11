@@ -32,20 +32,20 @@ public class TaskplanService {
         return this.taskPlanFacade.getAllTaskplan();
     }
 
-    /*@RequestMapping(value = "skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.GET)
+    @RequestMapping(value = "skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.GET)
     @ResponseBody
     public Taskplan getTaskPlan(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId)
     {
-        return this.taskPlanFacade.getTaskPlan(groupId, taskPlanId);
+        return this.taskPlanFacade.getTaskplan(groupId, taskPlanId);
     }
 
-    @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.DELETE)
-    @ResponseBody
-    public void deleteTaskPlan(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId)
-    {
-        this.taskPlanFacade.deleteTaskPlan(groupId, taskPlanId);
-    }
-*/
+        @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.DELETE)
+        @ResponseBody
+        public void deleteTaskPlan(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId)
+        {
+            this.taskPlanFacade.deleteTaskplan(groupId, taskPlanId);
+        }
+
     @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/" , method = RequestMethod.POST)
     @ResponseBody
     public void addTaskPlan(@PathVariable("groupId") Long groupId,@RequestBody Taskplan taskPlanId)
@@ -54,13 +54,13 @@ public class TaskplanService {
         this.taskPlanFacade.addTaskplan(taskPlanId);
     }
 
-    @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}", method = RequestMethod.PUT)
+ /*   @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}", method = RequestMethod.PUT)
     @ResponseBody
     public void updateTaskPlan(@PathVariable("taskPlanId") Long id ,@PathVariable("groupId") Long groupId,@RequestBody Taskplan taskPlan) {
         taskPlan.setTaskPlanId(id);
-        //  user.setGroupId(groupId);
+        taskPlan.setGroupId(groupId);
         this.taskPlanFacade.updateTaskplan(taskPlan);
     }
-
+*/
 }
 

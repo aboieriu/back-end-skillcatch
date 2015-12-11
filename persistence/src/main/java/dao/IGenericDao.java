@@ -10,4 +10,5 @@ public interface IGenericDao<T> {
     public void add(T item);
     public void deleteById(Long id);
     T findBy(String username);
+    T getById(Long id);
 }

@@ -12,11 +12,11 @@ public interface IUserFacade {
 
 
     public User getUser(Long groupId, Long userId);
-   // public void deleteUser(Long groupId, Long userId);
-
+    public void deleteUser(Long groupId, Long userId);
     public void addUser(User user);
     public List<User> getAll();
     public User getUserById(Long userId);
     public void deleteUserById(Long userId);
     public void updateUser(User user);
+    public List<User> getAllUsers(Long groupId);
 }

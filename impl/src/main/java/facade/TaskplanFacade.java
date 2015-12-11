@@ -17,6 +17,7 @@ public class TaskplanFacade implements ITaskplanFacade {
     public List<Taskplan> getAllTaskplan(){
         return this.TaskplanDao.getAll();
     }
+    public Taskplan getTaskplan(Long groupId , Long taskplanId){ return this.TaskplanDao.getTaskplan(groupId, taskplanId);}
 
     public Taskplan getTaskplanById(Long taskplanId){
         return this.TaskplanDao.getById(taskplanId);}
@@ -25,11 +26,13 @@ public class TaskplanFacade implements ITaskplanFacade {
         this.TaskplanDao.add(taskplan);
     }
 
-    public void deleteTaskplan(Long taskplanId){
+    public void deleteTaskplanById(Long taskplanId){
         this.TaskplanDao.deleteById(taskplanId);
     }
 
     public void updateTaskplan(Taskplan taskplan){
         this.TaskplanDao.updateTaskplan(taskplan);
     }
+    public void deleteTaskplan(Long groupId , Long taskplanId){this.TaskplanDao.deleteTaskplan(groupId, taskplanId);}
+
 }

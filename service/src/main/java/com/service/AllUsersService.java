@@ -5,9 +5,7 @@ import facade.IUserFacade;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +26,22 @@ public class AllUsersService {
     {
         return this.allUsersFacade.getAll();
     }
+
+    @RequestMapping(value = "/{userId}" , method = RequestMethod.PUT)
+    @ResponseBody
+    public void updateUser(@PathVariable("userId") Long id,@RequestBody User user)
+    {
+        user.setId(id);
+        this.allUsersFacade.updateUser(user);
+    }
+
+    @RequestMapping(value = "" , method = RequestMethod.POST)
+    @ResponseBody
+    public void addUser(@RequestBody User user)
+    {
+        this.allUsersFacade.addUser(user);
+    }
+
 
     public IUserFacade getAllUsersFacade() {
         return allUsersFacade;

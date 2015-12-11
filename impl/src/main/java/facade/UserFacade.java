@@ -1,6 +1,7 @@
 package facade;
 
 import dao.IUserDao;
+import model.Group;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,7 +26,9 @@ public class UserFacade implements IUserFacade{
     public List<User> getAll() {
         return this.userDao.getAll();
     }
-
+    public List<User> getAllUsers(Long groupId) {
+        return this.userDao.getAllUsers(groupId);
+    }
     public User getUser(Long groupId, Long userId) {
         return this.userDao.getUser(groupId, userId);
     }
@@ -35,23 +38,25 @@ public class UserFacade implements IUserFacade{
        return this.userDao.getById(userId) ;
     }
 
-    /*public void deleteUser(Long groupId, Long userId) {
+    public void deleteUser(Long groupId, Long userId) {
         this.userDao.deleteUser(groupId, userId);
-    }*/
+    }
 
 
     public void deleteUserById(Long userId){
         this.userDao.deleteById(userId);
     }
 
-    public void addUser(User group)
+    public void addUser(User user)
     {
-        this.userDao.add(group);
+        this.userDao.add(user);
     }
 
-    public void updateUser(User group)
+
+
+    public void updateUser(User user)
     {
-        this.userDao.updateUser(group);
+        this.userDao.updateUser(user);
     }
 }
 

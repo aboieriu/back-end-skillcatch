@@ -60,6 +60,7 @@ public class User {
         this.address=address;
     }
 
+
     public Long getId() {
         return Id;
     }
@@ -116,9 +117,7 @@ public class User {
         this.phone = phone;
     }
 
-    public void setGroupId(Long groupId) {
 
-    }
     @OneToMany(fetch = FetchType.EAGER)
     private Set<UserRole> userRole = new HashSet<UserRole>(0);
 

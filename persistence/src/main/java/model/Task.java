@@ -2,6 +2,7 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by CataVlad on 05-Nov-15.
@@ -20,6 +21,12 @@ public class Task {
 
     @Column(name="description")
     private String description;
+
+    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @JoinTable(name="badge_has_task",
+        joinColumns={@JoinColumn(name="task_id")},
+        inverseJoinColumns = {@JoinColumn(name="badge_id")})
+    private Set<Badge> badges;
 
     public Task(String name, String description) {
         this.name = name;
@@ -48,5 +55,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Badge> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(Set<Badge> badges) {
+        this.badges = badges;
     }
 }

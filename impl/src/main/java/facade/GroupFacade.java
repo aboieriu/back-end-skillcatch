@@ -3,6 +3,7 @@ package facade;
 import dao.IGenericDao;
 import dao.IGroupDao;
 import model.Group;
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -39,5 +40,13 @@ public class GroupFacade implements IGroupFacade{
 
     public void updateGroup(Group group){
         this.groupDao.updateGroup(group);
+    }
+
+
+    public void addUserToGroup(Long groupId , User user){
+        Group targetGroup = this.groupDao.getById(groupId);
+        targetGroup.getUsers().add(user);
+        this.groupDao.updateGroup(targetGroup);
+
     }
 }

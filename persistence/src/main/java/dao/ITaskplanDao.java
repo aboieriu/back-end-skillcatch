@@ -9,4 +9,6 @@ import model.Taskplan;
 public interface ITaskplanDao extends IGenericDao<Taskplan> {
 
     void updateTaskplan(Taskplan taskplan);
+    public Taskplan getTaskplan(Long groupId , Long taskplanId);
+    public void deleteTaskplan(Long groupId , Long taskplanId);
 }

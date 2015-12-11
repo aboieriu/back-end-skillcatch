@@ -3,6 +3,8 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by CataVlad on 05-Nov-15.
@@ -29,6 +31,25 @@ public class Badge {
         this.name = name;
         this.description = description;
     }
+
+
+
+    // setare Group
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Group> group = new HashSet<Group>(0);
+
+    public Set<Group> getGroup() {
+
+        return group;
+    }
+
+    public void setGroup(Set<Group> group) {
+        this.group = group;
+    }
+
+
+
+
 
     public Long getBadgeId() {
         return badgeId;

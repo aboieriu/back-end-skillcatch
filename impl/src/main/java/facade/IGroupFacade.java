@@ -1,6 +1,7 @@
 package facade;
 
 import model.Group;
+import model.User;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface IGroupFacade {
     public Group getGroupById(Long groupId);
     public void deleteGroup(Long groupId);
     public void updateGroup(Group group);
+    public void addUserToGroup(Long groupId , User user);
 }

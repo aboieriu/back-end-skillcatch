@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 
 @Entity
@@ -41,6 +42,19 @@ public class Group {
     }
 
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @JoinTable(name="user_has_project_group",
+            joinColumns={@JoinColumn(name="project_group_id")},
+            inverseJoinColumns = {@JoinColumn(name="user_id")})
+    private Set<User> users;
 
     public String getName() {
         return name;
@@ -65,4 +79,5 @@ public class Group {
     public void setStatus(Long status) {
         this.status = status;
     }
+
 }
