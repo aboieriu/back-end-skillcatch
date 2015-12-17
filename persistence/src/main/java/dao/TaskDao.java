@@ -18,7 +18,7 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
 
     @Transactional
     public void updateTask(Task task){
-        Task taskFromDbs = this.getById(task.getTaskId());
+        Task taskFromDbs = this.getById(task.getId());
         if (taskFromDbs != null) {
             taskFromDbs.setName(task.getName());
             taskFromDbs.setDescription(task.getDescription());

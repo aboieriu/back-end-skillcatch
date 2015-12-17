@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Adi on 10/26/2015.
@@ -42,9 +43,7 @@ public class UserFacade implements IUserFacade{
     public List<User> getAll() {
         return this.userDao.getAll();
     }
-    public List<User> getAllUsers(Long groupId) {
-        return this.userDao.getAllUsers(groupId);
-    }
+
     public User getUser(Long groupId, Long userId) {
         return this.userDao.getUser(groupId, userId);
     }

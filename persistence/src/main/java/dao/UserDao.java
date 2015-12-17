@@ -17,12 +17,6 @@ public class UserDao extends GenericDao<User> implements IUserDao{
     public UserDao() {
         super(User.class);
     }
-    @Transactional
-    public List<User> getAllUsers(Long groupId){
-        Query query = this.entityManager.createQuery("from User WHERE groupId = :targetgroupId");
-        query.setParameter("targetgroupId", groupId);
-        return query.getResultList();
-    }
 
 
     @Transactional
@@ -51,8 +45,6 @@ public class UserDao extends GenericDao<User> implements IUserDao{
         }
     }
 
-
-
     @Transactional
     public void updateUser(User myUser){
         User itemFromDbs = this.getById(myUser.getId());
@@ -73,18 +65,13 @@ public class UserDao extends GenericDao<User> implements IUserDao{
             Query query = this.entityManager.createQuery("from User WHERE username=:username",User.class);
             query.setParameter("username", username);
 
-
             List<User> result = query.getResultList();
             if (!result.isEmpty()) {
                 return result.get(0);
-
             }
-
-
-
         }
-
         return null;
-
     }
+
+
 }

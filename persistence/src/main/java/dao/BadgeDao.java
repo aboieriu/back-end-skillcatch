@@ -51,7 +51,7 @@ public class BadgeDao extends GenericDao<Badge> implements IBadgeDao {
 
     @Transactional
     public void updateBadge(Badge badge){
-        Badge badgeFromDbs = this.getById(badge.getBadgeId());
+        Badge badgeFromDbs = this.getById(badge.getId());
         if (badgeFromDbs != null) {
             badgeFromDbs.setName(badge.getName());
             badgeFromDbs.setDescription(badge.getDescription());

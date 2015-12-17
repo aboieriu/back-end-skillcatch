@@ -35,12 +35,33 @@ public class Group {
 
     public Group() {}
 
-    public Group(String name, String descriptions, Long status) {
+    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @JoinTable(name="user_has_project_group",
+            joinColumns={@JoinColumn(name="project_group_id")},
+            inverseJoinColumns = {@JoinColumn(name="user_id")})
+    private Set<User> users;
+
+    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @JoinTable(name="task_plan_has_project_group",
+            joinColumns={@JoinColumn(name="project_group_id")},
+            inverseJoinColumns = {@JoinColumn(name="task_plan_id")})
+    private Set<Taskplan> taskplans;
+
+    public Set<Taskplan> getTaskplans() {
+        return taskplans;
+    }
+
+    public void setTaskplans(Set<Taskplan> taskplans) {
+        this.taskplans = taskplans;
+    }
+
+    public Group(String name, String descriptions, Long status, Set<User> users, Set<Taskplan> taskplans) {
         this.name = name;
         this.descriptions = descriptions;
         this.status = status;
+        this.users = users;
+        this.taskplans = taskplans;
     }
-
 
     public Set<User> getUsers() {
         return users;
@@ -50,11 +71,6 @@ public class Group {
         this.users = users;
     }
 
-    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JoinTable(name="user_has_project_group",
-            joinColumns={@JoinColumn(name="project_group_id")},
-            inverseJoinColumns = {@JoinColumn(name="user_id")})
-    private Set<User> users;
 
     public String getName() {
         return name;

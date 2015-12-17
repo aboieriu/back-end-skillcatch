@@ -18,19 +18,13 @@ public class Role {
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id
-    private Long roleId;
+    private Long id;
 
     @Column(name="name")
     private String name;
 
     @Column(name="description")
     private String description;
-
-
-
-
-
-
 
     public Role (){}
 
@@ -39,12 +33,12 @@ public class Role {
         this.description = description;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public Long getId() {
+        return id;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

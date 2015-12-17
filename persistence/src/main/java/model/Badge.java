@@ -17,7 +17,7 @@ public class Badge {
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id
-    private Long badgeId;
+    private Long id;
 
     @Column(name ="name")
     private String name;
@@ -47,16 +47,12 @@ public class Badge {
         this.group = group;
     }
 
-
-
-
-
-    public Long getBadgeId() {
-        return badgeId;
+    public Long getId() {
+        return id;
     }
 
-    public void setBadgeId(Long badgeId) {
-        this.badgeId = badgeId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

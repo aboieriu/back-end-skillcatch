@@ -8,6 +8,7 @@ package com.service;
         import org.springframework.web.bind.annotation.*;
 
         import java.util.List;
+        import java.util.Set;
 
 /**
  * Created by CataVlad on 26-Oct-15.
@@ -20,18 +21,26 @@ public class UserService {
     @Autowired
     IGroupFacade groupFacade;
 
-    @RequestMapping(value = "/api/group/{groupId}/user" , method = RequestMethod.GET)
+    @RequestMapping(value = "/api/projectGroup/{groupId}/user" , method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getAllUser(@PathVariable("groupId") Long groupId)
+    public Set<User> getAllUser(@PathVariable("groupId") Long groupId)
     {
-        return this.userFacade.getAllUsers(groupId);
+        return this.groupFacade.getUsers(groupId);
     }
 
-    @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}",method = RequestMethod.GET)
+  /*  @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}",method = RequestMethod.GET)
     @ResponseBody
     public User getUser(@PathVariable("groupId") Long groupId , @PathVariable("userId") Long userId)
     {
-        return this.userFacade.getUser(groupId, userId);
+        return this.groupFacade.getUserFromGroup(groupId, userId);
+    }*/
+
+    @RequestMapping(value = "/api/projectGroup/{groupId}/user" , method = RequestMethod.POST)
+    @ResponseBody
+    public void addUser(@PathVariable("groupId") Long groupId,@RequestBody User user)
+    {
+
+        this.groupFacade.addUserToGroup(groupId, user.getId());
     }
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}",method = RequestMethod.DELETE)
@@ -39,14 +48,6 @@ public class UserService {
     public void deleteUserById(@PathVariable("userId") Long userId)
     {
         this.userFacade.deleteUserById(userId);
-    }
-
-    @RequestMapping(value = "/api/projectGroup/{groupId}/user/" , method = RequestMethod.POST)
-    @ResponseBody
-    public void addUser(@PathVariable("groupId") Long groupId,@RequestBody User user)
-    {
-
-        this.groupFacade.addUserToGroup(groupId, user);
     }
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}", method = RequestMethod.PUT)

@@ -14,7 +14,7 @@ public class Task {
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id
-    private Long taskId;
+    private Long id;
 
     @Column(name="name")
     private String name;
@@ -22,6 +22,7 @@ public class Task {
     @Column(name="description")
     private String description;
 
+    public Task(){}
     @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     @JoinTable(name="badge_has_task",
         joinColumns={@JoinColumn(name="task_id")},
@@ -33,12 +34,12 @@ public class Task {
         this.description = description;
     }
 
-    public Long getTaskId() {
-        return taskId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
