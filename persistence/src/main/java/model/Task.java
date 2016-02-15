@@ -24,7 +24,7 @@ public class Task {
 
     public Task(){}
     @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JoinTable(name="badge_has_task",
+    @JoinTable(name="task_has_badge",
         joinColumns={@JoinColumn(name="task_id")},
         inverseJoinColumns = {@JoinColumn(name="badge_id")})
     private Set<Badge> badges;

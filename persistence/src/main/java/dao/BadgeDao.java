@@ -1,7 +1,6 @@
 package dao;
 
 import model.Badge;
-import model.Group;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
@@ -17,12 +16,12 @@ public class BadgeDao extends GenericDao<Badge> implements IBadgeDao {
 
     @Transactional
     public Badge getBadgeById(Long groupId,Long taskPlanId,Long taskId,Long badgeId) {
-        if(groupId !=null || taskPlanId != null || taskId != null || badgeId != null)
+        if(groupId !=null || taskPlanId != null || taskId != null )
         {
-            Query query = this.entityManager.createQuery("from Badge WHERE groupId = :targetgroupId AND taskPlanId = :targetTaskPlanId AND taskId = :targetTaskId AND badgeId = :targetBadgeId");
-            query.setParameter("targetgroupId" , groupId);
-            query.setParameter("targetTaskPlanId" , taskPlanId);
-            query.setParameter("targetTaskId" , taskId);
+            Query query = this.entityManager.createQuery("select t from ProjectGroup as pg join pg.taskplans as tp join tp.tasks as tsk join tsk.badges as t where tp.id = :targetTaskplanId AND t.id = :targettaskId AND pg.id =:targetprojectgroupId AND t.id=:targetBadgeId");
+            query.setParameter("targetprojectgroupId" , groupId);
+            query.setParameter("targetTaskplanId" , taskPlanId);
+            query.setParameter("targettaskId" , taskId);
             query.setParameter("targetBadgeId" , badgeId);
             List<Badge> result = query.getResultList();
             if (!result.isEmpty()) {

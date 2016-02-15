@@ -18,6 +18,9 @@ public class TaskFacade implements ITaskFacade {
         return this.taskDao.getAll();
     }
 
+    public Task getTask(Long groupId , Long taskplanId, Long taskId){ return this.taskDao.getTask(groupId, taskplanId, taskId);}
+
+
     public Task getTaskById(Long taskId){
         return this.taskDao.getById(taskId);}
 

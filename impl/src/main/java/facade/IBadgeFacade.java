@@ -1,6 +1,5 @@
 package facade;
 import model.Badge;
-import model.Group;
 
 import java.util.List;
 
@@ -12,5 +11,5 @@ public interface IBadgeFacade {
     public Badge getBadgeById(Long groupId,Long taskPlanId,Long taskId,Long badgeId);
     public void deleteBadge(Long groupId,Long taskPlanId,Long taskId,Long badgeId);
     public void updateBadge(Badge badge);
-    public Badge getBadgeFromUser(Long groupId,Long userId) ;
+   // public Badge getBadgeFromUser(Long groupId,Long userId) ;
     }

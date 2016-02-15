@@ -35,14 +35,14 @@ public class TaskService {
     {
         return this.taskPlanFacade.getTasks(taskPlanId);
     }
-/*
+
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}",method = RequestMethod.GET)
     @ResponseBody
-    public Taskplan getTask(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId)
+    public Task getTask(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId)
     {
-        return this.taskFacade.getT(groupId, taskPlanId, taskId);
+        return this.taskFacade.getTask(groupId, taskPlanId, taskId);
     }
-*/
+
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task" , method = RequestMethod.POST)
     @ResponseBody
     public void addTask(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId ,@RequestBody Task task)

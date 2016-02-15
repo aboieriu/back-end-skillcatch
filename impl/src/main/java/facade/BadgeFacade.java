@@ -1,11 +1,7 @@
 package  facade;
 import dao.IBadgeDao;
-import dao.IGroupDao;
 import model.Badge;
-import model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import dao.GenericDao;
 
 import java.util.List;
 
@@ -34,8 +30,8 @@ public class BadgeFacade implements IBadgeFacade {
         this.badgeDao.updateBadge(badge);
     }
 
-    public Badge getBadgeFromUser(Long groupId,Long userId) {
+    /*public Badge getBadgeFromUser(Long groupId,Long userId) {
         return this.badgeDao.getBadgeFromUser(groupId, userId);}
-
+*/
 }
 

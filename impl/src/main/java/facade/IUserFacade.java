@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Adi on 10/26/2015.
  */
 public interface IUserFacade {
-    public User getUser(Long groupId, Long userId);
+    public User getUserFromGroup(Long groupId,Long userId);
     public void deleteUser(Long groupId, Long userId);
     public void addUser(User user);
     public List<User> getAll();
@@ -15,4 +15,5 @@ public interface IUserFacade {
     public void deleteUserById(Long userId);
     public void updateUser(User user);
     public User findByUserName(String username);
+
 }

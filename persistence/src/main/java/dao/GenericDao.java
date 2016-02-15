@@ -1,19 +1,8 @@
 package dao;
 
-import model.Badge;
-import model.Group;
-import model.User;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

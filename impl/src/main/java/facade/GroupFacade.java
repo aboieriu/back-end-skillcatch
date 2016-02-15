@@ -1,9 +1,8 @@
 package facade;
 
-import dao.IGenericDao;
 import dao.IGroupDao;
 import dao.IUserDao;
-import model.Group;
+import model.ProjectGroup;
 import model.Taskplan;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +26,14 @@ public class GroupFacade implements IGroupFacade{
         this.groupDao = groupDao;
     }
 
-    public List<Group> getAllGroup(){
+    public List<ProjectGroup> getAllGroup(){
         return this.groupDao.getAll();
     }
 
-    public Group getGroupById(Long groupId){
+    public ProjectGroup getGroupById(Long groupId){
         return this.groupDao.getById(groupId);}
 
-    public void addGroup(Group group){
+    public void addGroup(ProjectGroup group){
         this.groupDao.add(group);
     }
 
@@ -42,14 +41,14 @@ public class GroupFacade implements IGroupFacade{
         this.groupDao.deleteById(groupId);
     }
 
-    public void updateGroup(Group group){
+    public void updateGroup(ProjectGroup group){
         this.groupDao.update(group.getId(), group);
     }
 
 
     public void addUserToGroup(Long groupId , Long userId){
         User targetUser = this.userDao.getById(userId);
-        Group targetGroup = this.groupDao.getById(groupId);
+        ProjectGroup targetGroup = this.groupDao.getById(groupId);
         targetGroup.getUsers().add(targetUser);
         this.updateGroup(targetGroup);
     }
@@ -60,7 +59,7 @@ public class GroupFacade implements IGroupFacade{
 
 
     public void addTaskPlanToGroup(Long groupId , Taskplan taskplan){
-        Group targetGroup = this.groupDao.getById(groupId);
+        ProjectGroup targetGroup = this.groupDao.getById(groupId);
         targetGroup.getTaskplans().add(taskplan);
         this.updateGroup(targetGroup);
     }

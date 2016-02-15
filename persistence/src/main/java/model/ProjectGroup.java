@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "project_group")
-public class Group {
+public class ProjectGroup {
 
     public Long getId() {
         return id;
@@ -33,16 +33,16 @@ public class Group {
     @Column(name = "status")
     private Long status;
 
-    public Group() {}
+    public ProjectGroup() {}
 
     @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JoinTable(name="user_has_project_group",
+    @JoinTable(name="project_group_has_user",
             joinColumns={@JoinColumn(name="project_group_id")},
             inverseJoinColumns = {@JoinColumn(name="user_id")})
     private Set<User> users;
 
     @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JoinTable(name="task_plan_has_project_group",
+    @JoinTable(name="project_group_has_task_plan",
             joinColumns={@JoinColumn(name="project_group_id")},
             inverseJoinColumns = {@JoinColumn(name="task_plan_id")})
     private Set<Taskplan> taskplans;
@@ -55,7 +55,7 @@ public class Group {
         this.taskplans = taskplans;
     }
 
-    public Group(String name, String descriptions, Long status, Set<User> users, Set<Taskplan> taskplans) {
+    public ProjectGroup(String name, String descriptions, Long status, Set<User> users, Set<Taskplan> taskplans) {
         this.name = name;
         this.descriptions = descriptions;
         this.status = status;

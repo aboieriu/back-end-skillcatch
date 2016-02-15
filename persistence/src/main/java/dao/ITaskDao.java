@@ -8,5 +8,6 @@ import model.Task;
  */
 public interface ITaskDao extends IGenericDao<Task>  {
 
+    public Task getTask(Long groupId , Long taskplanId, Long taskId);
     void updateTask(Task task);
 }

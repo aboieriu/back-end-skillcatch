@@ -7,7 +7,7 @@
     <persistence-unit name="skillcatchPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>
-            model.Group
+            model.ProjectGroup
         </class>
         <class>
             model.User

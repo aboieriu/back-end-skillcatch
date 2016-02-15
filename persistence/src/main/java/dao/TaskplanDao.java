@@ -32,7 +32,7 @@ public class TaskplanDao extends GenericDao<Taskplan> implements ITaskplanDao {
     public Taskplan getTaskplan(Long groupId,Long taskplanId) {
         if(groupId !=null || taskplanId != null)
         {
-            Query query = this.entityManager.createQuery("from Taskplan WHERE groupId = :targetgroupId AND id = :targetTaskplanId ");
+            Query query = this.entityManager.createQuery("select t from Taskplan as t, ProjectGroup as pg join pg.taskplans where pg.id = :targetgroupId AND t.id = :targetTaskplanId ");
             query.setParameter("targetgroupId", groupId);
             query.setParameter("targetTaskplanId", taskplanId);
             List<Taskplan> result = query.getResultList();

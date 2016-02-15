@@ -28,12 +28,12 @@ public class UserService {
         return this.groupFacade.getUsers(groupId);
     }
 
-  /*  @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}",method = RequestMethod.GET)
     @ResponseBody
     public User getUser(@PathVariable("groupId") Long groupId , @PathVariable("userId") Long userId)
     {
-        return this.groupFacade.getUserFromGroup(groupId, userId);
-    }*/
+        return this.userFacade.getUserFromGroup(groupId, userId);
+    }
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/user" , method = RequestMethod.POST)
     @ResponseBody

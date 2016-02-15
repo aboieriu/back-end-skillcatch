@@ -36,14 +36,14 @@ public class Badge {
 
     // setare Group
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Group> group = new HashSet<Group>(0);
+    private Set<ProjectGroup> group = new HashSet<ProjectGroup>(0);
 
-    public Set<Group> getGroup() {
+    public Set<ProjectGroup> getGroup() {
 
         return group;
     }
 
-    public void setGroup(Set<Group> group) {
+    public void setGroup(Set<ProjectGroup> group) {
         this.group = group;
     }
 
