@@ -40,7 +40,7 @@ public class Badge {
         this.description = description;
         this.image = image;
     }
-    @JsonIgnore
+
     public Task getTask() {
         return task;
     }

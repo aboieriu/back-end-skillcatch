@@ -1,4 +1,5 @@
 package model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -26,7 +27,7 @@ public class Task {
     private Set<Badge> badges;
 
     public Task(){}
-
+    @JsonIgnore
     public Set<Badge> getBadge() {
         return badges;
     }
