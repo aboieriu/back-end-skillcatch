@@ -42,7 +42,7 @@ public class GroupFacade implements IGroupFacade{
     }
 
     public void updateGroup(ProjectGroup group){
-        this.groupDao.update(group.getId(), group);
+       // add impl here
     }
 
 

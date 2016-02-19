@@ -43,28 +43,19 @@ public class UserFacade implements IUserFacade{
        return this.userDao.getById(userId) ;
     }
 
-    public void deleteUser(Long groupId, Long userId) {
-        this.userDao.deleteUser(groupId, userId);
-    }
-
-
     public void deleteUserById(Long userId){
         this.userDao.deleteById(userId);
     }
 
-    public void addUser(User user)
+    public void addUser(User group)
     {
-        this.userDao.add(user);
+        this.userDao.add(group);
     }
 
-
-
-    public void updateUser(User user)
+    public void updateUser(User group)
     {
-        this.userDao.updateUser(user);
+        this.userDao.updateUser(group);
     }
-
-
 
     public User findByUserName(String username) {
 

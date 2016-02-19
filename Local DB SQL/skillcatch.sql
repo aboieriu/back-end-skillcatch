@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 19 Noi 2015 la 18:06
--- Versiune server: 5.6.26
--- PHP Version: 5.5.28
+-- Generation Time: 17 Feb 2016 la 15:05
+-- Versiune server: 10.1.9-MariaDB
+-- PHP Version: 5.5.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Structura de tabel pentru tabelul `badge`
 --
 
-CREATE TABLE IF NOT EXISTS `badge` (
+CREATE TABLE `badge` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `description` varchar(45) DEFAULT NULL
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `badge` (
 -- Structura de tabel pentru tabelul `badge_has_task`
 --
 
-CREATE TABLE IF NOT EXISTS `badge_has_task` (
+CREATE TABLE `badge_has_task` (
   `badge_id` int(11) NOT NULL,
   `task_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `badge_has_task` (
 -- Structura de tabel pentru tabelul `group_local`
 --
 
-CREATE TABLE IF NOT EXISTS `group_local` (
+CREATE TABLE `group_local` (
   `groupId` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `startDate` date DEFAULT NULL,
@@ -71,7 +71,7 @@ INSERT INTO `group_local` (`groupId`, `name`, `startDate`, `endDate`) VALUES
 -- Structura de tabel pentru tabelul `project_group`
 --
 
-CREATE TABLE IF NOT EXISTS `project_group` (
+CREATE TABLE `project_group` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `descriptions` varchar(45) DEFAULT NULL,
@@ -92,11 +92,20 @@ INSERT INTO `project_group` (`id`, `name`, `descriptions`, `status`) VALUES
 -- Structura de tabel pentru tabelul `role`
 --
 
-CREATE TABLE IF NOT EXISTS `role` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `role` (
+  `roleId` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `description` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `role`
+--
+
+INSERT INTO `role` (`roleId`, `name`, `description`) VALUES
+(1, 'ROLE_DEV', 'ACCES DEVELOPER'),
+(2, 'ROLE_USER', 'ACCESS USER'),
+(3, 'ROLE_SUPER_DEV', 'ACCES DEVELOPER_1');
 
 -- --------------------------------------------------------
 
@@ -104,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `role` (
 -- Structura de tabel pentru tabelul `task`
 --
 
-CREATE TABLE IF NOT EXISTS `task` (
+CREATE TABLE `task` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `description` varchar(45) DEFAULT NULL
@@ -116,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `task` (
 -- Structura de tabel pentru tabelul `task_plan`
 --
 
-CREATE TABLE IF NOT EXISTS `task_plan` (
+CREATE TABLE `task_plan` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `description` varchar(45) DEFAULT NULL
@@ -128,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `task_plan` (
 -- Structura de tabel pentru tabelul `task_plan_has_project_group`
 --
 
-CREATE TABLE IF NOT EXISTS `task_plan_has_project_group` (
+CREATE TABLE `task_plan_has_project_group` (
   `task_plan_id` int(11) NOT NULL,
   `project_group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -139,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `task_plan_has_project_group` (
 -- Structura de tabel pentru tabelul `task_plan_has_task`
 --
 
-CREATE TABLE IF NOT EXISTS `task_plan_has_task` (
+CREATE TABLE `task_plan_has_task` (
   `task_plan_id` int(11) NOT NULL,
   `task_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -150,35 +159,26 @@ CREATE TABLE IF NOT EXISTS `task_plan_has_task` (
 -- Structura de tabel pentru tabelul `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `username` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `surname` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `password` varchar(60) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Structura de tabel pentru tabelul `users`
+-- Salvarea datelor din tabel `user`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `username` varchar(45) NOT NULL,
-  `password` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Salvarea datelor din tabel `users`
---
-
-INSERT INTO `users` (`username`, `password`) VALUES
-('Andrei', '$2a$04$.v8YDmOWVrcaUGIPyQ.hz.6V6NudPTr1OhuQ0VMEIN.L4NovBhlOi'),
-('Ionut', '1234567');
+INSERT INTO `user` (`id`, `username`, `name`, `surname`, `email`, `password`, `phone`, `address`) VALUES
+(1, 'Ionut', 'Ionut', 'Ionut', 'Ionut@yahoo.ro', '$2a$12$BY9VK5/sLg.kQBk0turXvOh5uXOJ2PgJLyPBF1O6YK9n.G2bGpJIa', '0782765489', 'sagdjsadkl'),
+(2, 'Andrei', 'Andrei', 'w', 'andrei@andrei.com', '1234', '0723152370', 'aaa'),
+(3, 'tester', 'tester', 'tester', 'tester@yahoo.ro', '29ef153bba5caecde25fef6dfabfe52c270bcbdb', '12325353', 'vzdvgdshfjf'),
+(4, 'admin', 'admin', 'admin', 'admin', '123456', '135467573', 'dsfngjhfkx');
 
 -- --------------------------------------------------------
 
@@ -186,7 +186,7 @@ INSERT INTO `users` (`username`, `password`) VALUES
 -- Structura de tabel pentru tabelul `user_has_project_group`
 --
 
-CREATE TABLE IF NOT EXISTS `user_has_project_group` (
+CREATE TABLE `user_has_project_group` (
   `user_id` int(11) NOT NULL,
   `project_group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -197,10 +197,20 @@ CREATE TABLE IF NOT EXISTS `user_has_project_group` (
 -- Structura de tabel pentru tabelul `user_has_role`
 --
 
-CREATE TABLE IF NOT EXISTS `user_has_role` (
+CREATE TABLE `user_has_role` (
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `user_has_role`
+--
+
+INSERT INTO `user_has_role` (`user_id`, `role_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 2),
+(4, 3);
 
 -- --------------------------------------------------------
 
@@ -208,30 +218,10 @@ CREATE TABLE IF NOT EXISTS `user_has_role` (
 -- Structura de tabel pentru tabelul `user_has_task`
 --
 
-CREATE TABLE IF NOT EXISTS `user_has_task` (
+CREATE TABLE `user_has_task` (
   `user_id` int(11) NOT NULL,
   `task_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Structura de tabel pentru tabelul `user_roles`
---
-
-CREATE TABLE IF NOT EXISTS `user_roles` (
-  `user_role_id` int(11) NOT NULL,
-  `username` varchar(45) NOT NULL,
-  `role` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Salvarea datelor din tabel `user_roles`
---
-
-INSERT INTO `user_roles` (`user_role_id`, `username`, `role`) VALUES
-(2, 'Andrei', 'ROLE_DEV'),
-(1, 'Ionut', 'ROLE_USER');
 
 --
 -- Indexes for dumped tables
@@ -267,7 +257,7 @@ ALTER TABLE `project_group`
 -- Indexes for table `role`
 --
 ALTER TABLE `role`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`roleId`);
 
 --
 -- Indexes for table `task`
@@ -304,12 +294,6 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`username`);
-
---
 -- Indexes for table `user_has_project_group`
 --
 ALTER TABLE `user_has_project_group`
@@ -333,23 +317,6 @@ ALTER TABLE `user_has_task`
   ADD KEY `fk_user_has_task_task1_idx` (`task_id`),
   ADD KEY `fk_user_has_task_user1_idx` (`user_id`);
 
---
--- Indexes for table `user_roles`
---
-ALTER TABLE `user_roles`
-  ADD PRIMARY KEY (`user_role_id`),
-  ADD UNIQUE KEY `uni_username_role` (`role`,`username`),
-  ADD KEY `fk_username_idx` (`username`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `user_roles`
---
-ALTER TABLE `user_roles`
-  MODIFY `user_role_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Restrictii pentru tabele sterse
 --
@@ -386,7 +353,7 @@ ALTER TABLE `user_has_project_group`
 -- Restrictii pentru tabele `user_has_role`
 --
 ALTER TABLE `user_has_role`
-  ADD CONSTRAINT `fk_user_has_role_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_has_role_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`roleId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_user_has_role_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -395,12 +362,6 @@ ALTER TABLE `user_has_role`
 ALTER TABLE `user_has_task`
   ADD CONSTRAINT `fk_user_has_task_task1` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_user_has_task_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Restrictii pentru tabele `user_roles`
---
-ALTER TABLE `user_roles`
-  ADD CONSTRAINT `fk_username` FOREIGN KEY (`username`) REFERENCES `users` (`username`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

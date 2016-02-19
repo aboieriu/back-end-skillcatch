@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DefaultRestController {
     @RequestMapping("/")
     public String SkillCatch() {
-        return "index.jsp";
+        return "PageNotFound.jsp";
     }
 }

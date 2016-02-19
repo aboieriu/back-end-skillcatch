@@ -38,15 +38,25 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean
 		String authToken = this.extractAuthTokenFromRequest(httpRequest);
 		String userName = TokenUtils.getUserNameFromToken(authToken);
 
+
 		if (userName != null) {
 
 			UserDetails user = this.userDetailsService.loadUserByUsername(userName);
+
+
 
 			if (TokenUtils.validateToken(authToken, user)) {
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
+
+			//segment pentru user default(admin) cu token hardcoded.
+			TokenUtils.validateToken("admin:1455807188054:1a62a970b25e06e1fe606d5fb66e99ad",user);
+
+			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
 
 		chain.doFilter(request, response);

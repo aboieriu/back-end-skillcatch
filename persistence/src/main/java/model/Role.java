@@ -14,7 +14,6 @@ import java.util.Set;
 @Table(name ="role")
 public class Role {
 
-
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id

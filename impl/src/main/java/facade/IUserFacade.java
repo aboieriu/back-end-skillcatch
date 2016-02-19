@@ -8,7 +8,6 @@ import java.util.List;
  */
 public interface IUserFacade {
     public User getUserFromGroup(Long groupId,Long userId);
-    public void deleteUser(Long groupId, Long userId);
     public void addUser(User user);
     public List<User> getAll();
     public User getUserById(Long userId);
