@@ -2,6 +2,7 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by CataVlad on 05-Nov-15.
@@ -13,7 +14,7 @@ public class Task {
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id
-    private Long taskId;
+    private Long id;
 
     @Column(name="name")
     private String name;
@@ -21,17 +22,28 @@ public class Task {
     @Column(name="description")
     private String description;
 
+    public Task(){}
+    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @JoinTable(name="task_has_badge",
+        joinColumns={@JoinColumn(name="task_id")},
+        inverseJoinColumns = {@JoinColumn(name="badge_id")})
+    private Set<Badge> badges;
+
+    public Set<Badge> getBadge() {
+        return badges;
+    }
+
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public Long getTaskId() {
-        return taskId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -48,5 +60,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Badge> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(Set<Badge> badges) {
+        this.badges = badges;
     }
 }

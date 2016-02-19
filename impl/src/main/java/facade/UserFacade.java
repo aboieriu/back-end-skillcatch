@@ -2,20 +2,9 @@ package facade;
 
 import dao.IUserDao;
 import model.User;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
-import org.hibernate.jpa.HibernateEntityManager;
-import org.hibernate.jpa.HibernateEntityManagerFactory;
-import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,6 +35,9 @@ public class UserFacade implements IUserFacade{
         return this.userDao.getUser(groupId, userId);
     }
 
+    public User getUserFromGroup(Long groupId,Long userId) {
+        return this.userDao.getUser(groupId,userId);
+    }
 
     public User getUserById(Long userId){
        return this.userDao.getById(userId) ;
