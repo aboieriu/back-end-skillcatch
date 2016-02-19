@@ -29,6 +29,10 @@ public class Task {
         inverseJoinColumns = {@JoinColumn(name="badge_id")})
     private Set<Badge> badges;
 
+    public Set<Badge> getBadge() {
+        return badges;
+    }
+
     public Task(String name, String description) {
         this.name = name;
         this.description = description;

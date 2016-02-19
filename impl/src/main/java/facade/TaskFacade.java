@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 
 public class TaskFacade implements ITaskFacade {
@@ -18,7 +19,9 @@ public class TaskFacade implements ITaskFacade {
         return this.taskDao.getAll();
     }
 
-    public Task getTask(Long groupId , Long taskplanId, Long taskId){ return this.taskDao.getTask(groupId, taskplanId, taskId);}
+    public Task getTask(Long groupId , Long taskplanId, Long taskId){
+        return this.taskDao.getTask(groupId, taskplanId, taskId)
+    ;}
 
 
     public Task getTaskById(Long taskId){
@@ -43,5 +46,7 @@ public class TaskFacade implements ITaskFacade {
         this.taskDao.updateTask(targetTask);
 
     }*/
-
+public Set<Badge> getBadgeFromTask(Long taskId){
+    return this.taskDao.getBadgeFromTask(taskId);
+}
 }
