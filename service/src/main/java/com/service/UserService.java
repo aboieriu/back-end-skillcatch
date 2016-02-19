@@ -1,6 +1,5 @@
 package com.service;
 
-        import facade.IGroupFacade;
         import facade.IUserFacade;
         import model.User;
         import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ package com.service;
         import org.springframework.web.bind.annotation.*;
 
         import java.util.List;
-        import java.util.Set;
 
 /**
  * Created by CataVlad on 26-Oct-15.
@@ -18,29 +16,19 @@ public class UserService {
 
     @Autowired
     IUserFacade userFacade;
-    @Autowired
-    IGroupFacade groupFacade;
-
-    @RequestMapping(value = "/api/projectGroup/{groupId}/user" , method = RequestMethod.GET)
+/*
+    @RequestMapping(value = "/api/group/{groupId}/user" , method = RequestMethod.GET)
     @ResponseBody
-    public Set<User> getAllUser(@PathVariable("groupId") Long groupId)
+    public List<User> getAllUser(Long id)
     {
-        return this.groupFacade.getUsers(groupId);
+        return this.userFacade.getUserById(id);
     }
-
-  /*  @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}",method = RequestMethod.GET)
+*/
+    @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}",method = RequestMethod.GET)
     @ResponseBody
     public User getUser(@PathVariable("groupId") Long groupId , @PathVariable("userId") Long userId)
     {
-        return this.groupFacade.getUserFromGroup(groupId, userId);
-    }*/
-
-    @RequestMapping(value = "/api/projectGroup/{groupId}/user" , method = RequestMethod.POST)
-    @ResponseBody
-    public void addUser(@PathVariable("groupId") Long groupId,@RequestBody User user)
-    {
-
-        this.groupFacade.addUserToGroup(groupId, user.getId());
+        return this.userFacade.getUser(groupId, userId);
     }
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}",method = RequestMethod.DELETE)
@@ -50,10 +38,19 @@ public class UserService {
         this.userFacade.deleteUserById(userId);
     }
 
+    @RequestMapping(value = "/api/projectGroup/{groupId}/user/" , method = RequestMethod.POST)
+    @ResponseBody
+    public void addUser(@PathVariable("groupId") Long groupId,@RequestBody User userId)
+    {
+        userId.setGroupId(groupId);
+        this.userFacade.addUser(userId);
+    }
+
     @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}", method = RequestMethod.PUT)
     @ResponseBody
     public void updateUser(@PathVariable("userId") Long id ,@PathVariable("groupId") Long groupId,@RequestBody User user) {
         user.setId(id);
+        user.setGroupId(groupId);
         this.userFacade.updateUser(user);
     }
 

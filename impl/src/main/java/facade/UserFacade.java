@@ -1,7 +1,6 @@
 package facade;
 
 import dao.IUserDao;
-import model.Group;
 import model.User;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Adi on 10/26/2015.
@@ -53,25 +51,23 @@ public class UserFacade implements IUserFacade{
        return this.userDao.getById(userId) ;
     }
 
-    public void deleteUser(Long groupId, Long userId) {
+    /*public void deleteUser(Long groupId, Long userId) {
         this.userDao.deleteUser(groupId, userId);
-    }
+    }*/
 
 
     public void deleteUserById(Long userId){
         this.userDao.deleteById(userId);
     }
 
-    public void addUser(User user)
+    public void addUser(User group)
     {
-        this.userDao.add(user);
+        this.userDao.add(group);
     }
 
-
-
-    public void updateUser(User user)
+    public void updateUser(User group)
     {
-        this.userDao.updateUser(user);
+        this.userDao.updateUser(group);
     }
 
 

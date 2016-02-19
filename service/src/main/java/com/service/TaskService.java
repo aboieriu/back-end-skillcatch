@@ -1,7 +1,6 @@
 package com.service;
 
 import facade.ITaskFacade;
-import facade.ITaskplanFacade;
 import model.Task;
 import model.Taskplan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 
 @Controller
@@ -18,8 +16,6 @@ public class TaskService {
 
     @Autowired
     ITaskFacade taskFacade;
-    @Autowired
-    ITaskplanFacade taskPlanFacade;
 
     public ITaskFacade getTaskFacade() {
         return taskFacade;
@@ -29,40 +25,39 @@ public class TaskService {
         this.taskFacade = taskFacade;
     }
 
-    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task" , method = RequestMethod.GET)
+    @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task" , method = RequestMethod.GET)
     @ResponseBody
-    public Set<Task> getAllTasks(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId)
+    public List<Task> getAllTasks(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId)
     {
-        return this.taskPlanFacade.getTasks(taskPlanId);
+        return this.taskFacade.getAllTask();
     }
 /*
-    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}",method = RequestMethod.GET)
+    @RequestMapping(value = "skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}",method = RequestMethod.GET)
     @ResponseBody
     public Taskplan getTask(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId)
     {
         return this.taskFacade.getT(groupId, taskPlanId, taskId);
     }
-*/
-    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task" , method = RequestMethod.POST)
-    @ResponseBody
-    public void addTask(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId ,@RequestBody Task task)
-    {
 
-        this.taskPlanFacade.addTaskToTaskPlan(taskPlanId,task);
-    }
-/*
-    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}",method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteTask(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId)
     {
         this.taskFacade.deleteTask(groupId, taskPlanId, taskId);
     }*/
 
+    @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task" , method = RequestMethod.POST)
+    @ResponseBody
+    public void addTask(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId ,@RequestBody Task taskId)
+    {
+        //  userId.setGroupId(groupId);
+        this.taskFacade.addTask(taskId);
+    }
 
-    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/skillcatch/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}", method = RequestMethod.PUT)
     @ResponseBody
     public void updateTask(@PathVariable("taskId") Long id ,@PathVariable("taskPlanId") Long taskPlanId,@PathVariable("groupId") Long groupId,@RequestBody Task task) {
-        task.setId(id);
+        task.setTaskId(id);
         //  user.setGroupId(groupId);
         this.taskFacade.updateTask(task);
     }

@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,6 +15,7 @@ public class User {
 
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
+
     @Id
     private Long Id;
 
@@ -38,11 +40,7 @@ public class User {
     @Column(name="address")
     private String address;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_has_role",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> userRole;
+
 
 
 
@@ -65,7 +63,12 @@ public class User {
         this.phone = phone;
         this.address=address;
     }
-
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_has_role",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<Role> userRole=new HashSet<Role>();
 
 
     public Set<Role> getUserRole() {
@@ -76,8 +79,7 @@ public class User {
         this.userRole = userRole;
     }
 
-
-
+    @JsonIgnore
     public Long getId() {
         return Id;
     }
@@ -101,7 +103,7 @@ public class User {
     public void setSurname(String surname) {
         this.surname = surname;
     }
-
+    @JsonIgnore
     public String getUsername() {
         return username;
     }
@@ -109,9 +111,11 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    @JsonIgnore
     public String getPassword() {
+
         return password;
+
     }
 
     public void setPassword(String password) {
@@ -133,5 +137,10 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public void setGroupId(Long groupId) {
+
+    }
+
 
 }

@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,13 +26,15 @@ public class UserAuth  implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-         //Set<String> roles = new HashSet<String>();
-         //roles.add("ROLE_DEV");
+        //hardcoded userDetails
+        //Set<String> roles = new HashSet<String>();
+        // roles.add("ROLE_DEV");
         // add user fetching logic here
         //$2a$04$hUzLRs8z9MbnbL0SbC/iaOMXQIbdW1/5DjpEcMu3XKK5qF4zizzyy is encoded password for "admin1"
-        // return new UserDetailsImpl("Ionut", "$2a$04$hUzLRs8z9MbnbL0SbC/iaOMXQIbdW1/5DjpEcMu3XKK5qF4zizzyy", roles);
+       // return new UserDetailsImpl("Ionut", "$2a$04$hUzLRs8z9MbnbL0SbC/iaOMXQIbdW1/5DjpEcMu3XKK5qF4zizzyy", roles);
 
         model.User user = userFacade.findByUserName(username);
+
         List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
 
         return buildUserForAuthentication(user, authorities);
@@ -39,6 +42,8 @@ public class UserAuth  implements UserDetailsService {
         }
 
     private User buildUserForAuthentication(model.User user, List<GrantedAuthority> authorities) {
+
+
         return new User(user.getUsername(), user.getPassword(), authorities);
     }
 

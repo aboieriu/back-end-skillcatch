@@ -2,7 +2,6 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Set;
 
 
 @Entity
@@ -12,7 +11,7 @@ public class Taskplan {
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id
-    private Long id;
+    private Long taskPlanId;
 
     @Column(name = "name")
     private String name;
@@ -20,35 +19,17 @@ public class Taskplan {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JoinTable(name="task_plan_has_task",
-            joinColumns={@JoinColumn(name="task_plan_id")},
-            inverseJoinColumns = {@JoinColumn(name="task_id")})
-    private Set<Task> tasks;
-
-    public Set<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-
-    public Taskplan() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public Taskplan(String name, String description, Set<Task> tasks) {
+    public Taskplan(String name, String description) {
         this.name = name;
         this.description = description;
-        this.tasks = tasks;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getTaskPlanId() {
+        return taskPlanId;
+    }
+
+    public void setTaskPlanId(Long taskPlanId) {
+        this.taskPlanId = taskPlanId;
     }
 
     public String getName() {

@@ -25,7 +25,7 @@ public class GroupService {
     @ResponseBody
     public List<Group> getAllGroup() {return this.groupFacade.getAllGroup();}
 
-    @RequestMapping(value = "/{groupId}" , method = RequestMethod.GET)
+    @RequestMapping(value = "{groupId}" , method = RequestMethod.GET)
     @ResponseBody
     public Group getGroup(@PathVariable("groupId") Long id)
     {
@@ -39,7 +39,7 @@ public class GroupService {
         this.groupFacade.addGroup(group);
     }
 
-    @RequestMapping(value = "/{groupId}" , method = RequestMethod.PUT)
+    @RequestMapping(value = "{groupId}" , method = RequestMethod.PUT)
     @ResponseBody
     public void updateGroup(@PathVariable("groupId") Long id,@RequestBody Group group)
     {
@@ -47,7 +47,7 @@ public class GroupService {
         this.groupFacade.updateGroup(group);
     }
 
-    @RequestMapping(value = "/{groupId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{groupId}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteGroup(@PathVariable("groupId") Long id)
     {
@@ -61,6 +61,5 @@ public class GroupService {
     public void setGroupFacade(IGroupFacade groupFacade) {
         this.groupFacade = groupFacade;
     }
-
 
 }

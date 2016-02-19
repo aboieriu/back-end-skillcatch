@@ -3,13 +3,14 @@ package com.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 
-public class UserDetailsImpl implements UserDetails {
+public class UserDetailsImpl  implements UserDetails {
     private String username;
     private String password;
     private Set<String> roles;
@@ -38,6 +39,8 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
+
+
         return this.password;
     }
 

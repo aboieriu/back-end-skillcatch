@@ -1,7 +1,6 @@
 package facade;
 import dao.ITaskDao;
 import facade.ITaskFacade;
-import model.Badge;
 import model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,33 +11,25 @@ import java.util.List;
 public class TaskFacade implements ITaskFacade {
 
     @Autowired
-    private ITaskDao taskDao;
+    private ITaskDao TaskDao;
 
     public List<Task> getAllTask(){
-        return this.taskDao.getAll();
+        return this.TaskDao.getAll();
     }
 
     public Task getTaskById(Long taskId){
-        return this.taskDao.getById(taskId);}
+        return this.TaskDao.getById(taskId);}
 
     public void addTask(Task task){
-        this.taskDao.add(task);
+        this.TaskDao.add(task);
     }
 
     public void deleteTask(Long groupId){
-        this.taskDao.deleteById(groupId);
+        this.TaskDao.deleteById(groupId);
     }
 
     public void updateTask(Task task){
-        this.taskDao.updateTask(task);
+        this.TaskDao.updateTask(task);
     }
-
-/*
-    public void addBadgeToTask(Long taskId , Badge badge){
-        Task targetTask = this.taskDao.getById(taskId);
-        targetTask.getBadges().add(badge);
-        this.taskDao.updateTask(targetTask);
-
-    }*/
 
 }

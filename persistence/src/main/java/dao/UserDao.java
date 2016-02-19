@@ -35,16 +35,6 @@ public class UserDao extends GenericDao<User> implements IUserDao{
         return null;
     }
 
-
-    @Transactional
-    public void deleteUser(Long groupId , Long userId) {
-        User itemFromDbs = this.getUser(groupId, userId);
-
-        if (itemFromDbs != null) {
-            entityManager.remove(itemFromDbs);
-        }
-    }
-
     @Transactional
     public void updateUser(User myUser){
         User itemFromDbs = this.getById(myUser.getId());
@@ -65,13 +55,18 @@ public class UserDao extends GenericDao<User> implements IUserDao{
             Query query = this.entityManager.createQuery("from User WHERE username=:username",User.class);
             query.setParameter("username", username);
 
+
             List<User> result = query.getResultList();
             if (!result.isEmpty()) {
                 return result.get(0);
+
             }
+
+
+
         }
+
         return null;
+
     }
-
-
 }

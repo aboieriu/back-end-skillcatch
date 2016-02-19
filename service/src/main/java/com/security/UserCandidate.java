@@ -1,7 +1,10 @@
 package com.security;
 
 
-public class UserCandidate {
+
+
+
+public class UserCandidate  {
     private String username;
     private String password;
 
