@@ -17,6 +17,12 @@
         </class>
 
         <class>
+            model.Task
+        </class>
+        <class>
+            model.Taskplan
+        </class>
+        <class>
             model.Badge
         </class>
 
