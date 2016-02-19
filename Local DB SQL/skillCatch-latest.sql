@@ -168,7 +168,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'ROLE_DEV',NULL);
+INSERT INTO `role` VALUES (1,'ROLE_SUPER_DEV',NULL);
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -291,7 +291,7 @@ CREATE TABLE `user` (
   `name` varchar(45) DEFAULT NULL,
   `surname` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `password` varchar(60) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -304,7 +304,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (0,'Andrei','adnrei',NULL,NULL,'234',NULL,NULL),(1,'cata','cata','vlad',NULL,'123',NULL,NULL);
+INSERT INTO `user` VALUES (0,'admin','admin',NULL,NULL,'$2a$12$nk0ml32pp6GU8zkv56f50eSNIOy5MCldmq5qrR',NULL,NULL),(1,'cata','cata','vlad',NULL,'123',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,4 +372,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-15 17:51:50
+-- Dump completed on 2016-02-19 11:28:50
