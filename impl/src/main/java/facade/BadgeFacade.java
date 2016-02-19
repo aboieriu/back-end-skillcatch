@@ -1,11 +1,7 @@
 package  facade;
 import dao.IBadgeDao;
-import dao.IGroupDao;
 import model.Badge;
-import model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import dao.GenericDao;
 
 import java.util.List;
 
@@ -19,19 +15,23 @@ public class BadgeFacade implements IBadgeFacade {
         return this.badgeDao.getAll();
     }
 
-    public Badge getBadgeById(Long badgeId){
-        return this.badgeDao.getById(badgeId);}
+    public Badge getBadgeById(Long groupId,Long taskPlanId,Long taskId,Long badgeId){
+        return this.badgeDao.getBadgeById(groupId, taskPlanId, taskId, badgeId);}
 
     public void addBadge(Badge badge){
         this.badgeDao.add(badge);
     }
 
-    public void deleteBadge(Long badgeId){
-        this.badgeDao.deleteById(badgeId);
+    public void deleteBadge(Long badgeId,Long taskplanId, Long taskId , Long groupId){
+        this.badgeDao.deleteBadge(badgeId, taskplanId, taskId, groupId);
     }
 
     public void updateBadge(Badge badge){
         this.badgeDao.updateBadge(badge);
     }
+
+    /*public Badge getBadgeFromUser(Long groupId,Long userId) {
+        return this.badgeDao.getBadgeFromUser(groupId, userId);}
+*/
 }
 

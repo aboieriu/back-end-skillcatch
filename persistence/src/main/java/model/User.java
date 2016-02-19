@@ -38,7 +38,11 @@ public class User {
     @Column(name="address")
     private String address;
 
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_has_role",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<Role> userRole;
 
 
 
@@ -61,11 +65,7 @@ public class User {
         this.phone = phone;
         this.address=address;
     }
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_has_role",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> userRole=new HashSet<Role>();
+
 
 
     public Set<Role> getUserRole() {
@@ -75,6 +75,7 @@ public class User {
     public void setUserRole(Set<Role> userRole) {
         this.userRole = userRole;
     }
+
 
 
     public Long getId() {
@@ -132,10 +133,5 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public void setGroupId(Long groupId) {
-
-    }
-
 
 }

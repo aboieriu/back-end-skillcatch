@@ -4,10 +4,10 @@
              xsi:schemaLocation = "http://java.sun.com/xml/ns/persistence
                   http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
-    <persistence-unit name="blogPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="skillcatchPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>
-            model.Group
+            model.ProjectGroup
         </class>
         <class>
             model.User
@@ -15,7 +15,12 @@
         <class>
             model.Role
         </class>
-
+        <class>
+            model.Task
+        </class>
+        <class>
+            model.Taskplan
+        </class>
         <class>
             model.Badge
         </class>
