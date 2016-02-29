@@ -1,18 +1,8 @@
 package dao;
 
-import model.Badge;
-import model.Group;
-import model.User;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,15 +47,20 @@ public abstract class GenericDao<T> implements IGenericDao<T>{
         T itemFromDb = this.getById(id);
         this.entityManager.remove(itemFromDb);
     }
-    /* @Transactional
-    public void update(T item){
-        T badgeFromDbs = this.getById(item.id());
-        if (badgeFromDbs != null) {
-            badgeFromDbs.setName(item.getName());
-            badgeFromDbs.setDescription(item.getDescription());
-            entityManager.persist(badgeFromDbs);
+    @Transactional
+    public void update(Long id,T item){
+        if(item != null){
+            T targetItem = this.getById(id);
+            if(targetItem != null) {
+                NullAwareBeanUtilsBean nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();
+                try {
+                    nullAwareBeanUtilsBean.copyProperties(targetItem, item);
+                    this.entityManager.persist(targetItem);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
         }
-    }*/
-
+    }
 
 }

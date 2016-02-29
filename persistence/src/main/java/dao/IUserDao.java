@@ -11,6 +11,6 @@ public interface IUserDao extends IGenericDao<User> {
 
     public void updateUser(User myUser);
     public User getUser(Long groupId,Long userId);
+    public void deleteUser(Long groupId , Long userId);
     public User findByUserName(String username);
-
 }

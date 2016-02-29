@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 17 Feb 2016 la 15:05
+-- Generation Time: 29 Feb 2016 la 07:30
 -- Versiune server: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -30,17 +30,6 @@ CREATE TABLE `badge` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `description` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Structura de tabel pentru tabelul `badge_has_task`
---
-
-CREATE TABLE `badge_has_task` (
-  `badge_id` int(11) NOT NULL,
-  `task_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -89,11 +78,49 @@ INSERT INTO `project_group` (`id`, `name`, `descriptions`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structura de tabel pentru tabelul `project_group_has_task_plan`
+--
+
+CREATE TABLE `project_group_has_task_plan` (
+  `task_plan_id` int(11) NOT NULL,
+  `project_group_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `project_group_has_task_plan`
+--
+
+INSERT INTO `project_group_has_task_plan` (`task_plan_id`, `project_group_id`) VALUES
+(1, 1),
+(2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `project_group_has_user`
+--
+
+CREATE TABLE `project_group_has_user` (
+  `user_id` int(11) NOT NULL,
+  `project_group_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `project_group_has_user`
+--
+
+INSERT INTO `project_group_has_user` (`user_id`, `project_group_id`) VALUES
+(0, 2),
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Structura de tabel pentru tabelul `role`
 --
 
 CREATE TABLE `role` (
-  `roleId` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `description` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -102,10 +129,10 @@ CREATE TABLE `role` (
 -- Salvarea datelor din tabel `role`
 --
 
-INSERT INTO `role` (`roleId`, `name`, `description`) VALUES
-(1, 'ROLE_DEV', 'ACCES DEVELOPER'),
-(2, 'ROLE_USER', 'ACCESS USER'),
-(3, 'ROLE_SUPER_DEV', 'ACCES DEVELOPER_1');
+INSERT INTO `role` (`id`, `name`, `description`) VALUES
+(1, 'ROLE_SUPER_DEV', 'ACCES DEVELOPER_1'),
+(3, 'ROLE_USER', 'ACCES PROFIL USER'),
+(4, 'ROLE_DEV', 'ACCES DEVELOPER');
 
 -- --------------------------------------------------------
 
@@ -122,6 +149,17 @@ CREATE TABLE `task` (
 -- --------------------------------------------------------
 
 --
+-- Structura de tabel pentru tabelul `task_has_badge`
+--
+
+CREATE TABLE `task_has_badge` (
+  `badge_id` int(11) NOT NULL,
+  `task_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structura de tabel pentru tabelul `task_plan`
 --
 
@@ -131,16 +169,13 @@ CREATE TABLE `task_plan` (
   `description` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Structura de tabel pentru tabelul `task_plan_has_project_group`
+-- Salvarea datelor din tabel `task_plan`
 --
 
-CREATE TABLE `task_plan_has_project_group` (
-  `task_plan_id` int(11) NOT NULL,
-  `project_group_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `task_plan` (`id`, `name`, `description`) VALUES
+(1, 'tasplan1', 'tasplan1updated'),
+(2, 'tasplan2', 'tasplan2in');
 
 -- --------------------------------------------------------
 
@@ -175,21 +210,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `name`, `surname`, `email`, `password`, `phone`, `address`) VALUES
-(1, 'Ionut', 'Ionut', 'Ionut', 'Ionut@yahoo.ro', '$2a$12$BY9VK5/sLg.kQBk0turXvOh5uXOJ2PgJLyPBF1O6YK9n.G2bGpJIa', '0782765489', 'sagdjsadkl'),
-(2, 'Andrei', 'Andrei', 'w', 'andrei@andrei.com', '1234', '0723152370', 'aaa'),
-(3, 'tester', 'tester', 'tester', 'tester@yahoo.ro', '29ef153bba5caecde25fef6dfabfe52c270bcbdb', '12325353', 'vzdvgdshfjf'),
-(4, 'admin', 'admin', 'admin', 'admin', '123456', '135467573', 'dsfngjhfkx');
-
--- --------------------------------------------------------
-
---
--- Structura de tabel pentru tabelul `user_has_project_group`
---
-
-CREATE TABLE `user_has_project_group` (
-  `user_id` int(11) NOT NULL,
-  `project_group_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(0, 'admin', 'admin', NULL, NULL, '$2a$12$nk0ml32pp6GU8zkv56f50eSNIOy5MCldmq5qrR', NULL, NULL),
+(1, 'Ionut', 'Ionut', 'Ionut', 'ionut@yahoo.ro', '$2a$12$JrYmvXu5ZJpSCvpwI/szaOpPcJxZ0gEGFFhYW5yLsYsiu.XIeyJzu', '12345', 'Str. W 9');
 
 -- --------------------------------------------------------
 
@@ -207,10 +229,8 @@ CREATE TABLE `user_has_role` (
 --
 
 INSERT INTO `user_has_role` (`user_id`, `role_id`) VALUES
-(1, 1),
-(2, 2),
-(3, 2),
-(4, 3);
+(0, 1),
+(1, 4);
 
 -- --------------------------------------------------------
 
@@ -234,30 +254,32 @@ ALTER TABLE `badge`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `badge_has_task`
---
-ALTER TABLE `badge_has_task`
-  ADD PRIMARY KEY (`badge_id`,`task_id`),
-  ADD KEY `fk_badge_has_task_task1_idx` (`task_id`),
-  ADD KEY `fk_badge_has_task_badge1_idx` (`badge_id`);
-
---
--- Indexes for table `group_local`
---
-ALTER TABLE `group_local`
-  ADD PRIMARY KEY (`groupId`);
-
---
 -- Indexes for table `project_group`
 --
 ALTER TABLE `project_group`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `project_group_has_task_plan`
+--
+ALTER TABLE `project_group_has_task_plan`
+  ADD PRIMARY KEY (`task_plan_id`,`project_group_id`),
+  ADD KEY `fk_task_plan_has_project_group_project_group1_idx` (`project_group_id`),
+  ADD KEY `fk_task_plan_has_project_group_task_plan1_idx` (`task_plan_id`);
+
+--
+-- Indexes for table `project_group_has_user`
+--
+ALTER TABLE `project_group_has_user`
+  ADD PRIMARY KEY (`user_id`,`project_group_id`),
+  ADD KEY `fk_user_has_project_group_project_group1_idx` (`project_group_id`),
+  ADD KEY `fk_user_has_project_group_user_idx` (`user_id`);
+
+--
 -- Indexes for table `role`
 --
 ALTER TABLE `role`
-  ADD PRIMARY KEY (`roleId`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `task`
@@ -266,18 +288,18 @@ ALTER TABLE `task`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `task_has_badge`
+--
+ALTER TABLE `task_has_badge`
+  ADD PRIMARY KEY (`badge_id`,`task_id`),
+  ADD KEY `fk_badge_has_task_task1_idx` (`task_id`),
+  ADD KEY `fk_badge_has_task_badge1_idx` (`badge_id`);
+
+--
 -- Indexes for table `task_plan`
 --
 ALTER TABLE `task_plan`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `task_plan_has_project_group`
---
-ALTER TABLE `task_plan_has_project_group`
-  ADD PRIMARY KEY (`task_plan_id`,`project_group_id`),
-  ADD KEY `fk_task_plan_has_project_group_project_group1_idx` (`project_group_id`),
-  ADD KEY `fk_task_plan_has_project_group_task_plan1_idx` (`task_plan_id`);
 
 --
 -- Indexes for table `task_plan_has_task`
@@ -292,14 +314,6 @@ ALTER TABLE `task_plan_has_task`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user_has_project_group`
---
-ALTER TABLE `user_has_project_group`
-  ADD PRIMARY KEY (`user_id`,`project_group_id`),
-  ADD KEY `fk_user_has_project_group_project_group1_idx` (`project_group_id`),
-  ADD KEY `fk_user_has_project_group_user_idx` (`user_id`);
 
 --
 -- Indexes for table `user_has_role`
@@ -322,38 +336,38 @@ ALTER TABLE `user_has_task`
 --
 
 --
--- Restrictii pentru tabele `badge_has_task`
+-- Restrictii pentru tabele `project_group_has_task_plan`
 --
-ALTER TABLE `badge_has_task`
-  ADD CONSTRAINT `fk_badge_has_task_badge1` FOREIGN KEY (`badge_id`) REFERENCES `badge` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_badge_has_task_task1` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `project_group_has_task_plan`
+  ADD CONSTRAINT `fk_task_plan_has_project_group_project_group1` FOREIGN KEY (`project_group_id`) REFERENCES `project_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_task_plan_has_project_group_task_plan1` FOREIGN KEY (`task_plan_id`) REFERENCES `task_plan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Restrictii pentru tabele `task_plan_has_project_group`
+-- Restrictii pentru tabele `project_group_has_user`
 --
-ALTER TABLE `task_plan_has_project_group`
-  ADD CONSTRAINT `fk_task_plan_has_project_group_project_group1` FOREIGN KEY (`project_group_id`) REFERENCES `project_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_task_plan_has_project_group_task_plan1` FOREIGN KEY (`task_plan_id`) REFERENCES `task_plan` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `project_group_has_user`
+  ADD CONSTRAINT `fk_user_has_project_group_project_group1` FOREIGN KEY (`project_group_id`) REFERENCES `project_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_has_project_group_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restrictii pentru tabele `task_has_badge`
+--
+ALTER TABLE `task_has_badge`
+  ADD CONSTRAINT `fk_badge_has_task_badge1` FOREIGN KEY (`badge_id`) REFERENCES `badge` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_badge_has_task_task1` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Restrictii pentru tabele `task_plan_has_task`
 --
 ALTER TABLE `task_plan_has_task`
-  ADD CONSTRAINT `fk_task_plan_has_task_task1` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_task_plan_has_task_task_plan` FOREIGN KEY (`task_plan_id`) REFERENCES `task_plan` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Restrictii pentru tabele `user_has_project_group`
---
-ALTER TABLE `user_has_project_group`
-  ADD CONSTRAINT `fk_user_has_project_group_project_group1` FOREIGN KEY (`project_group_id`) REFERENCES `project_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_has_project_group_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_task_plan_has_task_task1` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_task_plan_has_task_task_plan` FOREIGN KEY (`task_plan_id`) REFERENCES `task_plan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Restrictii pentru tabele `user_has_role`
 --
 ALTER TABLE `user_has_role`
-  ADD CONSTRAINT `fk_user_has_role_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`roleId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_has_role_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_user_has_role_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

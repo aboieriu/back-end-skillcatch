@@ -1,10 +1,7 @@
 package dao;
 
-import model.Group;
 import model.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.*;
@@ -23,7 +20,7 @@ public class UserDao extends GenericDao<User> implements IUserDao{
     public User getUser(Long groupId,Long userId) {
         if(groupId !=null || userId != null)
         {
-            Query query = this.entityManager.createQuery("from User WHERE groupId = :targetgroupId AND id = :targetuserId ");
+            Query query = this.entityManager.createQuery("select u from User as u, ProjectGroup as pg join pg.users where pg.id = :targetgroupId AND u.id = :targetuserId ");
             query.setParameter("targetgroupId" , groupId);
             query.setParameter("targetuserId" , userId);
             List<User> result = query.getResultList();
@@ -33,6 +30,16 @@ public class UserDao extends GenericDao<User> implements IUserDao{
 
         }
         return null;
+    }
+
+
+    @Transactional
+    public void deleteUser(Long groupId , Long userId) {
+        User itemFromDbs = this.getUser(groupId, userId);
+
+        if (itemFromDbs != null) {
+            entityManager.remove(itemFromDbs);
+        }
     }
 
     @Transactional
@@ -55,18 +62,13 @@ public class UserDao extends GenericDao<User> implements IUserDao{
             Query query = this.entityManager.createQuery("from User WHERE username=:username",User.class);
             query.setParameter("username", username);
 
-
             List<User> result = query.getResultList();
             if (!result.isEmpty()) {
                 return result.get(0);
-
             }
-
-
-
         }
-
         return null;
-
     }
+
+
 }

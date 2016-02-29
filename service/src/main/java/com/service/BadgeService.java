@@ -1,33 +1,63 @@
 package com.service;
 
 import facade.IBadgeFacade;
-import facade.IUserFacade;
+import facade.ITaskFacade;
 import model.Badge;
-import model.User;
+import model.Task;
+import model.Taskplan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.Set;
 
 
 @Controller
-@RequestMapping("/skillcatch/api/badge")
+
 public class BadgeService {
 
     @Autowired
     private IBadgeFacade badgeFacade;
 
-    @RequestMapping(value = "" , method = RequestMethod.GET)
+    @Autowired
+    private ITaskFacade taskFacade;
+
+    @RequestMapping(value = "/api/badge" , method = RequestMethod.GET)
     @ResponseBody
     public List<Badge> getAllBadges()
     {
         return this.badgeFacade.getAllBadge();
     }
 
+    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}/badge/" , method = RequestMethod.GET)
+    @ResponseBody
+    public Set<Badge> getBadgeFromTask(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId)
+    {
+        return this.taskFacade.getBadgeFromTask(taskId);
+    }
+
+    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}/badge/{badgeId}" , method = RequestMethod.GET)
+    @ResponseBody
+    public Badge getBadge(@PathVariable("groupId") Long id,@PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId,@PathVariable("badgeId") Long badgeId)
+    {
+        return this.badgeFacade.getBadgeById(id, taskPlanId, taskId, badgeId);
+    }
+
+    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}/badge/{badgeId}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteBadge(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId,@PathVariable("badgeId") Long badgeId)
+    {
+        this.badgeFacade.deleteBadge(groupId,taskPlanId,taskId,badgeId);
+    }
+/*
+    @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}/badge" , method = RequestMethod.GET)
+    @ResponseBody
+    public Badge getBadgeFromUser(@PathVariable("groupId") Long groupId,@PathVariable("userId") Long userId)
+    {
+        return this.badgeFacade.getBadgeFromUser(groupId, userId);
+    }
+*/
     public IBadgeFacade getBadgeFacade() {
         return badgeFacade;
     }

@@ -1,6 +1,7 @@
 package com.security;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,17 +51,18 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
+			else {
+				//segment pentru user default(admin) cu token hardcoded.
+				TokenUtils.validateToken("admin:1455807188054:1a62a970b25e06e1fe606d5fb66e99ad", user);
 
-			//segment pentru user default(admin) cu token hardcoded.
-			TokenUtils.validateToken("admin:1455807188054:1a62a970b25e06e1fe606d5fb66e99ad",user);
-
-			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
-			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
 		}
 
 		chain.doFilter(request, response);
-	}
+}
 
 
 	private HttpServletRequest getAsHttpRequest(ServletRequest request)
