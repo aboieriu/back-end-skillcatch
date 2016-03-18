@@ -24,6 +24,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpResponse;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,7 +54,7 @@ import java.util.List;
  *     <li>Upon encountering an Exception, the configured {@link RestErrorResolver} is consulted to resolve the
  *     exception into a {@link RestError} instance.</li>
  *     <li>The HTTP Response's Status Code will be set to the {@code RestError}'s
- *     {@link com.stormpath.spring.web.servlet.handler.RestError#getStatus() status} value.</li>
+ *     {@link com status} value.</li>
  *     <li>The {@code RestError} instance is presented to a configured {@link RestErrorConverter} to allow transforming
  *     the {@code RestError} instance into an object potentially more suitable for rendering as the HTTP response body.</li>
  *     <li>The
@@ -104,11 +108,11 @@ import java.util.List;
  * @see DefaultRestErrorResolver
  * @see MapRestErrorConverter
  * @see HttpMessageConverter
- * @see org.springframework.http.converter.json.MappingJacksonHttpMessageConverter MappingJacksonHttpMessageConverter
+ * MappingJacksonHttpMessageConverter
  *
  * @author Les Hazlewood
  */
-public class RestExceptionHandler extends AbstractHandlerExceptionResolver implements InitializingBean {
+public class RestExceptionHandler extends AbstractHandlerExceptionResolver implements InitializingBean,AuthenticationEntryPoint,AccessDeniedHandler {
 
     private static final Logger log = LoggerFactory.getLogger(RestExceptionHandler.class);
 
@@ -146,6 +150,24 @@ public class RestExceptionHandler extends AbstractHandlerExceptionResolver imple
     }
 
     @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
+        throws IOException, ServletException{
+
+            response.setStatus(401);
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.getOutputStream().println("{\"status\":401 \n,\"code\":401 \n,\" message \": \"Unauthorized!You need to authenticate first\" \n, \"developerMessage\": \"Authentication required\" \n }");
+
+        }
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)
+            throws IOException, ServletException {
+
+        response.setStatus(403);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.getOutputStream().println("{\"status\":403 \n,\"code\":403 \n,\" message \": \"Access Denied!You don't have the authority to access this page.\" \n, \"developerMessage\": \"Credentials check.\" \n }");
+
+    }
+
+    @Override
     public void afterPropertiesSet() throws Exception {
         ensureMessageConverters();
     }
@@ -170,7 +192,9 @@ public class RestExceptionHandler extends AbstractHandlerExceptionResolver imple
     private static final class HttpMessageConverterHelper extends WebMvcConfigurationSupport {
         public void addDefaults(List<HttpMessageConverter<?>> converters) {
             addDefaultHttpMessageConverters(converters);
+
         }
+
     }
 
     /**
@@ -197,8 +221,9 @@ public class RestExceptionHandler extends AbstractHandlerExceptionResolver imple
 
         RestError error = resolver.resolveError(webRequest, handler, ex);
         if (error == null) {
-            return null;
+           return null;
         }
+
 
         ModelAndView mav = null;
 
@@ -229,10 +254,10 @@ public class RestExceptionHandler extends AbstractHandlerExceptionResolver imple
         if (!WebUtils.isIncludeRequest(webRequest.getRequest())) {
             webRequest.getResponse().setStatus(error.getStatus().value());
         }
-        //TODO support response.sendError ?
+
     }
 
-    @SuppressWarnings("unchecked")
+
     private ModelAndView handleResponseBody(Object body, ServletWebRequest webRequest) throws ServletException, IOException {
 
         HttpInputMessage inputMessage = new ServletServerHttpRequest(webRequest.getRequest());
@@ -269,4 +294,5 @@ public class RestExceptionHandler extends AbstractHandlerExceptionResolver imple
         }
         return null;
     }
+
 }

@@ -2,10 +2,7 @@ package facade;
 import dao.ITaskplanDao;
 import model.Task;
 import model.Taskplan;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import dao.IGenericDao;
 
 import java.util.List;
 import java.util.Set;
@@ -49,9 +46,6 @@ public class TaskplanFacade implements ITaskplanFacade {
 
 
 
-    public void addTaskPlan( Taskplan taskplan){
 
-        this.taskplanDao.addTaskplan(taskplan);
-    }
 
 }

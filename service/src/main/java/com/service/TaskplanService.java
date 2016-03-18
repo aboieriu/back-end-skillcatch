@@ -3,17 +3,16 @@ package com.service;
 import facade.IGroupFacade;
 import facade.ITaskplanFacade;
 import model.Taskplan;
-import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
 
 @Controller
-public class TaskplanService {
+public class TaskplanService extends BaseService{
 
     @Autowired
     ITaskplanFacade taskPlanFacade;
@@ -36,12 +35,12 @@ public class TaskplanService {
         return this.taskPlanFacade.getTaskplan(groupId, taskPlanId);
     }
 
+    @Transactional
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan" , method = RequestMethod.POST)
     @ResponseBody
-    public void addTaskPlan(@RequestBody Taskplan taskPlan)
+    public void addTaskPlan(@PathVariable("groupId") Long groupId,@RequestBody Taskplan taskPlanId)
     {
-        this.taskPlanFacade.addTaskPlan(taskPlan);
-
+        this.groupFacade.addTaskPlanToGroup(groupId,taskPlanId);
     }
 
    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.DELETE)

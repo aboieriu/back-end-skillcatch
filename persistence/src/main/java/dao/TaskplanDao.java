@@ -1,15 +1,10 @@
 package dao;
 
-import com.sun.javafx.tk.Toolkit;
-import model.ProjectGroup;
 import model.Task;
 import model.Taskplan;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -64,19 +59,5 @@ public class TaskplanDao extends GenericDao<Taskplan> implements ITaskplanDao {
         }
     }
 
-    @Transactional
-    public void addTaskplan(Taskplan taskplan){
-        Taskplan taskplanFromDbs=this.getById(taskplan.getId());
 
-        if (taskplanFromDbs!=null)
-        {
-
-
-            taskplanFromDbs.setDescription(taskplan.getDescription());
-            taskplanFromDbs.setName(taskplan.getName());
-        }
-
-        entityManager.persist(taskplan);
-
-    }
 }

@@ -1,12 +1,23 @@
 package com.handler;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.util.ObjectUtils;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author Les Hazlewood
  */
-public class RestError {
+public class RestError extends Throwable    {
 
     private final HttpStatus status;
     private final int code;
@@ -14,6 +25,8 @@ public class RestError {
     private final String developerMessage;
     private final String moreInfoUrl;
     private final Throwable throwable;
+
+
 
     public RestError(HttpStatus status, int code, String message, String developerMessage, String moreInfoUrl, Throwable throwable) {
         if (status == null) {
@@ -24,7 +37,7 @@ public class RestError {
         this.message = message;
         this.developerMessage = developerMessage;
         this.moreInfoUrl = moreInfoUrl;
-        this.throwable = throwable;
+       this.throwable = throwable;
     }
 
     public HttpStatus getStatus() {
@@ -101,10 +114,7 @@ public class RestError {
             return this;
         }
 
-        public Builder setStatus(HttpStatus status) {
-            this.status = status;
-            return this;
-        }
+
 
         public Builder setCode(int code) {
             this.code = code;
@@ -138,4 +148,6 @@ public class RestError {
             return new RestError(this.status, this.code, this.message, this.developerMessage, this.moreInfoUrl, this.throwable);
         }
     }
+
+
 }

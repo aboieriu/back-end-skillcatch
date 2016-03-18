@@ -16,6 +16,7 @@ public interface IGroupFacade {
     public void updateGroup(ProjectGroup group);
 
     public void addUserToGroup(Long groupId , Long userId);
+    public void addTaskPlanToGroup(Long groupId , Taskplan taskplan);
     public Set<User> getUsers(Long groupId);
 
     public Set<Taskplan> getTaskPlans(Long groupId);

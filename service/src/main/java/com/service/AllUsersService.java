@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/api/user")
-public class AllUsersService {
+public class AllUsersService extends BaseService {
 
 
     @Autowired

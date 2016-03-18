@@ -14,4 +14,7 @@ public interface ITaskDao extends IGenericDao<Task>  {
     void updateTask(Task task);
     public Set<Badge> getBadgeFromTask(Long taskId);
     public void add(Task task);
+
+
+
 }

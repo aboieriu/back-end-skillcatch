@@ -2,7 +2,6 @@ package dao;
 
 import model.Badge;
 import model.Task;
-import model.Taskplan;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
@@ -32,12 +31,13 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
     }
 
     @Transactional
-    public Set<Badge> getBadgeFromTask(Long taskId){
+    public Set<Badge> getBadgeFromTask(Long taskId) {
         Task targetTask = this.getById(taskId);
-        return targetTask.getBadge();
+        return targetTask.getBadges();
     }
+
     @Transactional
-    public void updateTask(Task task){
+    public void updateTask(Task task) {
         Task taskFromDbs = this.getById(task.getId());
         if (taskFromDbs != null) {
             taskFromDbs.setName(task.getName());
@@ -47,8 +47,10 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
     }
 
     @Transactional
-    public void add(Task task){
-         entityManager.persist(task);
+    public void add(Task task) {
+
+        entityManager.persist(task);
 
     }
+
 }

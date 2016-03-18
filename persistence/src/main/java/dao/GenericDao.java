@@ -1,7 +1,14 @@
 package dao;
 
+import com.sun.deploy.net.HttpResponse;
+import javassist.tools.web.BadHttpRequest;
+import org.springframework.beans.TypeMismatchException;
+import org.springframework.dao.TypeMismatchDataAccessException;
+
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -24,6 +31,8 @@ public abstract class GenericDao<T> implements IGenericDao<T>{
     }
 
     public List<T> getAll() {
+
+
         return this.entityManager.createQuery("from " + type.getName()).getResultList();
     }
 
@@ -35,12 +44,24 @@ public abstract class GenericDao<T> implements IGenericDao<T>{
     @Transactional
     public T getById (Long id)
     {
-        if (id == null) {
+
+        if (id==null) {
             return null;
+
         } else {
-        return this.entityManager.find(type, id);
+
+                Query query = this.entityManager.createQuery("from " + type.getName() + " where id=:id");
+                query.setParameter("id", id);
+                List<T> result = query.getResultList();
+                if (!result.isEmpty()) {
+                    return result.get(0);
+                }
+                throw new IllegalArgumentException("Not found!");
+            }
+
         }
-    }
+
+
     @Transactional
     public void deleteById (Long id)
     {

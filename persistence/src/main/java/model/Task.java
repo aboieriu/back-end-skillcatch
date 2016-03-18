@@ -23,15 +23,11 @@ public class Task {
     private String description;
 
     public Task(){}
-    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JoinTable(name="task_has_badge",
-        joinColumns={@JoinColumn(name="task_id")},
-        inverseJoinColumns = {@JoinColumn(name="badge_id")})
+
+    @OneToMany(cascade =CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "task")
     private Set<Badge> badges;
 
-    public Set<Badge> getBadge() {
-        return badges;
-    }
+
 
     public Task(String name, String description) {
         this.name = name;

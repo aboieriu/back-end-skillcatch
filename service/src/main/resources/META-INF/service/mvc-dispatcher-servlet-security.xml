@@ -29,12 +29,13 @@
             create-session="stateless"
             entry-point-ref="unauthorizedEntryPoint"
             authentication-manager-ref="authenticationManager">
-        <security:custom-filter  ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER" />
-        <security:intercept-url  pattern="/api/**" access="hasRole('ROLE_SUPER_DEV')"/>
+        <security:custom-filter  ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER"  />
+       <!-- -->
         <security:intercept-url  pattern="/authenticate/" access="permitAll" />
+        <security:intercept-url  pattern="/api/**" access="hasRole('ROLE_SUPER_DEV')"/>
         <security:intercept-url method="GET" pattern="/api/projectGroup/**" access="hasRole('ROLE_DEV')" />
         <security:intercept-url method="GET" pattern="/api/user/**" access="hasRole('ROLE_USER')" />
-
+        <security:access-denied-handler ref="accessDenied" />
         <security:csrf disabled="true"/>
     </security:http>
 
@@ -43,12 +44,16 @@
     <bean id="myUserDetailsService" class="com.security.UserAuth">
 
     </bean>
+    <bean id="accessDenied" class="com.handler.RestExceptionHandler"/>
 
 
 
-    <bean id="unauthorizedEntryPoint" class="com.security.UnauthorizedEntryPoint">
+    <bean id="unauthorizedEntryPoint" class="com.handler.RestExceptionHandler">
 
     </bean>
+
+
+
 
 
     <bean class="com.security.AuthenticationTokenProcessingFilter" id="authenticationTokenProcessingFilter">

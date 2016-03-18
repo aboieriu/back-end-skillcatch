@@ -15,5 +15,6 @@ public interface ITaskFacade {
     public void updateTask(Task task);
     public Task getTask(Long groupId , Long taskplanId , Long taskId);
     public Set<Badge> getBadgeFromTask(Long taskId);
-//    public void addBadgeToTask(Long taskId , Badge badge);
+    public Set<Badge> getBadges(Long taskId);
+
 }

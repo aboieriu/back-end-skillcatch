@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +24,18 @@ public class Badge {
     @Column(name ="description")
     private String description;
 
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    @JoinColumn(name="task_id",nullable = false)
+    private Task task;
+
     public Badge(){}
 
     public Badge(String name, String description) {
@@ -30,6 +43,7 @@ public class Badge {
         this.description = description;
     }
 
+@JsonIgnore
     public Long getId() {
         return id;
     }

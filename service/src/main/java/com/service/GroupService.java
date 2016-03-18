@@ -5,16 +5,19 @@ package com.service;
  */
 
 
+import com.handler.RestExceptionHandler;
 import facade.IGroupFacade;
 import model.ProjectGroup;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 @Controller
 @RequestMapping("/api/projectGroup")
-public class GroupService {
+public class GroupService extends BaseService {
 
     @Autowired
     private IGroupFacade groupFacade;
@@ -25,6 +28,7 @@ public class GroupService {
 
     @RequestMapping(value = "/{groupId}" , method = RequestMethod.GET)
     @ResponseBody
+
     public ProjectGroup getGroup(@PathVariable("groupId") Long id)
     {
         return this.groupFacade.getGroupById(id);

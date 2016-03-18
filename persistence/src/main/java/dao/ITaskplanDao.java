@@ -14,6 +14,6 @@ public interface ITaskplanDao extends IGenericDao<Taskplan> {
     Taskplan getTaskplan(Long groupId , Long taskplanId);
     void deleteTaskplan(Long taskplanId);
     Set<Task> getTasks(Long taskPlanId);
-    void addTaskplan(Taskplan taskplan);
+
 
 }

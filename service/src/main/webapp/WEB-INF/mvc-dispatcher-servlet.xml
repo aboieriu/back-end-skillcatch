@@ -24,15 +24,7 @@
         <property name="userDetailsService" ref="myUserDetailsService" />
     </bean>
 
-    <bean
-            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix">
-            <value>/WEB-INF/views/</value>
-        </property>
-        <property name="suffix">
-            <value>.jsp</value>
-        </property>
-    </bean>
+
 
     <mvc:annotation-driven>
         <mvc:message-converters>
@@ -74,7 +66,7 @@
     <!-- Allow Exceptions to be handled in annotated methods if desired.  Otherwise fallback to the
          'restExceptionResolver' below: -->
     <bean id="annotationMethodHandlerExceptionResolver"
-          class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
+          class="org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver">
         <property name="order" value="0"/>
     </bean>
     <bean id="restExceptionResolver" class="com.handler.RestExceptionHandler">
@@ -87,16 +79,7 @@
         <property name="errorResolver">
             <bean class="com.handler.DefaultRestErrorResolver">
                 <property name="localeResolver" ref="localeResolver"/>
-                <property name="defaultMoreInfoUrl" value="mailto:support@mycompany.com"/>
-                <property name="exceptionMappingDefinitions">
-                    <map>
-                        <!-- 404 -->
-                        <entry key="com.exhandler.UnknownResourceException" value="404, _exmsg"/>
-
-                        <!-- 500 (catch all): -->
-                        <entry key="Throwable" value="500"/>
-                    </map>
-                </property>
+                <property name="defaultMoreInfoUrl" value="mailto:support@skillcatch.com"/>
             </bean>
         </property>
     </bean>
