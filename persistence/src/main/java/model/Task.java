@@ -2,6 +2,7 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,8 +25,8 @@ public class Task {
 
     public Task(){}
 
-    @OneToMany(cascade =CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "task")
-    private Set<Badge> badges;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "task",cascade = CascadeType.ALL)
+    private List<Badge> badges;
 
 
 
@@ -58,11 +59,11 @@ public class Task {
         this.description = description;
     }
 
-    public Set<Badge> getBadges() {
+    public List<Badge> getBadges() {
         return badges;
     }
 
-    public void setBadges(Set<Badge> badges) {
+    public void setBadges(List<Badge> badges) {
         this.badges = badges;
     }
 }

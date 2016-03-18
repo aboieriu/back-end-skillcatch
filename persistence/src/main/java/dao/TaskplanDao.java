@@ -30,8 +30,9 @@ public class TaskplanDao extends GenericDao<Taskplan> implements ITaskplanDao {
             if (!result.isEmpty()) {
                 return result.get(0);
             }
+            throw new IllegalArgumentException("Not found!");
         }
-        return null;
+        throw new IllegalArgumentException("Not found!");
     }
 
     @Transactional

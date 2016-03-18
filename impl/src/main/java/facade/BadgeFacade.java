@@ -6,6 +6,7 @@ import model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Set;
 
 
 public class BadgeFacade implements IBadgeFacade {

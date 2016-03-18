@@ -15,7 +15,7 @@ public class BadgeDao extends GenericDao<Badge> implements IBadgeDao {
     public Badge getBadgeById(Long groupId,Long taskPlanId,Long taskId,Long badgeId) {
         if(groupId !=null || taskPlanId != null || taskId != null )
         {
-            Query query = this.entityManager.createQuery("select t from ProjectGroup as pg join pg.taskplans as tp join tp.tasks as tsk join tsk.badges as t where tp.id = :targetTaskplanId AND t.id = :targettaskId AND pg.id =:targetprojectgroupId AND t.id=:targetBadgeId");
+            Query query = this.entityManager.createQuery("select t from ProjectGroup as pg join pg.taskplans as tp join tp.tasks as tsk join tsk.badges as t where tp.id = :targetTaskplanId AND tsk.id = :targettaskId AND pg.id =:targetprojectgroupId AND t.id=:targetBadgeId");
             query.setParameter("targetprojectgroupId" , groupId);
             query.setParameter("targetTaskplanId" , taskPlanId);
             query.setParameter("targettaskId" , taskId);

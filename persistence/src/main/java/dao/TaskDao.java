@@ -31,7 +31,7 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
     }
 
     @Transactional
-    public Set<Badge> getBadgeFromTask(Long taskId) {
+    public List<Badge> getBadgeFromTask(Long taskId) {
         Task targetTask = this.getById(taskId);
         return targetTask.getBadges();
     }

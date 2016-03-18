@@ -24,16 +24,15 @@ public class Badge {
     @Column(name ="description")
     private String description;
 
-    public Task getTask() {
-        return task;
-    }
+
 
     public void setTask(Task task) {
         this.task = task;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.DETACH)
     @JoinColumn(name="task_id",nullable = false)
+
     private Task task;
 
     public Badge(){}

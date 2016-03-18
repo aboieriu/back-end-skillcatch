@@ -42,7 +42,7 @@ public  class TaskFacade implements ITaskFacade {
     }
 
 
-public Set<Badge> getBadgeFromTask(Long taskId){
+public List<Badge> getBadgeFromTask(Long taskId){
     return this.taskDao.getBadgeFromTask(taskId);
 }
 

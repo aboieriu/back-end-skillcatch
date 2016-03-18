@@ -31,7 +31,7 @@ public class BadgeService extends BaseService {
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}/badge" , method = RequestMethod.GET)
     @ResponseBody
-    public Set<Badge> getBadgeFromTask(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId)
+    public List<Badge> getBadgeFromTask(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId,@PathVariable("taskId") Long taskId)
     {
         return this.taskFacade.getBadgeFromTask(taskId);
     }
