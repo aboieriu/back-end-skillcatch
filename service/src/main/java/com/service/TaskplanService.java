@@ -49,13 +49,14 @@ public class TaskplanService {
         this.groupFacade.addTaskPlanToGroup(groupId,taskPlanId);
     }
 
-/*    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteTaskPlan(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId)
     {
         this.taskPlanFacade.deleteTaskplan(groupId, taskPlanId);
     }
-    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}", method = RequestMethod.PUT)
+
+  /*  @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}", method = RequestMethod.PUT)
     @ResponseBody
     public void updateTaskPlan(@PathVariable("taskPlanId") Long id ,@PathVariable("groupId") Long groupId,@RequestBody Taskplan taskPlan) {
         taskPlan.setTaskPlanId(id);
