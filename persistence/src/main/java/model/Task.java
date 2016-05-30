@@ -23,7 +23,7 @@ public class Task {
     @Column(name="description")
     private String description;
 
-    @OneToMany(cascade = {CascadeType.ALL} ,fetch = FetchType.EAGER, mappedBy = "task")
+    @OneToMany(cascade = {CascadeType.DETACH} ,fetch = FetchType.EAGER, mappedBy = "task")
     private Set<Badge> badges;
 
     public Task(){}
