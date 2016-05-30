@@ -2,19 +2,18 @@ package com.service;
 
 
 import facade.IUserFacade;
+import model.Badge;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
-/**
- * Created by CataVlad on 26-Oct-15.
- */
 @Controller
 @RequestMapping("/api/user")
-public class AllUsersService {
+public class AllUsersService extends BaseService {
 
 
     @Autowired
@@ -55,13 +54,11 @@ public class AllUsersService {
         this.allUsersFacade.deleteUserById(id);
     }
 
+    @RequestMapping(value = "/{userId}/badges",method = RequestMethod.GET)
+    @ResponseBody
+    public Set<Badge> getBadgesForUser(@PathVariable("userId") Long id){
+        return  this.allUsersFacade.getBadgeForUser(id);
 
-    public IUserFacade getAllUsersFacade() {
-        return allUsersFacade;
-    }
-
-    public void setAllUsersFacade(IUserFacade allUsersFacade) {
-        this.allUsersFacade = allUsersFacade;
     }
 
 }

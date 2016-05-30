@@ -30,4 +30,6 @@ public class UserGrantedAuthority implements GrantedAuthority {
         if(!(obj instanceof UserGrantedAuthority)) return false;
         return ((UserGrantedAuthority) obj).getAuthority().equals(this.authority);
     }
+
+
 }

@@ -1,10 +1,11 @@
 package model;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
 
-
+@JsonIgnoreProperties({"taskPlanId" , "projectId"})
 @Entity
 @Table(name="task_plan")
 public class Taskplan {

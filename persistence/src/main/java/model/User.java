@@ -1,12 +1,14 @@
 package model;
 
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "user")
@@ -25,7 +27,7 @@ public class User {
 
     @Column(name = "username")
     private String username;
-
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
@@ -38,13 +40,19 @@ public class User {
     @Column(name="address")
     private String address;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @Column
+    private String image;
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_has_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> userRole;
 
-
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinTable(name="user_has_badge",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns ={@JoinColumn(name = "badge_id")} )
+    private Set<Badge> userbadges;
 
     public User() {}
 
@@ -56,7 +64,7 @@ public class User {
         this.address = address;
     }
 
-    public User(String name, String surname, String username, String password, String email, String phone,String address) {
+    public User(String name, String surname, String username, String password, String email, String phone,String address, String image) {
         this.name = name;
         this.surname = surname;
         this.username = username;
@@ -64,9 +72,17 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.address=address;
+        this.image=image;
     }
 
 
+    public Set<Badge> getUserbadges() {
+        return userbadges;
+    }
+
+    public void setUserbadges(Set<Badge> userbadges) {
+        this.userbadges = userbadges;
+    }
 
     public Set<Role> getUserRole() {
         return userRole;
@@ -76,7 +92,13 @@ public class User {
         this.userRole = userRole;
     }
 
+    public String getImage() {
+        return image;
+    }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Long getId() {
         return Id;

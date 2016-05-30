@@ -1,15 +1,14 @@
 package facade;
 
 import dao.IUserDao;
+import model.Badge;
 import model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Set;
 
-/**
- * Created by Adi on 10/26/2015.
- */
 public class UserFacade implements IUserFacade{
 
     @Autowired
@@ -62,7 +61,9 @@ public class UserFacade implements IUserFacade{
         return this.userDao.findByUserName(username);
         }
 
-
+    public Set<Badge> getBadgeForUser(Long id){
+        return this.userDao.getBadgeForUser(id);
+    }
 
 }
 

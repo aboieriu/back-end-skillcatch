@@ -3,30 +3,23 @@ package com.service;
 import facade.IGroupFacade;
 import facade.ITaskplanFacade;
 import model.Taskplan;
-import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
 
 @Controller
-public class TaskplanService {
+public class TaskplanService extends BaseService{
 
     @Autowired
     ITaskplanFacade taskPlanFacade;
     @Autowired
     IGroupFacade groupFacade;
 
-    public ITaskplanFacade getTaskPlanFacade() {
-        return taskPlanFacade;
-    }
 
-    public void setTaskPlanFacade(ITaskplanFacade taskPlanFacade) {
-        this.taskPlanFacade = taskPlanFacade;
-    }
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan" , method = RequestMethod.GET)
     @ResponseBody
@@ -42,6 +35,7 @@ public class TaskplanService {
         return this.taskPlanFacade.getTaskplan(groupId, taskPlanId);
     }
 
+    @Transactional
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan" , method = RequestMethod.POST)
     @ResponseBody
     public void addTaskPlan(@PathVariable("groupId") Long groupId,@RequestBody Taskplan taskPlanId)
@@ -49,20 +43,20 @@ public class TaskplanService {
         this.groupFacade.addTaskPlanToGroup(groupId,taskPlanId);
     }
 
-    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.DELETE)
+   @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteTaskPlan(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId)
+    public void deleteTaskPlan(@PathVariable("taskPlanId") Long taskPlanId, @PathVariable("groupId") String groupId)
     {
-        this.taskPlanFacade.deleteTaskplan(groupId, taskPlanId);
+        this.taskPlanFacade.deleteTaskplan(taskPlanId);
     }
-
-  /*  @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}", method = RequestMethod.PUT)
     @ResponseBody
-    public void updateTaskPlan(@PathVariable("taskPlanId") Long id ,@PathVariable("groupId") Long groupId,@RequestBody Taskplan taskPlan) {
-        taskPlan.setTaskPlanId(id);
-        taskPlan.setGroupId(groupId);
+    public void updateTaskPlan(@PathVariable("taskPlanId") Long id, @RequestBody Taskplan taskPlan) {
+        taskPlan.setId(id);
+
+
         this.taskPlanFacade.updateTaskplan(taskPlan);
     }
-*/
+
 }
 

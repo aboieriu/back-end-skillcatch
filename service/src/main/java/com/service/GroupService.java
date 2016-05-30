@@ -1,10 +1,5 @@
 package com.service;
 
-/**
- * Created by CataVlad on 26-Oct-15.
- */
-
-
 import facade.IGroupFacade;
 import model.ProjectGroup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @Controller
 @RequestMapping("/api/projectGroup")
-public class GroupService {
+public class GroupService extends BaseService {
 
     @Autowired
     private IGroupFacade groupFacade;
@@ -25,6 +20,7 @@ public class GroupService {
 
     @RequestMapping(value = "/{groupId}" , method = RequestMethod.GET)
     @ResponseBody
+
     public ProjectGroup getGroup(@PathVariable("groupId") Long id)
     {
         return this.groupFacade.getGroupById(id);
@@ -52,13 +48,7 @@ public class GroupService {
         this.groupFacade.deleteGroup(id);
     }
 
-    public IGroupFacade getGroupFacade() {
-        return groupFacade;
-    }
 
-    public void setGroupFacade(IGroupFacade groupFacade) {
-        this.groupFacade = groupFacade;
-    }
 
 
 }

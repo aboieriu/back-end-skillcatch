@@ -2,10 +2,7 @@ package facade;
 import dao.ITaskplanDao;
 import model.Task;
 import model.Taskplan;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import dao.IGenericDao;
 
 import java.util.List;
 import java.util.Set;
@@ -24,18 +21,16 @@ public class TaskplanFacade implements ITaskplanFacade {
     public Taskplan getTaskplanById(Long taskplanId){
         return this.taskplanDao.getById(taskplanId);}
 
-    public void addTaskplan(Taskplan taskplan){
-        this.taskplanDao.add(taskplan);
-    }
+
 
     public void deleteTaskplanById(Long taskplanId){
         this.taskplanDao.deleteById(taskplanId);
     }
 
     public void updateTaskplan(Taskplan taskplan){
-        this.taskplanDao.update(taskplan.getId(), taskplan);
+        this.taskplanDao.updateTaskplan( taskplan);
     }
-    public void deleteTaskplan(Long groupId , Long taskplanId){this.taskplanDao.deleteTaskplan(groupId, taskplanId);}
+    public void deleteTaskplan( Long taskplanId){this.taskplanDao.deleteTaskplan(taskplanId);}
 
 
     public void addTaskToTaskPlan(Long taskPlanId , Task task){
@@ -48,6 +43,8 @@ public class TaskplanFacade implements ITaskplanFacade {
     public Set<Task> getTasks(Long taskPlanId){
         return this.taskplanDao.getTasks(taskPlanId);
     }
+
+
 
 
 

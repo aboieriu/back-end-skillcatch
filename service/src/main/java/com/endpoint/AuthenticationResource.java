@@ -1,6 +1,8 @@
 package com.endpoint;
 
 import com.security.*;
+import facade.IUserFacade;
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,14 +24,12 @@ import java.util.Set;
 @ResponseBody
 public class AuthenticationResource {
     private AuthenticationManager authManager;
-    private UserAuth userDetailsService;
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
+    private IUserFacade userFacade;
 
     @RequestMapping(value = "")
 
-    public AuthToken getUsers(@RequestBody UserCandidate userCandidate){
+    public AuthToken authenticateUser(@RequestBody UserCandidate userCandidate){
         String password=userCandidate.getPassword();
         PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
         passwordEncoder.encode(password);
@@ -39,11 +39,9 @@ public class AuthenticationResource {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
 
+        User user = userFacade.findByUserName(userCandidate.getUsername());
 
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(userCandidate.getUsername());
-        return new AuthToken(TokenUtils.createToken(userDetails));
-
-
+        return new AuthToken(user.getId(), TokenUtils.createToken(user.getUsername(), user.getPassword()));
 
 
     }
@@ -54,8 +52,8 @@ public class AuthenticationResource {
         this.authManager = authManager;
     }
 
-    public void setUserDetailsService(UserAuth userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public void setUserFacade(IUserFacade userFacade) {
+        this.userFacade = userFacade;
     }
 }
 

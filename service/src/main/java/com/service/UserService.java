@@ -1,20 +1,17 @@
 package com.service;
 
-        import facade.IGroupFacade;
-        import facade.IUserFacade;
-        import model.User;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Controller;
-        import org.springframework.web.bind.annotation.*;
+import facade.IGroupFacade;
+import facade.IUserFacade;
+import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-        import java.util.List;
-        import java.util.Set;
+import java.util.Set;
 
-/**
- * Created by CataVlad on 26-Oct-15.
- */
+
 @Controller
-public class UserService {
+public class UserService extends BaseService {
 
     @Autowired
     IUserFacade userFacade;

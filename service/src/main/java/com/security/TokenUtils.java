@@ -1,5 +1,6 @@
 package com.security;
 
+import model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
 
@@ -13,30 +14,30 @@ public class TokenUtils
 	public static final String MAGIC_KEY = "obfuscate";
 
 
-	public static String createToken(UserDetails user)
+	public static String createToken(String username, String password)
 	{
 		/* Expires in one hour */
 		long expires = System.currentTimeMillis() + 1000L * 60 * 60;
 
 		StringBuilder tokenBuilder = new StringBuilder();
-		tokenBuilder.append(user.getUsername());
+		tokenBuilder.append(username);
 		tokenBuilder.append(":");
 		tokenBuilder.append(expires);
 		tokenBuilder.append(":");
-		tokenBuilder.append(TokenUtils.computeSignature(user, expires));
+		tokenBuilder.append(TokenUtils.computeSignature(username, password, expires));
 
 		return tokenBuilder.toString();
 	}
 
 
-	public static String computeSignature(UserDetails user, long expires)
+	public static String computeSignature(String username, String password, long expires)
 	{
 		StringBuilder signatureBuilder = new StringBuilder();
-		signatureBuilder.append(user.getUsername());
+		signatureBuilder.append(username);
 		signatureBuilder.append(":");
 		signatureBuilder.append(expires);
 		signatureBuilder.append(":");
-		signatureBuilder.append(user.getPassword());
+		signatureBuilder.append(password);
 		signatureBuilder.append(":");
 		signatureBuilder.append(TokenUtils.MAGIC_KEY);
 
@@ -72,6 +73,6 @@ public class TokenUtils
 			return false;
 		}
 
-		return signature.equals(TokenUtils.computeSignature(user, expires));
+		return signature.equals(TokenUtils.computeSignature(user.getUsername(), user.getPassword(), expires));
 	}
 }

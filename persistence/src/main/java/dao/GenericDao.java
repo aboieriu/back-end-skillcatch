@@ -2,12 +2,12 @@ package dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
-/**
- * Created by CataVlad on 29-Oct-15.
- */
+
 public abstract class GenericDao<T> implements IGenericDao<T>{
 
 
@@ -18,12 +18,14 @@ public abstract class GenericDao<T> implements IGenericDao<T>{
     }
     protected EntityManager entityManager;
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     public List<T> getAll() {
+
+
         return this.entityManager.createQuery("from " + type.getName()).getResultList();
     }
 
@@ -35,12 +37,24 @@ public abstract class GenericDao<T> implements IGenericDao<T>{
     @Transactional
     public T getById (Long id)
     {
-        if (id == null) {
+
+        if (id==null) {
             return null;
+
         } else {
-        return this.entityManager.find(type, id);
+
+                Query query = this.entityManager.createQuery("from " + type.getName() + " where id=:id");
+                query.setParameter("id", id);
+                List<T> result = query.getResultList();
+                if (!result.isEmpty()) {
+                    return result.get(0);
+                }
+                throw new IllegalArgumentException("Not found!");
+            }
+
         }
-    }
+
+
     @Transactional
     public void deleteById (Long id)
     {

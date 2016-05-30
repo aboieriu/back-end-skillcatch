@@ -1,6 +1,5 @@
 package dao;
 
-import com.sun.javafx.tk.Toolkit;
 import model.Task;
 import model.Taskplan;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,24 +8,14 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by CataVlad on 13-Nov-15.
- */
+
 public class TaskplanDao extends GenericDao<Taskplan> implements ITaskplanDao {
 
     public TaskplanDao() {
         super(Taskplan.class);
     }
 
-    @Transactional
-    public void updateTaskplan(Taskplan taskplan){
-        Taskplan taskplanFromDbs = this.getById(taskplan.getId());
-        if (taskplanFromDbs != null) {
-            taskplanFromDbs.setName(taskplan.getName());
-            taskplanFromDbs.setDescription(taskplan.getDescription());
-            entityManager.persist(taskplanFromDbs);
-        }
-    }
+
 
     @Transactional
     public Taskplan getTaskplan(Long groupId,Long taskplanId) {
@@ -39,16 +28,17 @@ public class TaskplanDao extends GenericDao<Taskplan> implements ITaskplanDao {
             if (!result.isEmpty()) {
                 return result.get(0);
             }
+            throw new IllegalArgumentException("Not found!");
         }
-        return null;
+        throw new IllegalArgumentException("Not found!");
     }
 
     @Transactional
-    public void deleteTaskplan(Long groupId , Long taskplanId) {
-        Taskplan itemFromDbs = this.getTaskplan(groupId, taskplanId);
+    public void deleteTaskplan(Long taskplanId) {
+        Taskplan itemFromDb=this.getById(taskplanId);
 
-        if (itemFromDbs != null) {
-            entityManager.remove(itemFromDbs);
+        if(itemFromDb!=null) {
+            entityManager.remove(itemFromDb);
         }
     }
 
@@ -57,4 +47,16 @@ public class TaskplanDao extends GenericDao<Taskplan> implements ITaskplanDao {
         Taskplan targetTaskplan = this.getById(taskplanId);
         return targetTaskplan.getTasks();
     }
+
+    @Transactional
+    public void updateTaskplan(Taskplan taskplan){
+        Taskplan taskplanFromDbs = this.getById(taskplan.getId());
+        if (taskplanFromDbs != null) {
+            taskplanFromDbs.setName(taskplan.getName());
+            taskplanFromDbs.setDescription(taskplan.getDescription());
+            entityManager.persist(taskplanFromDbs);
+        }
+    }
+
+
 }

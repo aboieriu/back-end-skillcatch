@@ -1,8 +1,13 @@
 package model;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.Table;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -42,9 +47,11 @@ public class ProjectGroup {
     private Set<User> users;
 
     @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+
     @JoinTable(name="project_group_has_task_plan",
             joinColumns={@JoinColumn(name="project_group_id")},
             inverseJoinColumns = {@JoinColumn(name="task_plan_id")})
+
     private Set<Taskplan> taskplans;
 
     public Set<Taskplan> getTaskplans() {

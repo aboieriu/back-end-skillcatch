@@ -15,16 +15,25 @@
  */
 package com.handler;
 
+
+import org.hibernate.TypeMismatchException;
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.procedure.UnknownSqlResultSetMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.TypeMismatchException;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
+
+import org.springframework.dao.TypeMismatchDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.jca.endpoint.GenericMessageEndpointFactory;
+
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -33,18 +42,14 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
 
-/**
- * Default {@code RestErrorResolver} implementation that converts discovered Exceptions to
- * {@link RestError} instances.
- *
- * @author Les Hazlewood
- */
-public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourceAware, InitializingBean {
+import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpServlet;
+
+import java.util.*;
+
+
+public class DefaultRestErrorResolver extends HttpServlet implements RestErrorResolver, MessageSourceAware, InitializingBean {
 
     public static final String DEFAULT_EXCEPTION_MESSAGE_VALUE = "_exmsg";
     public static final String DEFAULT_MESSAGE_VALUE = "_msg";
@@ -65,6 +70,7 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
     public DefaultRestErrorResolver() {
         this.defaultEmptyCodeToStatus = true;
         this.defaultDeveloperMessage = DEFAULT_EXCEPTION_MESSAGE_VALUE;
+        this.exceptionMappingDefinitions = createDefaultExceptionMappingDefinitions();
     }
 
     public void setMessageSource(MessageSource messageSource) {
@@ -105,19 +111,29 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
         this.exceptionMappings = toRestErrors(definitions);
     }
 
-    protected final Map<String,String> createDefaultExceptionMappingDefinitions() {
+
+
+    protected final Map<String,String> createDefaultExceptionMappingDefinitions()  {
 
         Map<String,String> m = new LinkedHashMap<String, String>();
 
         // 400
+
         applyDef(m, HttpMessageNotReadableException.class, HttpStatus.BAD_REQUEST);
         applyDef(m, MissingServletRequestParameterException.class, HttpStatus.BAD_REQUEST);
         applyDef(m, TypeMismatchException.class, HttpStatus.BAD_REQUEST);
         applyDef(m, "javax.validation.ValidationException", HttpStatus.BAD_REQUEST);
+        applyDef(m,TypeMismatchDataAccessException.class,HttpStatus.BAD_REQUEST);
+
 
         // 404
         applyDef(m, NoSuchRequestHandlingMethodException.class, HttpStatus.NOT_FOUND);
-        applyDef(m, "org.hibernate.ObjectNotFoundException", HttpStatus.NOT_FOUND);
+       applyDef(m, "org.hibernate.ObjectNotFoundException", HttpStatus.NOT_FOUND);
+        applyDef(m, "com.exhandler.UnknownResourceException", HttpStatus.NOT_FOUND);
+        applyDef(m,"java.lang.IllegalArgumentException",HttpStatus.NOT_FOUND);
+        applyDef(m, UnknownSqlResultSetMappingException.class,HttpStatus.NOT_FOUND);
+        applyDef(m,"java.lang.IllegalStateException",HttpStatus.NOT_FOUND);
+
 
         // 405
         applyDef(m, HttpRequestMethodNotSupportedException.class, HttpStatus.METHOD_NOT_ALLOWED);
@@ -128,9 +144,19 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
         // 409
         //can't use the class directly here as it may not be an available dependency:
         applyDef(m, "org.springframework.dao.DataIntegrityViolationException", HttpStatus.CONFLICT);
+        applyDef(m, ConstraintViolationException.class,HttpStatus.CONFLICT);
 
         // 415
         applyDef(m, HttpMediaTypeNotSupportedException.class, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+        applyDef(m,"com.exhandler.Unsupported",HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+
+        //500
+        applyDef(m, GenericMessageEndpointFactory.InternalResourceException.class,HttpStatus.INTERNAL_SERVER_ERROR);
+        applyDef(m,"java.util.NoSuchElementException",HttpStatus.INTERNAL_SERVER_ERROR);
+        applyDef(m, PersistenceException.class,HttpStatus.INTERNAL_SERVER_ERROR);
+
+
+
 
         return m;
     }
@@ -419,4 +445,6 @@ public class DefaultRestErrorResolver implements RestErrorResolver, MessageSourc
             return 0;
         }
     }
+
+
 }

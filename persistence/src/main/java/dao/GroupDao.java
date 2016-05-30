@@ -7,9 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
-/**
- * Created by Mirela_2 on 10/21/2015.
- */
+
 public class GroupDao extends GenericDao<ProjectGroup> implements IGroupDao {
 
     public GroupDao() {
@@ -29,4 +27,17 @@ public class GroupDao extends GenericDao<ProjectGroup> implements IGroupDao {
         return targetGroup.getTaskplans();
     }
 
-}
+    @Transactional
+    public void updateGroup(ProjectGroup group){
+        ProjectGroup groupFromDbs = this.getById(group.getId());
+        if (groupFromDbs != null) {
+            groupFromDbs.setName(group.getName());
+            groupFromDbs.setDescriptions(group.getDescriptions());
+            groupFromDbs.setStatus(group.getStatus());
+            entityManager.persist(groupFromDbs);
+        }
+
+    }
+
+    }
+

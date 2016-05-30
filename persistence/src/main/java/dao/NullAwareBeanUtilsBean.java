@@ -5,9 +5,7 @@ import org.apache.commons.beanutils.BeanUtilsBean;
 
 import java.lang.reflect.InvocationTargetException;
 
-/**
- * Created by CataVlad on 17-Dec-15.
- */
+
 public class NullAwareBeanUtilsBean extends BeanUtilsBean {
 
     @Override

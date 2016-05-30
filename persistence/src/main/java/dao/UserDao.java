@@ -1,14 +1,13 @@
 package dao;
 
+import model.Badge;
 import model.User;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.*;
 
-/**
- * Created by Mirela_2 on 10/21/2015.
- */
+
 public class UserDao extends GenericDao<User> implements IUserDao{
 
     public UserDao() {
@@ -52,6 +51,7 @@ public class UserDao extends GenericDao<User> implements IUserDao{
             itemFromDbs.setPassword(myUser.getPassword());
             itemFromDbs.setEmail(myUser.getEmail());
             itemFromDbs.setPhone(myUser.getPhone());
+            itemFromDbs.setImage(myUser.getImage());
             entityManager.persist(itemFromDbs);
         }
     }
@@ -68,6 +68,11 @@ public class UserDao extends GenericDao<User> implements IUserDao{
             }
         }
         return null;
+    }
+    @Transactional
+    public Set<Badge> getBadgeForUser(Long id) {
+        User targetUser=this.getById(id);
+        return targetUser.getUserbadges();
     }
 
 

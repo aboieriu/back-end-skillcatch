@@ -7,9 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by CataVlad on 05-Nov-15.
- */
+
 @Entity
 @Table(name ="role")
 public class Role {

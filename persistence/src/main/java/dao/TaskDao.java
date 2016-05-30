@@ -2,16 +2,13 @@ package dao;
 
 import model.Badge;
 import model.Task;
-import model.Taskplan;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by CataVlad on 13-Nov-15.
- */
+
 public class TaskDao extends GenericDao<Task> implements ITaskDao {
 
     public TaskDao() {
@@ -32,12 +29,13 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
     }
 
     @Transactional
-    public Set<Badge> getBadgeFromTask(Long taskId){
+    public List<Badge> getBadgeFromTask(Long taskId) {
         Task targetTask = this.getById(taskId);
-        return targetTask.getBadge();
+        return targetTask.getBadges();
     }
+
     @Transactional
-    public void updateTask(Task task){
+    public void updateTask(Task task) {
         Task taskFromDbs = this.getById(task.getId());
         if (taskFromDbs != null) {
             taskFromDbs.setName(task.getName());
@@ -45,4 +43,12 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
             entityManager.persist(taskFromDbs);
         }
     }
+
+    @Transactional
+    public void add(Task task) {
+
+        entityManager.persist(task);
+
+    }
+
 }

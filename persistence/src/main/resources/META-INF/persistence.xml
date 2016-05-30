@@ -17,15 +17,17 @@
         </class>
 
         <class>
-            model.Task
+            model.Badge
         </class>
         <class>
             model.Taskplan
+
         </class>
         <class>
-            model.Badge
+            model.Task
         </class>
 
 
     </persistence-unit>
+
 </persistence>

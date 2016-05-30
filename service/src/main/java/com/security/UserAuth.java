@@ -23,9 +23,8 @@ public class UserAuth  implements UserDetailsService {
     @Autowired
     private IUserFacade userFacade;
 
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, NullPointerException {
         //hardcoded userDetails
         //Set<String> roles = new HashSet<String>();
         // roles.add("ROLE_DEV");
@@ -34,11 +33,12 @@ public class UserAuth  implements UserDetailsService {
        // return new UserDetailsImpl("Ionut", "$2a$04$hUzLRs8z9MbnbL0SbC/iaOMXQIbdW1/5DjpEcMu3XKK5qF4zizzyy", roles);
 
         model.User user = userFacade.findByUserName(username);
+        if(user!=null) {
+            List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
 
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
-
-        return buildUserForAuthentication(user, authorities);
-
+            return buildUserForAuthentication(user, authorities);
+        }
+        return null;
         }
 
     private User buildUserForAuthentication(model.User user, List<GrantedAuthority> authorities) {
@@ -55,6 +55,8 @@ public class UserAuth  implements UserDetailsService {
         for (Role userRole : userRoles) {
             setAuths.add(new SimpleGrantedAuthority(userRole.getName()));
         }
+
+
 
         List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
 

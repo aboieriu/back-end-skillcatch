@@ -42,7 +42,7 @@ public class GroupFacade implements IGroupFacade{
     }
 
     public void updateGroup(ProjectGroup group){
-       this.groupDao.update(group.getId(),group);
+        this.groupDao.updateGroup(group);
     }
 
 
@@ -52,17 +52,17 @@ public class GroupFacade implements IGroupFacade{
         targetGroup.getUsers().add(targetUser);
         this.updateGroup(targetGroup);
     }
-
-    public Set<User> getUsers(Long groupId){
-        return this.groupDao.getUsers(groupId);
-    }
-
-
     public void addTaskPlanToGroup(Long groupId , Taskplan taskplan){
         ProjectGroup targetGroup = this.groupDao.getById(groupId);
         targetGroup.getTaskplans().add(taskplan);
         this.updateGroup(targetGroup);
     }
+    public Set<User> getUsers(Long groupId){
+        return this.groupDao.getUsers(groupId);
+    }
+
+
+
 
     public Set<Taskplan> getTaskPlans(Long groupId){
         return this.groupDao.getTaskplans(groupId);

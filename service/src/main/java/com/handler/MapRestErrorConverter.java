@@ -5,49 +5,6 @@ import org.springframework.http.HttpStatus;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Simple {@code RestErrorConverter} implementation that creates a new Map instance based on the specified RestError
- * instance.  Some {@link org.springframework.http.converter.HttpMessageConverter HttpMessageConverter}s (like a JSON
- * converter) can easily automatically convert Maps to response bodies.  The map is populated with the following
- * default name/value pairs:
- *
- * <table>
- *     <tr>
- *         <th>Key (a String)</th>
- *         <th>Value (an Object)</th>
- *         <th>Notes</th>
- *     </tr>
- *     <tr>
- *         <td>status</td>
- *         <td>restError.{@link RestError#getStatus() getStatus()}.{@link HttpStatus#value() value()}</td>
- *         <td></td>
- *     </tr>
- *     <tr>
- *         <td>code</td>
- *         <td>restError.{@link RestError#getCode() getCode()}</td>
- *         <td>Only set if {@code code > 0}</td>
- *     </tr>
- *     <tr>
- *         <td>message</td>
- *         <td>restError.{@link RestError#getMessage() getMessage()}</td>
- *         <td>Only set if {@code message != null}</td>
- *     </tr>
- *     <tr>
- *         <td>developerMessage</td>
- *         <td>restError.{@link RestError#getDeveloperMessage() getDeveloperMessage()}</td>
- *         <td>Only set if {@code developerMessage != null}</td>
- *     </tr>
- *     <tr>
- *         <td>moreInfo</td>
- *         <td>restError.{@link RestError#getMoreInfoUrl() getMoreInfoUrl()}</td>
- *         <td>Only set if {@code moreInfoUrl != null}</td>
- *     </tr>
- * </table>
- * <p/>
- * The map key names are customizable via setter methods (setStatusKey, setMessageKey, etc).
- *
- * @author Les Hazlewood
- */
 public class MapRestErrorConverter implements RestErrorConverter<Map> {
 
     private static final String DEFAULT_STATUS_KEY = "status";
@@ -122,6 +79,7 @@ public class MapRestErrorConverter implements RestErrorConverter<Map> {
     public void setDeveloperMessageKey(String developerMessageKey) {
         this.developerMessageKey = developerMessageKey;
     }
+
 
 
 }

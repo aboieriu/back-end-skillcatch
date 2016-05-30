@@ -1,16 +1,16 @@
 package dao;
 
+import model.Badge;
 import model.User;
 
-import java.util.List;
+import java.util.Set;
 
-/**
- * Created by Mirela_2 on 10/21/2015.
- */
+
 public interface IUserDao extends IGenericDao<User> {
 
     public void updateUser(User myUser);
     public User getUser(Long groupId,Long userId);
     public void deleteUser(Long groupId , Long userId);
     public User findByUserName(String username);
+    Set<Badge> getBadgeForUser(Long id);
 }

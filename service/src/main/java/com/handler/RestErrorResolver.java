@@ -15,7 +15,9 @@
  */
 package com.handler;
 
+
 import org.springframework.web.context.request.ServletWebRequest;
+
 
 /**
  * A {@code RestErrorResolver} resolves an exception and produces a {@link RestError} instance that can be used
@@ -23,7 +25,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  *
  * @author Les Hazlewood
  */
-public interface RestErrorResolver {
+public interface RestErrorResolver  {
 
     /**
      * Returns a {@code RestError} instance to render as the response body based on the given exception.
@@ -36,4 +38,6 @@ public interface RestErrorResolver {
      *         processing
      */
     RestError resolveError(ServletWebRequest request, Object handler, Exception ex);
+
+
 }

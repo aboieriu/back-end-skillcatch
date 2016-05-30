@@ -1,14 +1,9 @@
 package model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Set;
-
-/**
- * Created by CataVlad on 05-Nov-15.
- */
+@JsonIgnoreProperties(value = {"taskPlanId" , "projectId", "groupId", "0" , "1"}, ignoreUnknown = true)
 
 @Entity
 @Table(name = "badge")
@@ -25,24 +20,22 @@ public class Badge {
     @Column(name ="description")
     private String description;
 
-    @Column(name ="image")
-    private String image;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "task_id", nullable = false)
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.DETACH)
+    @JoinColumn(name="task_id",nullable = false)
+
     private Task task;
-
 
     public Badge(){}
 
-    public Badge(String name, String description, String image) {
+    public Badge(String name, String description) {
         this.name = name;
         this.description = description;
-        this.image = image;
-    }
-
-    public Task getTask() {
-        return task;
     }
 
     public Long getId() {
@@ -69,11 +62,4 @@ public class Badge {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }

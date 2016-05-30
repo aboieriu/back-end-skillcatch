@@ -1,12 +1,8 @@
 package dao;
 
-import model.Badge;
-
 import java.util.List;
 
-/**
- * Created by CataVlad on 29-Oct-15.
- */
+
 public interface IGenericDao<T> {
     List<T> getAll();
     void add(T item);

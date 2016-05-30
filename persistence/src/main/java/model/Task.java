@@ -1,13 +1,12 @@
 package model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
-/**
- * Created by CataVlad on 05-Nov-15.
- */
+@JsonIgnoreProperties(value = {"taskPlanId" , "projectId", "taskId", "groupId", "0" , "1"}, ignoreUnknown = true)
 @Entity
 @Table(name="task")
 public class Task {
@@ -23,14 +22,12 @@ public class Task {
     @Column(name="description")
     private String description;
 
-    @OneToMany(cascade = {CascadeType.DETACH} ,fetch = FetchType.EAGER, mappedBy = "task")
-    private Set<Badge> badges;
-
     public Task(){}
-    @JsonIgnore
-    public Set<Badge> getBadge() {
-        return badges;
-    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "task",cascade = CascadeType.ALL)
+    private List<Badge> badges;
+
+
 
     public Task(String name, String description) {
         this.name = name;
@@ -61,11 +58,11 @@ public class Task {
         this.description = description;
     }
 
-    public Set<Badge> getBadges() {
+    public List<Badge> getBadges() {
         return badges;
     }
 
-    public void setBadges(Set<Badge> badges) {
+    public void setBadges(List<Badge> badges) {
         this.badges = badges;
     }
 }
