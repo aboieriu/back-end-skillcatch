@@ -22,6 +22,9 @@ public class Task {
     @Column(name="description")
     private String description;
 
+    @Column
+    private String status;
+
     public Task(){}
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "task",cascade = CascadeType.ALL)
@@ -29,9 +32,10 @@ public class Task {
 
 
 
-    public Task(String name, String description) {
+    public Task(String name, String description,String status) {
         this.name = name;
         this.description = description;
+        this.status=status;
     }
 
     public Long getId() {
@@ -56,6 +60,14 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<Badge> getBadges() {

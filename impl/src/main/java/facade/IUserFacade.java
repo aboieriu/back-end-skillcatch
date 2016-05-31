@@ -17,6 +17,6 @@ public interface IUserFacade {
     public void updateUser(User user);
     public User findByUserName(String username);
 
-    Set<ProjectGroup> getAssignedProjects(Long userId);
+    Set<ProjectGroup> getAssignedProjects(Long userId) throws Exception;
     Set<Task> getUserTasks(Long userId);
 }

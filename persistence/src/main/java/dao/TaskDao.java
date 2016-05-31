@@ -42,6 +42,7 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
         if (taskFromDbs != null) {
             taskFromDbs.setName(task.getName());
             taskFromDbs.setDescription(task.getDescription());
+            taskFromDbs.setStatus(task.getStatus());
             entityManager.persist(taskFromDbs);
         }
     }

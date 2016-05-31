@@ -63,7 +63,7 @@ public class AllUsersService extends BaseService {
 
     @RequestMapping(value = "/{userId}/assignedProjects",method = RequestMethod.GET)
     @ResponseBody
-    public Set<ProjectGroup> getAssignedProjects(@PathVariable("userId") Long userId){
+    public Set<ProjectGroup> getAssignedProjects(@PathVariable("userId") Long userId)throws Exception{
         return this.allUsersFacade.getAssignedProjects(userId);
     }
     @RequestMapping(value = "/{userId}/tasks",method = RequestMethod.GET)

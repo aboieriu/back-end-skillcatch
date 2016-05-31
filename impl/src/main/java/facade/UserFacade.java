@@ -66,7 +66,7 @@ public class UserFacade implements IUserFacade{
 
 
 
-    public Set<ProjectGroup> getAssignedProjects(Long userId){
+    public Set<ProjectGroup> getAssignedProjects(Long userId)throws Exception{
         return this.userDao.getAssignedProjects(userId);
     }
 
