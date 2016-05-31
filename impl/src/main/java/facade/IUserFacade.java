@@ -1,5 +1,7 @@
 package facade;
 import model.Badge;
+import model.ProjectGroup;
+import model.Task;
 import model.User;
 
 import java.util.List;
@@ -14,5 +16,7 @@ public interface IUserFacade {
     public void deleteUserById(Long userId);
     public void updateUser(User user);
     public User findByUserName(String username);
-    Set<Badge> getBadgeForUser(Long id);
+
+    Set<ProjectGroup> getAssignedProjects(Long userId);
+    Set<Task> getUserTasks(Long userId);
 }

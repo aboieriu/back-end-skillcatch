@@ -42,17 +42,22 @@ public class User {
 
     @Column
     private String image;
+
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_has_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> userRole;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinTable(name="user_has_badge",
+    @JoinTable(name = "user_has_task",
             joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns ={@JoinColumn(name = "badge_id")} )
-    private Set<Badge> userbadges;
+            inverseJoinColumns = {@JoinColumn(name = "task_id")})
+    private Set<Task> userTasks;
+
+
 
     public User() {}
 
@@ -75,13 +80,12 @@ public class User {
         this.image=image;
     }
 
-
-    public Set<Badge> getUserbadges() {
-        return userbadges;
+    public Set<Task> getUserTasks() {
+        return userTasks;
     }
 
-    public void setUserbadges(Set<Badge> userbadges) {
-        this.userbadges = userbadges;
+    public void setUserTasks(Set<Task> userTasks) {
+        this.userTasks = userTasks;
     }
 
     public Set<Role> getUserRole() {

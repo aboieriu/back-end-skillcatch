@@ -1,8 +1,11 @@
 package com.service;
 
 
+import facade.ITaskFacade;
 import facade.IUserFacade;
 import model.Badge;
+import model.ProjectGroup;
+import model.Task;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,9 @@ public class AllUsersService extends BaseService {
 
     @Autowired
     private IUserFacade allUsersFacade;
+
+    @Autowired
+    private ITaskFacade iTaskFacade;
 
     @RequestMapping(value = "" , method = RequestMethod.GET)
     @ResponseBody
@@ -54,10 +60,16 @@ public class AllUsersService extends BaseService {
         this.allUsersFacade.deleteUserById(id);
     }
 
-    @RequestMapping(value = "/{userId}/badges",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/{userId}/assignedProjects",method = RequestMethod.GET)
     @ResponseBody
-    public Set<Badge> getBadgesForUser(@PathVariable("userId") Long id){
-        return  this.allUsersFacade.getBadgeForUser(id);
+    public Set<ProjectGroup> getAssignedProjects(@PathVariable("userId") Long userId){
+        return this.allUsersFacade.getAssignedProjects(userId);
+    }
+    @RequestMapping(value = "/{userId}/tasks",method = RequestMethod.GET)
+    @ResponseBody
+    public Set<Task> getUserTasks(@PathVariable("userId") Long userId){
+        return  this.allUsersFacade.getUserTasks(userId);
 
     }
 

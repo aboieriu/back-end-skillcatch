@@ -2,6 +2,8 @@ package facade;
 
 import dao.IUserDao;
 import model.Badge;
+import model.ProjectGroup;
+import model.Task;
 import model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,9 +63,15 @@ public class UserFacade implements IUserFacade{
         return this.userDao.findByUserName(username);
         }
 
-    public Set<Badge> getBadgeForUser(Long id){
-        return this.userDao.getBadgeForUser(id);
+
+
+
+    public Set<ProjectGroup> getAssignedProjects(Long userId){
+        return this.userDao.getAssignedProjects(userId);
     }
 
+    public Set<Task> getUserTasks(Long userId){
+        return this.userDao.getUserTasks(userId);
+    }
 }
 

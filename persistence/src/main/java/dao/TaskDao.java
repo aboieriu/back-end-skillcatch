@@ -1,10 +1,12 @@
 package dao;
 
 import model.Badge;
+import model.ProjectGroup;
 import model.Task;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,5 +52,7 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
         entityManager.persist(task);
 
     }
+
+
 
 }

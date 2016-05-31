@@ -1,7 +1,10 @@
 package dao;
 
 import model.Badge;
+import model.ProjectGroup;
+import model.Task;
 import model.User;
+import org.springframework.dao.DataAccessException;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
@@ -69,11 +72,28 @@ public class UserDao extends GenericDao<User> implements IUserDao{
         }
         return null;
     }
-    @Transactional
-    public Set<Badge> getBadgeForUser(Long id) {
-        User targetUser=this.getById(id);
-        return targetUser.getUserbadges();
-    }
 
+    @Transactional
+    public Set<ProjectGroup> getAssignedProjects(Long userId) throws Exception {
+        if (userId!=null){
+
+            Query query =this.entityManager.createQuery("select pg.name,pg.descriptions,pg.status from ProjectGroup as pg, User as u join pg.users where  u.id = :userId ");
+            query.setParameter("userId",userId);
+            List<ProjectGroup> result=query.getResultList();
+            if (!result.isEmpty()){
+                Set<ProjectGroup> projectGroupSet=new HashSet<ProjectGroup>(result);
+
+                return projectGroupSet;
+            }
+
+
+        }
+        throw new Exception();
+    }
+    @Transactional
+    public Set<Task> getUserTasks(Long userId){
+        User targetUser=getById(userId);
+        return targetUser.getUserTasks();
+    }
 
 }
