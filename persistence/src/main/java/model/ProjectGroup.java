@@ -50,8 +50,8 @@ public class ProjectGroup {
     private Set<Taskplan> taskplans;
 
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.DETACH)
-    @JoinColumn(name="user_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
     private User ProjectForUser;
 
     public Set<Taskplan> getTaskplans() {
