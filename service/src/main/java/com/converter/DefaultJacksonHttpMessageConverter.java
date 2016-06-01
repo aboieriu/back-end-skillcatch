@@ -7,6 +7,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.type.TypeFactory;
 import org.codehaus.jackson.type.JavaType;
 import org.springframework.http.HttpInputMessage;
@@ -37,11 +38,13 @@ public class DefaultJacksonHttpMessageConverter extends AbstractHttpMessageConve
     @Override
     public boolean canRead(Class<?> clazz, MediaType mediaType) {
         JavaType javaType = getJavaType(clazz);
+        objectMapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS,false);
         return objectMapper.canDeserialize(javaType) && canRead(mediaType);
     }
 
     @Override
     public boolean canWrite(Class<?> clazz, MediaType mediaType) {
+        objectMapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS,false);
         return objectMapper.canSerialize(clazz) && canWrite(mediaType);
     }
 
@@ -55,6 +58,7 @@ public class DefaultJacksonHttpMessageConverter extends AbstractHttpMessageConve
             throws IOException, HttpMessageNotReadableException {
         JavaType javaType = getJavaType(clazz);
         try {
+            objectMapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS,false);
             return objectMapper.readValue(inputMessage.getBody(), javaType);
         } catch (JsonParseException ex) {
             throw new HttpMessageNotReadableException("Could not read JSON: " + ex.getMessage(), ex);
@@ -105,6 +109,7 @@ public class DefaultJacksonHttpMessageConverter extends AbstractHttpMessageConve
 
     public void setObjectMapper(ObjectMapper objectMapper) {
         Assert.notNull(objectMapper, "'objectMapper' must not be null");
+        objectMapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS,false);
         this.objectMapper = objectMapper;
     }
 

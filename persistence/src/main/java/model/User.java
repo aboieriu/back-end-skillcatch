@@ -8,10 +8,12 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class User {
 
     @GeneratedValue(generator = "idIncrementor")
@@ -59,6 +61,7 @@ public class User {
 
 
 
+
     public User() {}
 
     public String getAddress() {
@@ -87,6 +90,7 @@ public class User {
     public void setUserTasks(Set<Task> userTasks) {
         this.userTasks = userTasks;
     }
+
 
     public Set<Role> getUserRole() {
         return userRole;

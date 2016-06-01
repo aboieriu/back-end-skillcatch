@@ -1,5 +1,7 @@
 package model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -14,15 +16,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "project_group")
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer","ProjectForUser"})
 public class ProjectGroup {
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
@@ -47,12 +44,15 @@ public class ProjectGroup {
     private Set<User> users;
 
     @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-
     @JoinTable(name="project_group_has_task_plan",
             joinColumns={@JoinColumn(name="project_group_id")},
             inverseJoinColumns = {@JoinColumn(name="task_plan_id")})
-
     private Set<Taskplan> taskplans;
+
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.DETACH)
+    @JoinColumn(name="user_id",nullable = false)
+    private User ProjectForUser;
 
     public Set<Taskplan> getTaskplans() {
         return taskplans;
@@ -69,6 +69,14 @@ public class ProjectGroup {
         this.users = users;
         this.taskplans = taskplans;
     }
+    @JsonIgnore
+    public User getProjectForUser() {
+        return ProjectForUser;
+    }
+
+    public void setProjectForUser(User projectForUser) {
+        ProjectForUser = projectForUser;
+    }
 
     public Set<User> getUsers() {
         return users;
@@ -76,6 +84,14 @@ public class ProjectGroup {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 

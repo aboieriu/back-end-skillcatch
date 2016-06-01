@@ -77,7 +77,7 @@ public class UserDao extends GenericDao<User> implements IUserDao{
     public Set<ProjectGroup> getAssignedProjects(Long userId) throws Exception {
         if (userId!=null){
 
-            Query query =this.entityManager.createQuery("select pg.name,pg.descriptions,pg.status from ProjectGroup as pg, User as u join pg.users where  u.id = :userId ");
+            Query query =this.entityManager.createQuery("select pg.name,pg.descriptions,pg.status from ProjectGroup as pg, User as u join pg.ProjectForUser as pgu where  u.id = :userId and pgu.id=u.id ");
             query.setParameter("userId",userId);
             List<ProjectGroup> result=query.getResultList();
             if (!result.isEmpty()){
