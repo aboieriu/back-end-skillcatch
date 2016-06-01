@@ -30,7 +30,7 @@ and there you are.
 
 
 
- AND USE skillcatch.sql in your MySQL Workbench/phpMyAdmin
+ AND USE SkillCatchDB.sql in your MySQL Workbench/phpMyAdmin
 
  There is also a DEFAULTUSER named admin inside DB, so you can insert the hardcoded token for it ?token=admin:1455807188054:1a62a970b25e06e1fe606d5fb66e99ad
 
