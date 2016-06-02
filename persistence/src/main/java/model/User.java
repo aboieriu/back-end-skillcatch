@@ -39,30 +39,28 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name="address")
+    @Column(name = "address")
     private String address;
 
     @Column
     private String image;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY,cascade =CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_has_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> userRole;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_has_task",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "task_id")})
     private Set<Task> userTasks;
 
-
-
-
-    public User() {}
+    public User() {
+    }
 
     public String getAddress() {
         return address;
@@ -72,15 +70,15 @@ public class User {
         this.address = address;
     }
 
-    public User(String name, String surname, String username, String password, String email, String phone,String address, String image) {
+    public User(String name, String surname, String username, String password, String email, String phone, String address, String image) {
         this.name = name;
         this.surname = surname;
         this.username = username;
-        this.password=password;
+        this.password = password;
         this.email = email;
         this.phone = phone;
-        this.address=address;
-        this.image=image;
+        this.address = address;
+        this.image = image;
     }
 
     public Set<Task> getUserTasks() {

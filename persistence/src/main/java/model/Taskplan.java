@@ -1,13 +1,14 @@
 package model;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@JsonIgnoreProperties({"taskPlanId" , "projectId"})
+@JsonIgnoreProperties({"taskPlanId", "projectId"})
 @Entity
-@Table(name="task_plan")
+@Table(name = "task_plan")
 public class Taskplan {
 
     @GeneratedValue(generator = "idIncrementor")
@@ -21,22 +22,15 @@ public class Taskplan {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JoinTable(name="task_plan_has_task",
-            joinColumns={@JoinColumn(name="task_plan_id")},
-            inverseJoinColumns = {@JoinColumn(name="task_id")})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "task_plan_has_task",
+            joinColumns = {@JoinColumn(name = "task_plan_id")},
+            inverseJoinColumns = {@JoinColumn(name = "task_id")})
     private Set<Task> tasks;
 
-    public Set<Task> getTasks() {
-        return tasks;
+
+    public Taskplan() {
     }
-
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-
-    public Taskplan() {}
 
     public Long getId() {
         return id;
@@ -45,6 +39,14 @@ public class Taskplan {
     public Taskplan(String name, String description, Set<Task> tasks) {
         this.name = name;
         this.description = description;
+        this.tasks = tasks;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
 

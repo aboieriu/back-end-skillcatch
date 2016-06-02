@@ -1,10 +1,12 @@
 package model;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-@JsonIgnoreProperties(value = {"taskPlanId" , "projectId", "groupId", "0" , "1"}, ignoreUnknown = true)
 
+@JsonIgnoreProperties(value = {"taskPlanId", "projectId", "groupId", "0", "1"}, ignoreUnknown = true)
 @Entity
 @Table(name = "badge")
 public class Badge {
@@ -14,28 +16,31 @@ public class Badge {
     @Id
     private Long id;
 
-    @Column(name ="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name ="description")
+    @Column(name = "description")
     private String description;
 
-
-
-    public void setTask(Task task) {
-        this.task = task;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.DETACH)
-    @JoinColumn(name="task_id",nullable = false)
-
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "task_id", nullable = false)
     private Task task;
 
-    public Badge(){}
+    public Badge() {
+    }
 
     public Badge(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public Long getId() {

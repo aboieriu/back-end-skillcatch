@@ -18,7 +18,6 @@ import java.util.Set;
 public class ProjectGroup {
 
 
-
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
     @Id
@@ -33,29 +32,19 @@ public class ProjectGroup {
     @Column(name = "status")
     private String status;
 
-    public ProjectGroup() {}
-
-    @ManyToMany(cascade = {CascadeType.DETACH},fetch = FetchType.EAGER)
-    @JoinTable(name="project_group_has_user",
-            joinColumns={@JoinColumn(name="project_group_id")},
-            inverseJoinColumns = {@JoinColumn(name="user_id")})
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JoinTable(name = "project_group_has_user",
+            joinColumns = {@JoinColumn(name = "project_group_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
     private Set<User> users;
 
-    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JoinTable(name="project_group_has_task_plan",
-            joinColumns={@JoinColumn(name="project_group_id")},
-            inverseJoinColumns = {@JoinColumn(name="task_plan_id")})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "project_group_has_task_plan",
+            joinColumns = {@JoinColumn(name = "project_group_id")},
+            inverseJoinColumns = {@JoinColumn(name = "task_plan_id")})
     private Set<Taskplan> taskplans;
 
-
-
-
-    public Set<Taskplan> getTaskplans() {
-        return taskplans;
-    }
-
-    public void setTaskplans(Set<Taskplan> taskplans) {
-        this.taskplans = taskplans;
+    public ProjectGroup() {
     }
 
     public ProjectGroup(String name, String descriptions, String status, Set<User> users, Set<Taskplan> taskplans) {
@@ -73,6 +62,15 @@ public class ProjectGroup {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    public Set<Taskplan> getTaskplans() {
+        return taskplans;
+    }
+
+    public void setTaskplans(Set<Taskplan> taskplans) {
+        this.taskplans = taskplans;
+    }
+
 
     public Long getId() {
         return id;

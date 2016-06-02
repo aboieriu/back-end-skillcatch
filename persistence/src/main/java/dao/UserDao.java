@@ -95,8 +95,19 @@ public class UserDao extends GenericDao<User> implements IUserDao{
     }
     @Transactional
     public Set<Task> getUserTasks(Long userId){
-        User targetUser=getById(userId);
-        return targetUser.getUserTasks();
+        if(userId!=null){
+            Query query =this.entityManager.createQuery("select t.name,t.description,t.status from Task as t, User as u join u.userTasks as utsk where  u.id = :userId and utsk.id=u.id ");
+            query.setParameter("userId",userId);
+            List<Task> result=query.getResultList();
+            if (!result.isEmpty()){
+                Set<Task> taskSet=new HashSet<Task>(result);
+
+                return taskSet;
+            }
+            throw new EmptyResultDataAccessException("No result for this id!", 1);
+
+        }
+        throw  new UnknownSqlResultSetMappingException("Not found");
     }
 
 }

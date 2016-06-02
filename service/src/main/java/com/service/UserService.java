@@ -35,7 +35,7 @@ public class UserService extends BaseService {
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/user" , method = RequestMethod.POST)
     @ResponseBody
-
+    @PreAuthorize("hasRole('ROLE_DEV')")
     public void addUser(@PathVariable("groupId") Long groupId,@RequestBody User user)
     {
 
