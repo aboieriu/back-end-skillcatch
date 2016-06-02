@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 02 Iun 2016 la 14:03
+-- Generation Time: 02 Iun 2016 la 14:08
 -- Versiune server: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -53,7 +53,7 @@ CREATE TABLE `project_group` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `descriptions` varchar(45) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -62,11 +62,11 @@ CREATE TABLE `project_group` (
 --
 
 INSERT INTO `project_group` (`id`, `name`, `descriptions`, `status`, `user_id`) VALUES
-(1, 'Grup1', 'Java jdk 1.6', 2, 1),
-(4, 'Grup2', 'JavaScript, PHP', 1, 1),
-(5, 'Grup 5', 'Pyton', 3, 2),
-(6, 'Grup 6', 'Ruby', 2, 3),
-(8, 'Grup8', 'HTML CSS', 1, 3);
+(1, 'Grup1', 'Java jdk 1.6', '2', 1),
+(4, 'Grup2', 'JavaScript, PHP', '1', 1),
+(5, 'Grup 5', 'Pyton', '3', 2),
+(6, 'Grup 6', 'Ruby', '2', 3),
+(8, 'Grup8', 'HTML CSS', '1', 3);
 
 -- --------------------------------------------------------
 
