@@ -8,6 +8,7 @@ import model.ProjectGroup;
 import model.Task;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,8 +47,9 @@ public class AllUsersService extends BaseService {
         user.setId(id);
         this.allUsersFacade.updateUser(user);
     }
-    @RequestMapping(value = "" , method = RequestMethod.POST)
+    @RequestMapping(value = "/addUser" , method = RequestMethod.POST)
     @ResponseBody
+
     public void addUser(@RequestBody User user)
     {
         this.allUsersFacade.addUser(user);
