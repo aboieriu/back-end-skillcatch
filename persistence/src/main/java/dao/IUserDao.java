@@ -6,6 +6,7 @@ import model.Task;
 import model.User;
 import org.springframework.dao.DataAccessException;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -18,7 +19,7 @@ public interface IUserDao extends IGenericDao<User> {
 
     Set<ProjectGroup> getAssignedProjects(Long userId);
 
-    Set<Task> getUserTasks(Long userId);
+    List<Task> getUserTasks(Long userId);
 
 
 }

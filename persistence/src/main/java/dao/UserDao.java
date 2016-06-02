@@ -82,7 +82,7 @@ public class UserDao extends GenericDao<User> implements IUserDao{
 
             Query query =this.entityManager.createQuery("select pg.name,pg.descriptions,pg.status from ProjectGroup as pg, User as u join pg.users as pgu where  u.id = :userId and pgu.id=u.id ");
             query.setParameter("userId",userId);
-            List<ProjectGroup> result=query.getResultList();
+            List result=query.getResultList();
             if (!result.isEmpty()){
                 Set<ProjectGroup> projectGroupSet=new HashSet<ProjectGroup>(result);
 
@@ -94,15 +94,14 @@ public class UserDao extends GenericDao<User> implements IUserDao{
        throw  new UnknownSqlResultSetMappingException("Not found");
     }
     @Transactional
-    public Set<Task> getUserTasks(Long userId){
+    public List<Task> getUserTasks(Long userId){
         if(userId!=null){
             Query query =this.entityManager.createQuery("select t.name,t.description,t.status from Task as t, User as u join u.userTasks as utsk where  u.id = :userId and utsk.id=u.id ");
             query.setParameter("userId",userId);
-            List<Task> result=query.getResultList();
+            List result=query.getResultList();
             if (!result.isEmpty()){
-                Set<Task> taskSet=new HashSet<Task>(result);
 
-                return taskSet;
+                return result;
             }
             throw new EmptyResultDataAccessException("No result for this id!", 1);
 

@@ -50,7 +50,7 @@ public class UserFacade implements IUserFacade {
         return this.userDao.getAssignedProjects(userId);
     }
 
-    public Set<Task> getUserTasks(Long userId) {
+    public List<Task> getUserTasks(Long userId) {
         return this.userDao.getUserTasks(userId);
     }
 }

@@ -70,7 +70,7 @@ public class AllUsersService extends BaseService {
     }
     @RequestMapping(value = "/{userId}/tasks",method = RequestMethod.GET)
     @ResponseBody
-    public Set<Task> getUserTasks(@PathVariable("userId") Long userId){
+    public List<Task> getUserTasks(@PathVariable("userId") Long userId){
         return  this.allUsersFacade.getUserTasks(userId);
 
     }

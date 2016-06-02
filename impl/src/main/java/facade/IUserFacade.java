@@ -25,5 +25,5 @@ public interface IUserFacade {
 
     Set<ProjectGroup> getAssignedProjects(Long userId);
 
-    Set<Task> getUserTasks(Long userId);
+    List<Task> getUserTasks(Long userId);
 }

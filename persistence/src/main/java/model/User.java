@@ -57,7 +57,7 @@ public class User {
     @JoinTable(name = "user_has_task",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "task_id")})
-    private Set<Task> userTasks;
+    private List<Task> userTasks;
 
     public User() {
     }
@@ -81,11 +81,11 @@ public class User {
         this.image = image;
     }
 
-    public Set<Task> getUserTasks() {
+    public List<Task> getUserTasks() {
         return userTasks;
     }
 
-    public void setUserTasks(Set<Task> userTasks) {
+    public void setUserTasks(List<Task> userTasks) {
         this.userTasks = userTasks;
     }
 
