@@ -33,7 +33,7 @@ public class ProjectGroup {
     private String descriptions;
 
     @Column(name = "status")
-    private Long status;
+    private String status;
 
     public ProjectGroup() {}
 
@@ -62,7 +62,7 @@ public class ProjectGroup {
         this.taskplans = taskplans;
     }
 
-    public ProjectGroup(String name, String descriptions, Long status, Set<User> users, Set<Taskplan> taskplans) {
+    public ProjectGroup(String name, String descriptions, String status, Set<User> users, Set<Taskplan> taskplans) {
         this.name = name;
         this.descriptions = descriptions;
         this.status = status;
@@ -111,11 +111,11 @@ public class ProjectGroup {
         this.descriptions = descriptions;
     }
 
-    public Long getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Long status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
