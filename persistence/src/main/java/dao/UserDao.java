@@ -4,7 +4,10 @@ import model.Badge;
 import model.ProjectGroup;
 import model.Task;
 import model.User;
+import org.hibernate.ObjectNotFoundException;
+import org.hibernate.procedure.UnknownSqlResultSetMappingException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
@@ -73,10 +76,11 @@ public class UserDao extends GenericDao<User> implements IUserDao{
     }
 
     @Transactional
-    public Set<ProjectGroup> getAssignedProjects(Long userId) throws Exception {
+    public Set<ProjectGroup> getAssignedProjects(Long userId) {
+
         if (userId!=null){
 
-            Query query =this.entityManager.createQuery("select pg.name,pg.descriptions,pg.status from ProjectGroup as pg, User as u join pg.ProjectForUser as pgu where  u.id = :userId and pgu.id=u.id ");
+            Query query =this.entityManager.createQuery("select pg.name,pg.descriptions,pg.status from ProjectGroup as pg, User as u join pg.users as pgu where  u.id = :userId and pgu.id=u.id ");
             query.setParameter("userId",userId);
             List<ProjectGroup> result=query.getResultList();
             if (!result.isEmpty()){
@@ -84,10 +88,10 @@ public class UserDao extends GenericDao<User> implements IUserDao{
 
                 return projectGroupSet;
             }
-
+            throw new EmptyResultDataAccessException("No result for this id!", 1);
 
         }
-        throw new Exception();
+       throw  new UnknownSqlResultSetMappingException("Not found");
     }
     @Transactional
     public Set<Task> getUserTasks(Long userId){

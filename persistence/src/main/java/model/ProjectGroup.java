@@ -1,22 +1,20 @@
 package model;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
+
 import javax.persistence.Table;
-import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 
 
 @Entity
 @Table(name = "project_group")
-@JsonIgnoreProperties({"handler", "hibernateLazyInitializer","ProjectForUser"})
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class ProjectGroup {
 
 
@@ -50,9 +48,7 @@ public class ProjectGroup {
     private Set<Taskplan> taskplans;
 
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id")
-    private User ProjectForUser;
+
 
     public Set<Taskplan> getTaskplans() {
         return taskplans;
@@ -68,14 +64,6 @@ public class ProjectGroup {
         this.status = status;
         this.users = users;
         this.taskplans = taskplans;
-    }
-    @JsonIgnore
-    public User getProjectForUser() {
-        return ProjectForUser;
-    }
-
-    public void setProjectForUser(User projectForUser) {
-        ProjectForUser = projectForUser;
     }
 
     public Set<User> getUsers() {

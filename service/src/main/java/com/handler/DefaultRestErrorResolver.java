@@ -26,6 +26,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.TypeMismatchDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -153,6 +154,7 @@ public class DefaultRestErrorResolver extends HttpServlet implements RestErrorRe
         //500
         applyDef(m, GenericMessageEndpointFactory.InternalResourceException.class,HttpStatus.INTERNAL_SERVER_ERROR);
         applyDef(m,"java.util.NoSuchElementException",HttpStatus.INTERNAL_SERVER_ERROR);
+        applyDef(m, EmptyResultDataAccessException.class,HttpStatus.INTERNAL_SERVER_ERROR);
         applyDef(m, PersistenceException.class,HttpStatus.INTERNAL_SERVER_ERROR);
 
 

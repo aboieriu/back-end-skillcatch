@@ -16,7 +16,7 @@ public interface IUserDao extends IGenericDao<User> {
     public void deleteUser(Long groupId , Long userId);
     public User findByUserName(String username);
 
-    Set<ProjectGroup> getAssignedProjects(Long userId) throws Exception;
+    Set<ProjectGroup> getAssignedProjects(Long userId);
 
     Set<Task> getUserTasks(Long userId);
 
