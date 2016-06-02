@@ -37,7 +37,7 @@ public class ProjectGroup {
 
     public ProjectGroup() {}
 
-    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH},fetch = FetchType.EAGER)
     @JoinTable(name="project_group_has_user",
             joinColumns={@JoinColumn(name="project_group_id")},
             inverseJoinColumns = {@JoinColumn(name="user_id")})

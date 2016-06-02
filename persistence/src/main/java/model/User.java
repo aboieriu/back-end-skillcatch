@@ -46,7 +46,7 @@ public class User {
     private String image;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "user_has_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
@@ -87,9 +87,6 @@ public class User {
         return userTasks;
     }
 
-    public void setUserTasks(Set<Task> userTasks) {
-        this.userTasks = userTasks;
-    }
 
 
     public Set<Role> getUserRole() {

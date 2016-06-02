@@ -19,4 +19,6 @@ public interface IUserDao extends IGenericDao<User> {
     Set<ProjectGroup> getAssignedProjects(Long userId) throws Exception;
 
     Set<Task> getUserTasks(Long userId);
+
+
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 01 Iun 2016 la 11:14
+-- Generation Time: 02 Iun 2016 la 14:03
 -- Versiune server: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -32,6 +32,16 @@ CREATE TABLE `badge` (
   `description` varchar(45) DEFAULT NULL,
   `task_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `badge`
+--
+
+INSERT INTO `badge` (`id`, `name`, `description`, `task_id`) VALUES
+(1, 'Fine Results', 'Badge for Fine Results', 1),
+(2, 'Best Results', 'Badge for Best Results', 1),
+(3, 'Extraordinary Results', 'Badge for Extraordinary Results', 1),
+(4, 'Extraordinary Results', 'Badge for Extraordinary Results', 2);
 
 -- --------------------------------------------------------
 
@@ -74,7 +84,9 @@ CREATE TABLE `project_group_has_task_plan` (
 --
 
 INSERT INTO `project_group_has_task_plan` (`task_plan_id`, `project_group_id`) VALUES
-(2, 4);
+(1, 1),
+(2, 4),
+(2, 5);
 
 -- --------------------------------------------------------
 
@@ -113,9 +125,8 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`id`, `name`, `description`) VALUES
-(1, 'ROLE_SUPER_DEV', 'ROl ADMIN'),
-(2, 'ROLE_DEV', 'ROLE_DEV'),
-(3, 'ROLE_USER', 'ROLE_USER');
+(1, 'ROLE_DEV', 'Rol Developer'),
+(2, 'ROLE_USER', 'Rol Utilizator');
 
 -- --------------------------------------------------------
 
@@ -129,6 +140,14 @@ CREATE TABLE `task` (
   `description` varchar(45) DEFAULT NULL,
   `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `task`
+--
+
+INSERT INTO `task` (`id`, `name`, `description`, `status`) VALUES
+(1, 'Context Creation', 'Creare Context Servlet', 'On Progress'),
+(2, 'Hibernate Mapping', 'Mapare Entitati', 'On Progress');
 
 -- --------------------------------------------------------
 
@@ -161,6 +180,14 @@ CREATE TABLE `task_plan_has_task` (
   `task_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Salvarea datelor din tabel `task_plan_has_task`
+--
+
+INSERT INTO `task_plan_has_task` (`task_plan_id`, `task_id`) VALUES
+(1, 1),
+(2, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -186,7 +213,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `name`, `surname`, `email`, `password`, `phone`, `address`, `image`) VALUES
 (1, 'admin', 'Administrator', 'Administrator', 'admin@skillcatch.com', '$2a$12$eTQ.ZPJsQEuWRdUfR6crXObIcta.5ZDTqIxjNZsCi8EnVGNiIXlva', '123456', 'Str.Turnului Nr. 3', 'http://expatbloke.com/wp-content/uploads/2016/01/default_avatar_560d512bd0fc2.gif'),
 (2, 'Ionut', 'Ionut', 'Developer', 'ionut@skillcatch.com', '$2a$12$nXDuPzufHkx7jki0OmP91.sxUL/6RgQU66lUOCxGjq6ydTKRwOPL.', '123456', 'Str.Garii', 'http://expatbloke.com/wp-content/uploads/2016/01/default_avatar_560d512bd0fc2.gif'),
-(3, 'User', 'User', 'User', NULL, '$2a$12$wmBRMxI4oRJvU7LOnYtvZ.Eo.IxKj9TLy.x1BtaPs3ywtYhgXJYVe', 'usernormal', 'Str.Harmanului', 'http://expatbloke.com/wp-content/uploads/2016/01/default_avatar_560d512bd0fc2.gif');
+(3, 'User', 'User', 'User', 'user@skillcatch.com', '$2a$12$wmBRMxI4oRJvU7LOnYtvZ.Eo.IxKj9TLy.x1BtaPs3ywtYhgXJYVe', 'usernormal', 'Str.Harmanului', 'http://expatbloke.com/wp-content/uploads/2016/01/default_avatar_560d512bd0fc2.gif');
 
 -- --------------------------------------------------------
 
@@ -198,6 +225,16 @@ CREATE TABLE `user_has_badge` (
   `user_id` int(11) NOT NULL,
   `badge_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `user_has_badge`
+--
+
+INSERT INTO `user_has_badge` (`user_id`, `badge_id`) VALUES
+(1, 2),
+(2, 4),
+(3, 1),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -217,9 +254,8 @@ CREATE TABLE `user_has_role` (
 INSERT INTO `user_has_role` (`user_id`, `role_id`) VALUES
 (1, 1),
 (1, 2),
-(1, 3),
-(2, 2),
-(3, 3);
+(2, 1),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -231,6 +267,15 @@ CREATE TABLE `user_has_task` (
   `user_id` int(11) NOT NULL,
   `task_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `user_has_task`
+--
+
+INSERT INTO `user_has_task` (`user_id`, `task_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 1);
 
 --
 -- Indexes for dumped tables
