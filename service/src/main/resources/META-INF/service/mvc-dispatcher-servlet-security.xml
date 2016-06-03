@@ -36,7 +36,7 @@
         <security:intercept-url pattern="/api/projectGroup/**" access="hasRole('ROLE_DEV')" />
         <security:intercept-url pattern="/api/user/addUser" method="POST" access="hasRole('ROLE_DEV')"/>
         <security:intercept-url pattern="/api/user/*" method="DELETE" access="hasRole('ROLE_DEV')" />
-        <security:intercept-url pattern="/api/user/**" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/api/user/**" access="hasAnyRole('ROLE_DEV','ROLE_USER')"/>
         <security:access-denied-handler ref="accessDenied" />
         <security:csrf disabled="true"/>
     </security:http>

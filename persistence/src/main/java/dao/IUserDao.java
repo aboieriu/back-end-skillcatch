@@ -4,6 +4,7 @@ import model.Badge;
 import model.ProjectGroup;
 import model.Task;
 import model.User;
+import org.json.JSONObject;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;

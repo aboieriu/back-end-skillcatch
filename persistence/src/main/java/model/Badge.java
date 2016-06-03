@@ -22,6 +22,9 @@ public class Badge {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "image")
+    private String image;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "task_id", nullable = false)
@@ -30,9 +33,11 @@ public class Badge {
     public Badge() {
     }
 
-    public Badge(String name, String description) {
+    public Badge(String name, String description,String image) {
         this.name = name;
         this.description = description;
+        this.image=image;
+
     }
 
     public Task getTask() {
@@ -67,4 +72,11 @@ public class Badge {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

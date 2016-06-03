@@ -7,7 +7,9 @@ import model.Badge;
 import model.ProjectGroup;
 import model.Task;
 import model.User;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -68,7 +70,7 @@ public class AllUsersService extends BaseService {
     public Set<ProjectGroup> getAssignedProjects(@PathVariable("userId") Long userId){
         return this.allUsersFacade.getAssignedProjects(userId);
     }
-    @RequestMapping(value = "/{userId}/tasks",method = RequestMethod.GET)
+    @RequestMapping(value = "/{userId}/tasks",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Task> getUserTasks(@PathVariable("userId") Long userId){
         return  this.allUsersFacade.getUserTasks(userId);

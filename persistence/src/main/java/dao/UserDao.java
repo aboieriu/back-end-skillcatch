@@ -1,20 +1,19 @@
 package dao;
 
-import model.Badge;
+
 import model.ProjectGroup;
 import model.Task;
 import model.User;
-import org.hibernate.ObjectNotFoundException;
-import org.hibernate.procedure.UnknownSqlResultSetMappingException;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
 
+import org.hibernate.procedure.UnknownSqlResultSetMappingException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.*;
 
 
-public class UserDao extends GenericDao<User> implements IUserDao{
+public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
 
     public UserDao() {
         super(User.class);
@@ -98,7 +97,7 @@ public class UserDao extends GenericDao<User> implements IUserDao{
         if(userId!=null){
             Query query =this.entityManager.createQuery("select t.name,t.description,t.status from Task as t, User as u join u.userTasks as utsk where  u.id = :userId and utsk.id=u.id ");
             query.setParameter("userId",userId);
-            List result=query.getResultList();
+            List<Task> result=query.getResultList();
             if (!result.isEmpty()){
 
                 return result;
@@ -108,5 +107,6 @@ public class UserDao extends GenericDao<User> implements IUserDao{
         }
         throw  new UnknownSqlResultSetMappingException("Not found");
     }
+
 
 }
