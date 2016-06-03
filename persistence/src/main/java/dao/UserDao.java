@@ -6,6 +6,7 @@ import model.Task;
 import model.User;
 
 import org.hibernate.procedure.UnknownSqlResultSetMappingException;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
@@ -93,15 +94,17 @@ public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
        throw  new UnknownSqlResultSetMappingException("Not found");
     }
     @Transactional
-    public List<Task> getUserTasks(Long userId){
-        if(userId!=null){
-            Query query =this.entityManager.createQuery("select t.name,t.description,t.status from Task as t, User as u join u.userTasks as utsk where  u.id = :userId and utsk.id=u.id ");
-            query.setParameter("userId",userId);
-            List<Task> result=query.getResultList();
-            if (!result.isEmpty()){
+    public List<Task> getUserTasks(Long userId) {
+        if (userId != null) {
+            Query query = this.entityManager.createQuery("select t.name,t.description,t.status from Task as t, User as u join u.userTasks as utsk where  u.id = :userId and utsk.id=u.id ");
+            query.setParameter("userId", userId);
+            List<Task> result = query.getResultList();
+            if(!result.isEmpty()){
 
                 return result;
+
             }
+
             throw new EmptyResultDataAccessException("No result for this id!", 1);
 
         }

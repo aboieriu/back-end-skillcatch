@@ -3,14 +3,11 @@ package com.service;
 
 import facade.ITaskFacade;
 import facade.IUserFacade;
-import model.Badge;
 import model.ProjectGroup;
 import model.Task;
 import model.User;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
