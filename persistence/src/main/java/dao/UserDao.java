@@ -80,7 +80,7 @@ public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
 
         if (userId!=null){
 
-            Query query =this.entityManager.createQuery("select pg.name,pg.descriptions,pg.status from ProjectGroup as pg, User as u join pg.users as pgu where  u.id = :userId and pgu.id=u.id ");
+            Query query =this.entityManager.createQuery("from ProjectGroup as pg, User as u join pg.users as pgu where  u.id = :userId and pgu.id=u.id ");
             query.setParameter("userId",userId);
             List result=query.getResultList();
             if (!result.isEmpty()){

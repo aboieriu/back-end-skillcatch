@@ -30,7 +30,7 @@ public class TaskplanFacade implements ITaskplanFacade {
     public void updateTaskplan(Taskplan taskplan){
         this.taskplanDao.updateTaskplan( taskplan);
     }
-    public void deleteTaskplan( Long taskplanId){this.taskplanDao.deleteTaskplan(taskplanId);}
+    public void deleteTaskplan( Long taskplanId){this.taskplanDao.deleteById(taskplanId);}
 
 
     public void addTaskToTaskPlan(Long taskPlanId , Task task){
