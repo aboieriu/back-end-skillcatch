@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 02 Iun 2016 la 15:29
+-- Generation Time: 07 Iun 2016 la 16:09
 -- Versiune server: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -30,6 +30,8 @@ CREATE TABLE `badge` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `description` varchar(45) DEFAULT NULL,
+  `image` varchar(500) DEFAULT NULL,
+  `points` int(11) NOT NULL,
   `task_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -37,11 +39,11 @@ CREATE TABLE `badge` (
 -- Salvarea datelor din tabel `badge`
 --
 
-INSERT INTO `badge` (`id`, `name`, `description`, `task_id`) VALUES
-(1, 'Fine Results', 'Badge for Fine Results', 1),
-(2, 'Best Results', 'Badge for Best Results', 1),
-(3, 'Extraordinary Results', 'Badge for Extraordinary Results', 1),
-(4, 'Extraordinary Results', 'Badge for Extraordinary Results', 2);
+INSERT INTO `badge` (`id`, `name`, `description`, `image`, `points`, `task_id`) VALUES
+(1, 'Fine Results', 'Badge for Fine Results', 'http://localhost:8089/images/badges/badges.png', 3, 1),
+(2, 'Best Results', 'Badge for Best Results', 'http://localhost:8089/images/badges/master.jpg', 5, 1),
+(3, 'Extraordinary Results', 'Badge for Extraordinary Results', 'http://localhost:8089/images/badges/soused.jpg', 2, 1),
+(4, 'Extraordinary Results', 'Badge for Extraordinary Results', 'http://localhost:8089/images/badges/gym_junkie.jpg', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -85,7 +87,7 @@ CREATE TABLE `project_group_has_task_plan` (
 
 INSERT INTO `project_group_has_task_plan` (`task_plan_id`, `project_group_id`) VALUES
 (1, 1),
-(2, 4),
+(1, 5),
 (2, 5);
 
 -- --------------------------------------------------------
@@ -106,6 +108,8 @@ CREATE TABLE `project_group_has_user` (
 INSERT INTO `project_group_has_user` (`user_id`, `project_group_id`) VALUES
 (1, 1),
 (1, 4),
+(1, 5),
+(1, 9),
 (2, 5);
 
 -- --------------------------------------------------------
@@ -146,8 +150,8 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`id`, `name`, `description`, `status`) VALUES
-(1, 'Context Creation', 'Creare Context Servlet', 'On Progress'),
-(2, 'Hibernate Mapping', 'Mapare Entitati', 'On Progress');
+(1, 'Context Creation', 'Creare Context Servlet', 'In Progress'),
+(2, 'Hibernate Mapping', 'Mapare Entitati', 'In Progress');
 
 -- --------------------------------------------------------
 
@@ -186,7 +190,7 @@ CREATE TABLE `task_plan_has_task` (
 
 INSERT INTO `task_plan_has_task` (`task_plan_id`, `task_id`) VALUES
 (1, 1),
-(2, 2);
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -273,7 +277,8 @@ CREATE TABLE `user_has_task` (
 --
 
 INSERT INTO `user_has_task` (`user_id`, `task_id`) VALUES
-(1, 1),
+(1, 2),
+(2, 1),
 (2, 2),
 (3, 1);
 
@@ -380,8 +385,8 @@ ALTER TABLE `project_group_has_task_plan`
 -- Restrictii pentru tabele `project_group_has_user`
 --
 ALTER TABLE `project_group_has_user`
-  ADD CONSTRAINT `fk_user_has_project_group_project_group1` FOREIGN KEY (`project_group_id`) REFERENCES `project_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_user_has_project_group_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_user_has_project_group_project_group1` FOREIGN KEY (`project_group_id`) REFERENCES `project_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_has_project_group_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Restrictii pentru tabele `task_plan_has_task`
@@ -401,8 +406,8 @@ ALTER TABLE `user_has_badge`
 -- Restrictii pentru tabele `user_has_role`
 --
 ALTER TABLE `user_has_role`
-  ADD CONSTRAINT `fk_user_has_role_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_user_has_role_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_user_has_role_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_has_role_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Restrictii pentru tabele `user_has_task`
