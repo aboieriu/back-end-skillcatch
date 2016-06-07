@@ -54,7 +54,7 @@ public class TokenUtils
 
 	public static String getUserNameFromToken(String authToken)
 	{
-		if (null == authToken) {
+		if (null == authToken || !authToken.contains(":")) {
 			return null;
 		}
 

@@ -5,9 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by CataVlad on 19-Oct-15.
- */
 public class CorsFilter implements Filter {
     public void destroy() {
         // TODO Auto-generated method stub

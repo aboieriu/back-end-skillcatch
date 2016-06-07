@@ -4,14 +4,15 @@ package dao;
 import model.ProjectGroup;
 import model.Task;
 import model.User;
-
 import org.hibernate.procedure.UnknownSqlResultSetMappingException;
-
 import org.springframework.dao.EmptyResultDataAccessException;
+
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
@@ -60,7 +61,7 @@ public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
             entityManager.persist(itemFromDbs);
         }
     }
-    @Transactional
+
     public User findByUserName(String username){
 
         if(username!=null) {
@@ -75,25 +76,22 @@ public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
         return null;
     }
 
-    @Transactional
     public Set<ProjectGroup> getAssignedProjects(Long userId) {
 
         if (userId!=null){
 
-            Query query =this.entityManager.createQuery("from ProjectGroup as pg, User as u join pg.users as pgu where  u.id = :userId and pgu.id=u.id ");
+            Query query =this.entityManager.createQuery("select pg from ProjectGroup as pg join pg.users as pgu where  pgu.id=:userId");
             query.setParameter("userId",userId);
-            List result=query.getResultList();
+            List<ProjectGroup> result = query.getResultList();
             if (!result.isEmpty()){
-                Set<ProjectGroup> projectGroupSet=new HashSet<ProjectGroup>(result);
-
-                return projectGroupSet;
+                return new HashSet<ProjectGroup>(result);
             }
             throw new EmptyResultDataAccessException("No result for this id!", 1);
 
         }
        throw  new UnknownSqlResultSetMappingException("Not found");
     }
-    @Transactional
+
     public List<Task> getUserTasks(Long userId) {
         if (userId != null) {
             Query query = this.entityManager.createQuery("select t.name,t.description,t.status from Task as t, User as u join u.userTasks as utsk where  u.id = :userId and utsk.id=u.id ");
