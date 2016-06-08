@@ -15,13 +15,13 @@ public class GroupDao extends GenericDao<ProjectGroup> implements IGroupDao {
     }
 
 
-    @Transactional
+
     public Set<User> getUsers(Long groupId){
         ProjectGroup targetGroup = this.getById(groupId);
         return targetGroup.getUsers();
     }
 
-    @Transactional
+
     public Set<Taskplan> getTaskplans(Long groupId){
         ProjectGroup targetGroup = this.getById(groupId);
         return targetGroup.getTaskplans();

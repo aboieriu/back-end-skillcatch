@@ -17,7 +17,7 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
         super(Task.class);
     }
 
-    @Transactional
+
     public Task getTask(Long groupId, Long taskplanId, Long taskId) {
         Query query = this.entityManager.createQuery("select t from ProjectGroup as pg join pg.taskplans as tp join tp.tasks as t where tp.id = :targettaskplanId AND t.id = :targettaskId AND pg.id =:targetprojectgroupId ");
         query.setParameter("targettaskId", taskId);
@@ -30,7 +30,7 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
         return null;
     }
 
-    @Transactional
+
     public List<Badge> getBadgeFromTask(Long taskId) {
         Task targetTask = this.getById(taskId);
         return targetTask.getBadges();

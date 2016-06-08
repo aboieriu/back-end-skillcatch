@@ -2,7 +2,9 @@ package com.service;
 
 
 import com.converter.AssignedProjectConverter;
+import com.converter.UserTasksConverter;
 import com.view.AssignedProjectView;
+import com.view.UserTasks;
 import facade.ITaskFacade;
 import facade.IUserFacade;
 import model.ProjectGroup;
@@ -28,6 +30,8 @@ public class AllUsersService extends BaseService {
     private ITaskFacade iTaskFacade;
 
     private AssignedProjectConverter assignedProjectConverter = new AssignedProjectConverter();
+
+    private UserTasksConverter userTasksConverter=new UserTasksConverter();
 
     @RequestMapping(value = "" , method = RequestMethod.GET)
     @ResponseBody
@@ -73,8 +77,8 @@ public class AllUsersService extends BaseService {
     }
     @RequestMapping(value = "/{userId}/tasks",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Task> getUserTasks(@PathVariable("userId") Long userId){
-        return  this.allUsersFacade.getUserTasks(userId);
+    public Set<UserTasks> getUserTasks(@PathVariable("userId") Long userId){
+        return  this.userTasksConverter.convert(this.allUsersFacade.getUserTasks(userId));
 
     }
 

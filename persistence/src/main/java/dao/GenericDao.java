@@ -36,7 +36,7 @@ public abstract class GenericDao<T> implements IGenericDao<T>{
 
 
 
-    @Transactional
+
     public T getById (Long id)
     {
 

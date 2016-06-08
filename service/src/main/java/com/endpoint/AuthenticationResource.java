@@ -2,6 +2,7 @@ package com.endpoint;
 
 import com.security.*;
 import facade.IUserFacade;
+import model.Role;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,7 +42,8 @@ public class AuthenticationResource {
 
         User user = userFacade.findByUserName(userCandidate.getUsername());
 
-        return new AuthToken(user.getId(), TokenUtils.createToken(user.getUsername(), user.getPassword()));
+
+        return new AuthToken(user.getId(), TokenUtils.createToken(user.getUsername(), user.getPassword()),user.getUserRole());
 
 
     }

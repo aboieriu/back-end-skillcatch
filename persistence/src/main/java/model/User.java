@@ -51,11 +51,7 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> userRole;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_has_task",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "task_id")})
-    private List<Task> userTasks;
+
 
     public User() {
     }
@@ -79,13 +75,6 @@ public class User {
         this.image = image;
     }
 
-    public List<Task> getUserTasks() {
-        return userTasks;
-    }
-
-    public void setUserTasks(List<Task> userTasks) {
-        this.userTasks = userTasks;
-    }
 
 
     public Set<Role> getUserRole() {

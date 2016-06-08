@@ -30,12 +30,26 @@ public class Task {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "task",cascade = CascadeType.ALL)
     private List<Badge> badges;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_has_task",
+            joinColumns = {@JoinColumn(name = "task_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    private Set<Task> userTasks;
+
 
 
     public Task(String name, String description,String status) {
         this.name = name;
         this.description = description;
         this.status=status;
+    }
+
+    public Set<Task> getUserTasks() {
+        return userTasks;
+    }
+
+    public void setUserTasks(Set<Task> userTasks) {
+        this.userTasks = userTasks;
     }
 
     public Long getId() {

@@ -17,7 +17,7 @@ public class TaskplanDao extends GenericDao<Taskplan> implements ITaskplanDao {
 
 
 
-    @Transactional
+
     public Taskplan getTaskplan(Long groupId,Long taskplanId) {
         if(groupId !=null || taskplanId != null)
         {
@@ -42,7 +42,7 @@ public class TaskplanDao extends GenericDao<Taskplan> implements ITaskplanDao {
         }
     }
 
-    @Transactional
+
     public Set<Task> getTasks(Long taskplanId){
         Taskplan targetTaskplan = this.getById(taskplanId);
         return targetTaskplan.getTasks();

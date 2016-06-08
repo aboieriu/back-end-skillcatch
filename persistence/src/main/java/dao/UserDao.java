@@ -22,7 +22,7 @@ public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
     }
 
 
-    @Transactional
+
     public User getUser(Long groupId,Long userId) {
         if(groupId !=null || userId != null)
         {
@@ -92,14 +92,14 @@ public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
        throw  new UnknownSqlResultSetMappingException("Not found");
     }
 
-    public List<Task> getUserTasks(Long userId) {
+    public Set<Task> getUserTasks(Long userId) {
         if (userId != null) {
-            Query query = this.entityManager.createQuery("select t.name,t.description,t.status from Task as t, User as u join u.userTasks as utsk where  u.id = :userId and utsk.id=u.id ");
+            Query query = this.entityManager.createQuery("select t from Task as t join t.userTasks as utsk where utsk.id=:userId");
             query.setParameter("userId", userId);
             List<Task> result = query.getResultList();
             if(!result.isEmpty()){
 
-                return result;
+                return new HashSet<Task>(result);
 
             }
 

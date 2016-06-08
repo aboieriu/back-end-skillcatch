@@ -11,7 +11,7 @@ public class BadgeDao extends GenericDao<Badge> implements IBadgeDao {
         super(Badge.class);
     }
 
-    @Transactional
+
     public Badge getBadgeById(Long groupId,Long taskPlanId,Long taskId,Long badgeId) {
         if(groupId !=null || taskPlanId != null || taskId != null )
         {
