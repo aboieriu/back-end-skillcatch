@@ -1,5 +1,6 @@
 package facade;
 
+import model.Badge;
 import model.ProjectGroup;
 import model.Task;
 import model.User;
@@ -27,4 +28,5 @@ public interface IUserFacade {
     Set<ProjectGroup> getAssignedProjects(Long userId);
 
     Set<Task> getUserTasks(Long userId);
+    Set<Badge> getUserBadges(Long userId);
 }

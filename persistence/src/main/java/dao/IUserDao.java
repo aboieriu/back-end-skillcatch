@@ -1,6 +1,7 @@
 package dao;
 
 
+import model.Badge;
 import model.ProjectGroup;
 import model.Task;
 import model.User;
@@ -19,6 +20,7 @@ public interface IUserDao extends IGenericDao<User> {
     Set<ProjectGroup> getAssignedProjects(Long userId);
 
     Set<Task> getUserTasks(Long userId);
+    Set<Badge> getUserBadges(Long userId);
 
 
 }

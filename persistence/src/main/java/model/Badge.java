@@ -5,6 +5,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @JsonIgnoreProperties(value = {"taskPlanId", "projectId", "groupId", "0", "1"}, ignoreUnknown = true)
 @Entity
@@ -32,6 +33,21 @@ public class Badge {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "task_id", nullable = false)
     private Task task;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_has_badge",
+            joinColumns = {@JoinColumn(name = "badge_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    private Set<Badge> userBadges;
+
+    public Set<Badge> getUserBadges() {
+        return userBadges;
+    }
+
+    public void setUserBadges(Set<Badge> userBadges) {
+        this.userBadges = userBadges;
+    }
 
     public Badge() {
     }

@@ -29,6 +29,15 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
         }
         return null;
     }
+    public Task getUserTask(Long userId,Long taskId) {
+        Query query = this.entityManager.createQuery("select t from Task as t join t.userTasks as utsk where utsk.id=:userId");
+        query.setParameter("userId", userId);
+        List<Task> result = query.getResultList();
+        if (!result.isEmpty()) {
+            return result.get(0);
+        }
+        return null;
+    }
 
 
     public List<Badge> getBadgeFromTask(Long taskId) {

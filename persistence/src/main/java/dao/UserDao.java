@@ -1,6 +1,7 @@
 package dao;
 
 
+import model.Badge;
 import model.ProjectGroup;
 import model.Task;
 import model.User;
@@ -100,6 +101,23 @@ public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
             if(!result.isEmpty()){
 
                 return new HashSet<Task>(result);
+
+            }
+
+            throw new EmptyResultDataAccessException("No result for this id!", 1);
+
+        }
+        throw  new UnknownSqlResultSetMappingException("Not found");
+    }
+
+    public Set<Badge> getUserBadges(Long userId) {
+        if (userId != null) {
+            Query query = this.entityManager.createQuery("select b from Badge as b join b.userBadges as ub where ub.id=:userId");
+            query.setParameter("userId", userId);
+            List<Badge> result = query.getResultList();
+            if(!result.isEmpty()){
+
+                return new HashSet<Badge>(result);
 
             }
 

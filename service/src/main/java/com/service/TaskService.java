@@ -55,7 +55,6 @@ public class TaskService extends BaseService {
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}", method = RequestMethod.PUT)
     @ResponseBody
-
     public void updateTask(@PathVariable("taskId") Long id,@RequestBody Task task) {
         task.setId(id);
 

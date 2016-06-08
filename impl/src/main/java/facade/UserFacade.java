@@ -1,6 +1,7 @@
 package facade;
 
 import dao.IUserDao;
+import model.Badge;
 import model.ProjectGroup;
 import model.Task;
 import model.User;
@@ -53,6 +54,9 @@ public class UserFacade implements IUserFacade {
 
     public Set<Task> getUserTasks(Long userId) {
         return this.userDao.getUserTasks(userId);
+    }
+    public Set<Badge> getUserBadges(Long userId) {
+        return this.userDao.getUserBadges(userId);
     }
 }
 

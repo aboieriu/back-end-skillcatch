@@ -1,4 +1,5 @@
 package model;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -29,7 +30,7 @@ public class Task {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "task",cascade = CascadeType.ALL)
     private List<Badge> badges;
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_has_task",
             joinColumns = {@JoinColumn(name = "task_id")},
