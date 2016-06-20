@@ -4,16 +4,18 @@ import facade.IBadgeFacade;
 import facade.ITaskFacade;
 import model.Badge;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.Set;
 
 
 @Controller
-
 public class BadgeService extends BaseService {
 
     @Autowired
@@ -43,31 +45,23 @@ public class BadgeService extends BaseService {
         return this.badgeFacade.getBadgeById(id,taskPlanId,taskId,badgeId);
     }
 
-
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}/badge/{badgeId}",method = RequestMethod.DELETE)
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteBadge(@PathVariable("badgeId") Long badgeId)
     {
         this.badgeFacade.deleteBadge(badgeId);
     }
-    /*
 
-    @RequestMapping(value = "/api/projectGroup/{groupId}/user/{userId}/badge" , method = RequestMethod.GET)
+    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}/badge",method = RequestMethod.POST)
     @ResponseBody
-    public Badge getBadgeFromUser(@PathVariable("groupId") Long groupId,@PathVariable("userId") Long userId)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void addBadge(@PathVariable("taskId") Long taskId,@RequestBody Badge badge)
     {
-        return this.badgeFacade.getBadgeFromUser(groupId, userId);
+        badge.setTask(taskFacade.getTaskById(taskId));
+        this.badgeFacade.addBadgeToTask(taskId,badge);
     }
-*/
 
-@RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}/badge",method = RequestMethod.POST)
-@ResponseBody
-public void addBadge(@PathVariable("taskId") Long taskId,@RequestBody Badge badge)
-{
-
-    badge.setTask(taskFacade.getTaskById(taskId));
-    this.badgeFacade.addBadgeToTask(taskId,badge);
-}
     public IBadgeFacade getBadgeFacade() {
         return badgeFacade;
     }
@@ -75,6 +69,5 @@ public void addBadge(@PathVariable("taskId") Long taskId,@RequestBody Badge badg
     public void setBadgeFacade(IBadgeFacade badgeFacade) {
         this.badgeFacade = badgeFacade;
     }
-
 }
 

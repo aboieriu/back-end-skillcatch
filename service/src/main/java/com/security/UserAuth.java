@@ -25,13 +25,6 @@ public class UserAuth  implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, NullPointerException {
-        //hardcoded userDetails
-        //Set<String> roles = new HashSet<String>();
-        // roles.add("ROLE_DEV");
-        // add user fetching logic here
-        //$2a$04$hUzLRs8z9MbnbL0SbC/iaOMXQIbdW1/5DjpEcMu3XKK5qF4zizzyy is encoded password for "admin1"
-       // return new UserDetailsImpl("Ionut", "$2a$04$hUzLRs8z9MbnbL0SbC/iaOMXQIbdW1/5DjpEcMu3XKK5qF4zizzyy", roles);
-
         model.User user = userFacade.findByUserName(username);
         if(user!=null) {
             List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
@@ -43,8 +36,7 @@ public class UserAuth  implements UserDetailsService {
 
     private User buildUserForAuthentication(model.User user, List<GrantedAuthority> authorities) {
 
-
-        return new User(user.getUsername(), user.getPassword(), authorities);
+        return new CustomUserDetails(user.getId(), user.getUsername(), user.getPassword(), authorities);
     }
 
     private List<GrantedAuthority> buildUserAuthority(Set<Role> userRoles) {
@@ -55,8 +47,6 @@ public class UserAuth  implements UserDetailsService {
         for (Role userRole : userRoles) {
             setAuths.add(new SimpleGrantedAuthority(userRole.getName()));
         }
-
-
 
         List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
 

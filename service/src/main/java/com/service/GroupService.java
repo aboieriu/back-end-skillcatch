@@ -3,6 +3,7 @@ package com.service;
 import facade.IGroupFacade;
 import model.ProjectGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,6 @@ public class GroupService extends BaseService {
 
     @RequestMapping(value = "/{groupId}" , method = RequestMethod.GET)
     @ResponseBody
-
     public ProjectGroup getGroup(@PathVariable("groupId") Long id)
     {
         return this.groupFacade.getGroupById(id);
@@ -28,6 +28,7 @@ public class GroupService extends BaseService {
 
     @RequestMapping(value = "" , method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void addGroup(@RequestBody ProjectGroup group)
     {
         this.groupFacade.addGroup(group);
@@ -35,6 +36,7 @@ public class GroupService extends BaseService {
 
     @RequestMapping(value = "/{groupId}" , method = RequestMethod.PUT)
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateGroup(@PathVariable("groupId") Long id,@RequestBody ProjectGroup group)
     {
         group.setId(id);
@@ -43,12 +45,10 @@ public class GroupService extends BaseService {
 
     @RequestMapping(value = "/{groupId}", method = RequestMethod.DELETE)
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteGroup(@PathVariable("groupId") Long id)
     {
         this.groupFacade.deleteGroup(id);
     }
-
-
-
 
 }

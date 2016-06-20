@@ -21,7 +21,6 @@
 
     <bean id="authResource" class="com.endpoint.AuthenticationResource">
         <property name="authManager" ref="authenticationManager" />
-        <property name="userFacade" ref="userFacade" />
     </bean>
 
 

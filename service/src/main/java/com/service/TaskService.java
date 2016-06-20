@@ -1,10 +1,17 @@
 package com.service;
 
+import com.converter.UserBadgesConverter;
+import com.converter.UserTasksConverter;
+import com.view.UserBadgesView;
+import com.view.UserTasks;
 import facade.ITaskFacade;
 import facade.ITaskplanFacade;
+import facade.IUserFacade;
 import model.Task;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +21,11 @@ import java.util.Set;
 
 @Controller
 public class TaskService extends BaseService {
-
-
     @Autowired
     ITaskFacade taskFacade;
+
     @Autowired
     ITaskplanFacade taskPlanFacade;
-
-
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task" , method = RequestMethod.GET)
     @ResponseBody
@@ -39,14 +43,15 @@ public class TaskService extends BaseService {
     @Transactional
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task" , method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void addTask(@PathVariable("groupId") Long groupId,@PathVariable("taskPlanId") Long taskPlanId ,@RequestBody Task task)
     {
-
         this.taskPlanFacade.addTaskToTaskPlan(taskPlanId,task);
     }
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}",method = RequestMethod.DELETE)
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteTask(@PathVariable("taskId") Long taskId)
     {
         this.taskFacade.deleteTask(taskId);
@@ -55,11 +60,12 @@ public class TaskService extends BaseService {
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}", method = RequestMethod.PUT)
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateTask(@PathVariable("taskId") Long id,@RequestBody Task task) {
         task.setId(id);
-
         this.taskFacade.updateTask(task);
     }
+
 
 }
 

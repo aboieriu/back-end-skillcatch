@@ -15,11 +15,13 @@ public class CorsFilter implements Filter {
         // TODO Auto-generated method stub
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-
-        httpServletResponse.addHeader("Access-Control-Allow-Origin","*");
+        if (httpServletRequest.getHeaders("origin").hasMoreElements()) {
+            httpServletResponse.setHeader("Access-Control-Allow-Origin", httpServletRequest.getHeaders("origin").nextElement());
+        }
         httpServletResponse.addHeader("Access-Control-Allow-Methods","POST, GET, OPTIONS, DELETE, PUT");
         httpServletResponse.addHeader("Access-Control-Max-Age","3600");
         httpServletResponse.addHeader("Access-Control-Allow-Headers", "x-requested-with, X-Auth-Token, Content-Type");
+        httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
         if (httpServletRequest.getMethod().equals("OPTIONS")) {
             return;
         }
