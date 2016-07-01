@@ -1,6 +1,8 @@
 package facade.api;
 
+import model.Project;
 import view.AssignedProjectView;
+import view.ProjectView;
 
 import java.util.Set;
 
@@ -14,4 +16,5 @@ public interface IProjectFacade {
      * @return
      */
     Set<AssignedProjectView> getAssignedProjects(Long userId);
+
 }

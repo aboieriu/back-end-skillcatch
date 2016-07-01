@@ -1,15 +1,19 @@
 package facade.impl;
 
+import converter.ProjectConverter;
 import dao.api.IProjectDao;
 import dao.api.IUserDao;
 import facade.api.IGroupFacade;
+import facade.api.IProjectFacade;
 import model.Project;
 import model.TaskPlan;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import view.ProjectView;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class GroupFacade implements IGroupFacade {
@@ -18,6 +22,9 @@ public class GroupFacade implements IGroupFacade {
     private IProjectDao groupDao;
     @Autowired
     private IUserDao userDao;
+
+
+
 
     public IProjectDao getGroupDao() {
         return groupDao;
@@ -66,4 +73,9 @@ public class GroupFacade implements IGroupFacade {
     public Set<TaskPlan> getTaskPlans(Long groupId){
         return this.groupDao.getTaskplans(groupId);
     }
+
+    public Set<Project> getAllProjects(){
+        return this.groupDao.getAllProjects();
+    }
+
 }

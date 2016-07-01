@@ -3,6 +3,7 @@ package facade.api;
 import model.Project;
 import model.TaskPlan;
 import model.User;
+import view.ProjectView;
 
 import java.util.List;
 import java.util.Set;
@@ -20,5 +21,7 @@ public interface IGroupFacade {
     public Set<User> getUsers(Long groupId);
 
     public Set<TaskPlan> getTaskPlans(Long groupId);
+    Set<Project> getAllProjects();
+
 
 }

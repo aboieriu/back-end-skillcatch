@@ -30,7 +30,7 @@
             authentication-manager-ref="authenticationManager">
        <!-- -->
         <security:intercept-url  pattern="/authenticate/" access="permitAll" />
-        <security:intercept-url pattern="/api/**" access="hasRole('ROLE_DEV')" />
+        <security:intercept-url pattern="/api/**" access="hasRole('ADMIN')" />
         <security:csrf disabled="true"/>
     </security:http>
 

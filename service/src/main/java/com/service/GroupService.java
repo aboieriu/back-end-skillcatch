@@ -1,13 +1,20 @@
 package com.service;
 
+import converter.ProjectConverter;
 import facade.api.IGroupFacade;
+import facade.api.IProjectFacade;
 import model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import view.ProjectView;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/api/projectGroup")
 public class GroupService extends BaseService {
@@ -15,9 +22,12 @@ public class GroupService extends BaseService {
     @Autowired
     private IGroupFacade groupFacade;
 
+    private ProjectConverter projectConverter=new ProjectConverter();
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public List<Project> getAllGroup() {return this.groupFacade.getAllGroup();}
+    public Set<ProjectView> getAllGroup() {return this.projectConverter.convert(this.groupFacade.getAllProjects());}
+
 
     @RequestMapping(value = "/{groupId}" , method = RequestMethod.GET)
     @ResponseBody
@@ -50,5 +60,8 @@ public class GroupService extends BaseService {
     {
         this.groupFacade.deleteGroup(id);
     }
+
+
+
 
 }

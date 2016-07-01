@@ -58,7 +58,6 @@ public class TaskplanService extends BaseService{
     public void updateTaskPlan(@PathVariable("taskPlanId") Long id, @RequestBody TaskPlan taskPlan) {
         taskPlan.setId(id);
 
-
         this.taskPlanFacade.updateTaskplan(taskPlan);
     }
 
