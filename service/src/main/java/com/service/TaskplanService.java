@@ -1,8 +1,8 @@
 package com.service;
 
-import facade.IGroupFacade;
-import facade.ITaskplanFacade;
-import model.Taskplan;
+import facade.api.IGroupFacade;
+import facade.api.ITaskplanFacade;
+import model.TaskPlan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,14 +23,14 @@ public class TaskplanService extends BaseService{
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan" , method = RequestMethod.GET)
     @ResponseBody
-    public Set<Taskplan> getAllTaskPlans(@PathVariable("groupId") Long groupId)
+    public Set<TaskPlan> getAllTaskPlans(@PathVariable("groupId") Long groupId)
     {
         return this.groupFacade.getTaskPlans(groupId);
     }
 
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}",method = RequestMethod.GET)
     @ResponseBody
-    public Taskplan getTaskPlan(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId)
+    public TaskPlan getTaskPlan(@PathVariable("groupId") Long groupId , @PathVariable("taskPlanId") Long taskPlanId)
     {
         return this.taskPlanFacade.getTaskplan(groupId, taskPlanId);
     }
@@ -39,7 +39,7 @@ public class TaskplanService extends BaseService{
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan" , method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void addTaskPlan(@PathVariable("groupId") Long groupId,@RequestBody Taskplan taskPlanId)
+    public void addTaskPlan(@PathVariable("groupId") Long groupId,@RequestBody TaskPlan taskPlanId)
     {
         this.groupFacade.addTaskPlanToGroup(groupId,taskPlanId);
     }
@@ -55,7 +55,7 @@ public class TaskplanService extends BaseService{
     @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}", method = RequestMethod.PUT)
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateTaskPlan(@PathVariable("taskPlanId") Long id, @RequestBody Taskplan taskPlan) {
+    public void updateTaskPlan(@PathVariable("taskPlanId") Long id, @RequestBody TaskPlan taskPlan) {
         taskPlan.setId(id);
 
 

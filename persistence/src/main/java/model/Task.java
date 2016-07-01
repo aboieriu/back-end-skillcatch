@@ -1,4 +1,5 @@
 package model;
+import domain.TaskStatus;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
@@ -7,7 +8,6 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
-@JsonIgnoreProperties(value = {"taskPlanId" , "projectId", "taskId", "groupId", "0" , "1"}, ignoreUnknown = true)
 @Entity
 @Table(name="task")
 public class Task {
@@ -26,31 +26,21 @@ public class Task {
     @Column(name = "status")
     private String status;
 
-    public Task(){}
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "task",cascade = CascadeType.ALL)
-    private List<Badge> badges;
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_has_task",
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "task_has_badge",
             joinColumns = {@JoinColumn(name = "task_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private Set<Task> userTasks;
+            inverseJoinColumns = {@JoinColumn(name = "badge_id")})
+    private Set<Badge> badges;
 
+    public Task(){
+
+    }
 
 
     public Task(String name, String description,String status) {
         this.name = name;
         this.description = description;
         this.status=status;
-    }
-
-    public Set<Task> getUserTasks() {
-        return userTasks;
-    }
-
-    public void setUserTasks(Set<Task> userTasks) {
-        this.userTasks = userTasks;
     }
 
     public Long getId() {
@@ -85,11 +75,11 @@ public class Task {
         this.status = status;
     }
 
-    public List<Badge> getBadges() {
+    public Set<Badge> getBadges() {
         return badges;
     }
 
-    public void setBadges(List<Badge> badges) {
+    public void setBadges(Set<Badge> badges) {
         this.badges = badges;
     }
 }

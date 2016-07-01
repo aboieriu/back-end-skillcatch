@@ -25,17 +25,16 @@
             realm="Protected API"
             use-expressions="true"
             auto-config="false"
+            create-session="ifRequired"
             entry-point-ref="unauthorizedEntryPoint"
             authentication-manager-ref="authenticationManager">
        <!-- -->
         <security:intercept-url  pattern="/authenticate/" access="permitAll" />
         <security:intercept-url pattern="/api/**" access="hasRole('ROLE_DEV')" />
-        <security:access-denied-handler ref="accessDenied" />
         <security:csrf disabled="true"/>
     </security:http>
 
     <bean id="myUserDetailsService" class="com.security.UserAuth"/>
-    <bean id="accessDenied" class="com.handler.RestExceptionHandler"/>
-    <bean id="unauthorizedEntryPoint" class="com.handler.RestExceptionHandler"/>
+    <bean id="unauthorizedEntryPoint" class="com.security.UnauthorizedEntryPoint"/>
 
 </beans>

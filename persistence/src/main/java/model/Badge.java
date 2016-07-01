@@ -29,26 +29,6 @@ public class Badge {
     @Column(name="points")
     private  Long points;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinColumn(name = "task_id", nullable = false)
-    private Task task;
-
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_has_badge",
-            joinColumns = {@JoinColumn(name = "badge_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private Set<Badge> userBadges;
-
-    public Set<Badge> getUserBadges() {
-        return userBadges;
-    }
-
-    public void setUserBadges(Set<Badge> userBadges) {
-        this.userBadges = userBadges;
-    }
-
     public Badge() {
     }
 
@@ -58,22 +38,6 @@ public class Badge {
         this.image=image;
         this.points=points;
 
-    }
-
-    public Long getPoints() {
-        return points;
-    }
-
-    public void setPoints(Long points) {
-        this.points = points;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
     }
 
     public Long getId() {
@@ -106,5 +70,13 @@ public class Badge {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Long getPoints() {
+        return points;
+    }
+
+    public void setPoints(Long points) {
+        this.points = points;
     }
 }

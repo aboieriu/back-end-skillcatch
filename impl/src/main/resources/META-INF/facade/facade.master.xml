@@ -3,7 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="classpath:/META-INF/facade/group.facade.xml"/>
+    <import resource="classpath:/META-INF/facade/converters.xml"/>
+    <import resource="classpath:/META-INF/facade/project.facade.xml"/>
     <import resource="classpath:/META-INF/facade/user.facade.xml"/>
     <import resource="classpath:/META-INF/facade/badge.facade.xml"/>
     <import resource="classpath:/META-INF/facade/task.facade.xml"/>

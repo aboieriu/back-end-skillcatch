@@ -1,7 +1,7 @@
 package com.service;
 
-import facade.IGroupFacade;
-import model.ProjectGroup;
+import facade.api.IGroupFacade;
+import model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,11 +17,11 @@ public class GroupService extends BaseService {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public List<ProjectGroup> getAllGroup() {return this.groupFacade.getAllGroup();}
+    public List<Project> getAllGroup() {return this.groupFacade.getAllGroup();}
 
     @RequestMapping(value = "/{groupId}" , method = RequestMethod.GET)
     @ResponseBody
-    public ProjectGroup getGroup(@PathVariable("groupId") Long id)
+    public Project getGroup(@PathVariable("groupId") Long id)
     {
         return this.groupFacade.getGroupById(id);
     }
@@ -29,7 +29,7 @@ public class GroupService extends BaseService {
     @RequestMapping(value = "" , method = RequestMethod.POST)
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void addGroup(@RequestBody ProjectGroup group)
+    public void addGroup(@RequestBody Project group)
     {
         this.groupFacade.addGroup(group);
     }
@@ -37,7 +37,7 @@ public class GroupService extends BaseService {
     @RequestMapping(value = "/{groupId}" , method = RequestMethod.PUT)
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateGroup(@PathVariable("groupId") Long id,@RequestBody ProjectGroup group)
+    public void updateGroup(@PathVariable("groupId") Long id,@RequestBody Project group)
     {
         group.setId(id);
         this.groupFacade.updateGroup(group);

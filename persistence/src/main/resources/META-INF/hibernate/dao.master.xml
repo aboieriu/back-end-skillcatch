@@ -3,10 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="classpath:/META-INF/hibernate/group.dao.xml" />
+
     <import resource="classpath:/META-INF/hibernate/user.dao.xml" />
-    <import resource="classpath:/META-INF/hibernate/task.dao.xml" />
+    <import resource="classpath:/META-INF/hibernate/project.dao.xml" />
     <import resource="classpath:/META-INF/hibernate/taskplan.dao.xml" />
+    <import resource="classpath:/META-INF/hibernate/task.dao.xml" />
     <import resource="classpath:/META-INF/hibernate/badge.dao.xml" />
 
 </beans>

@@ -1,16 +1,9 @@
 package com.service;
 
-import com.converter.UserBadgesConverter;
-import com.converter.UserTasksConverter;
-import com.view.UserBadgesView;
-import com.view.UserTasks;
-import facade.ITaskFacade;
-import facade.ITaskplanFacade;
-import facade.IUserFacade;
+import facade.api.ITaskFacade;
+import facade.api.ITaskplanFacade;
 import model.Task;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;

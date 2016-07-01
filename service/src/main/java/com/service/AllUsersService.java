@@ -1,10 +1,10 @@
 package com.service;
 
-import com.converter.AssignedProjectConverter;
-import com.view.AssignedProjectView;
-import facade.ITaskFacade;
-import facade.ITaskplanFacade;
-import facade.IUserFacade;
+import converter.AssignedProjectConverter;
+import view.AssignedProjectView;
+import facade.api.ITaskFacade;
+import facade.api.ITaskplanFacade;
+import facade.api.IUserFacade;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/api/user")
+@RequestMapping("deprecated/api/user")
 public class AllUsersService extends BaseService {
 
     @Autowired
@@ -69,13 +69,5 @@ public class AllUsersService extends BaseService {
     public void deleteUser(@PathVariable("userId") Long id)
     {
         this.allUsersFacade.deleteUserById(id);
-    }
-
-
-    @RequestMapping(value = "/{userId}/assignedProjects",method = RequestMethod.GET)
-    @ResponseBody
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Set<AssignedProjectView> getAssignedProjects(@PathVariable("userId") Long userId){
-        return this.assignedProjectConverter.convert(this.allUsersFacade.getAssignedProjects(userId));
     }
 }

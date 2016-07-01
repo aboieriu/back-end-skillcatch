@@ -9,7 +9,7 @@ import java.util.Set;
 @JsonIgnoreProperties({"taskPlanId", "projectId"})
 @Entity
 @Table(name = "task_plan")
-public class Taskplan {
+public class TaskPlan {
 
     @GeneratedValue(generator = "idIncrementor")
     @GenericGenerator(name = "idIncrementor", strategy = "increment")
@@ -28,15 +28,21 @@ public class Taskplan {
             inverseJoinColumns = {@JoinColumn(name = "task_id")})
     private Set<Task> tasks;
 
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "task_plan_has_badge",
+            joinColumns = {@JoinColumn(name = "task_plan_id")},
+            inverseJoinColumns = {@JoinColumn(name = "badge_id")})
+    private Set<Badge> badges;
 
-    public Taskplan() {
+
+    public TaskPlan() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public Taskplan(String name, String description, Set<Task> tasks) {
+    public TaskPlan(String name, String description, Set<Task> tasks) {
         this.name = name;
         this.description = description;
         this.tasks = tasks;
@@ -68,5 +74,13 @@ public class Taskplan {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Badge> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(Set<Badge> badges) {
+        this.badges = badges;
     }
 }

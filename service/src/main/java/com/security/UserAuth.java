@@ -1,7 +1,7 @@
 package com.security;
 
 
-import facade.IUserFacade;
+import facade.api.IUserFacade;
 import model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +24,7 @@ public class UserAuth  implements UserDetailsService {
     private IUserFacade userFacade;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, NullPointerException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         model.User user = userFacade.findByUserName(username);
         if(user!=null) {
             List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
@@ -32,7 +32,7 @@ public class UserAuth  implements UserDetailsService {
             return buildUserForAuthentication(user, authorities);
         }
         return null;
-        }
+    }
 
     private User buildUserForAuthentication(model.User user, List<GrantedAuthority> authorities) {
 

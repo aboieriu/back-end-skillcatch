@@ -1,7 +1,7 @@
 package com.service;
 
-import facade.IBadgeFacade;
-import facade.ITaskFacade;
+import facade.api.IBadgeFacade;
+import facade.api.ITaskFacade;
 import model.Badge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,15 +52,7 @@ public class BadgeService extends BaseService {
     {
         this.badgeFacade.deleteBadge(badgeId);
     }
-
-    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}/badge",method = RequestMethod.POST)
-    @ResponseBody
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void addBadge(@PathVariable("taskId") Long taskId,@RequestBody Badge badge)
-    {
-        badge.setTask(taskFacade.getTaskById(taskId));
-        this.badgeFacade.addBadgeToTask(taskId,badge);
-    }
+    
 
     public IBadgeFacade getBadgeFacade() {
         return badgeFacade;

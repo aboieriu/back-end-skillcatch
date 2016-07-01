@@ -1,17 +1,14 @@
 package com.service;
 
-import com.security.AuthenticationContext;
-import facade.IGroupFacade;
-import facade.IUserFacade;
+import facade.api.IGroupFacade;
+import facade.api.IUserFacade;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 
 @Controller
