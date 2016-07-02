@@ -65,12 +65,19 @@ public class LoggedUserService extends BaseService {
         return loggedUserConverter.convert(loggedUser);
     }
 
-    @RequestMapping(value = "/assignedProjects",method = RequestMethod.GET)
+    @RequestMapping(value = "/assigned-projects",method = RequestMethod.GET)
     @ResponseBody
     public Set<AssignedProjectView> getAssignedProjects() throws Exception {
         Long userId = this.getLoggedUserId();
         Set<AssignedProjectView> assignedProjectViews = this.projectFacade.getAssignedProjects(userId);
         return assignedProjectViews;
+    }
+
+    @RequestMapping(value = "/assigned-projects/{projectId}",method = RequestMethod.GET)
+    @ResponseBody
+    public AssignedProjectView getAssignedProject(@PathVariable("projectId") Long projectId) throws Exception {
+        Long userId = this.getLoggedUserId();
+        return this.projectFacade.getAssignedProject(userId, projectId);
     }
 
     @RequestMapping(value = "/badges",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -88,25 +95,11 @@ public class LoggedUserService extends BaseService {
         return taskPlans.stream().map(taskPlan -> this.taskPlanConverter.convert(taskPlan)).collect(Collectors.toSet());
     }
 
-    @RequestMapping(value = "/tasks",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Set<TaskView> getUserTasks() throws Exception {
-        Long userId = this.getLoggedUserId();
-        return  this.userTasksConverter.convert(this.taskFacade.getUserTasks(userId));
-    }
-
     @RequestMapping(value = "/tasks/{taskId}", method = RequestMethod.PUT)
     @ResponseBody
-    public void changeTaskStatus(@PathVariable("taskId") Long id, @RequestBody Task userTask) {
-        userTask.setId(id);
-        this.taskFacade.updateTask(userTask);
-    }
-
-    @RequestMapping(value = "/tasks/{taskId}",method = RequestMethod.GET)
-    @ResponseBody
-    public Task getTask(@PathVariable("taskId") Long taskId) throws Exception {
+    public void changeTaskStatus(@PathVariable("taskId") Long id, @RequestBody TaskWithBadgesView userTask) throws Exception{
         Long userId = this.getLoggedUserId();
-        return this.taskFacade.getUserTask(userId, taskId);
+        this.taskFacade.updateTaskStatus(userId, userTask);
     }
 
     public ITaskFacade getTaskFacade() {

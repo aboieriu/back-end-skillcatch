@@ -50,16 +50,6 @@ public class TaskService extends BaseService {
         this.taskFacade.deleteTask(taskId);
     }
 
-
-    @RequestMapping(value = "/api/projectGroup/{groupId}/taskPlan/{taskPlanId}/task/{taskId}", method = RequestMethod.PUT)
-    @ResponseBody
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void updateTask(@PathVariable("taskId") Long id,@RequestBody Task task) {
-        task.setId(id);
-        this.taskFacade.updateTask(task);
-    }
-
-
 }
 
 

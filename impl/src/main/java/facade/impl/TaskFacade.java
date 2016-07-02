@@ -1,16 +1,20 @@
 package facade.impl;
 import dao.api.ITaskDao;
 import dao.api.IUserDao;
+import domain.TaskStatus;
 import facade.api.ITaskFacade;
 import model.Badge;
 import model.Task;
 import model.TaskPlan;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import view.TaskView;
+import view.TaskWithBadgesView;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public  class TaskFacade implements ITaskFacade {
@@ -51,8 +55,17 @@ public  class TaskFacade implements ITaskFacade {
     }
 
     @Override
-    public void updateTask(Task task){
-        this.taskDao.updateTask(task);
+    public void updateTaskStatus(Long userId, TaskWithBadgesView task){
+        User user = userDao.getById(userId);
+        if (task != null && TaskStatus.contains(task.getStatus())) {
+            if (user != null) {
+                Task targetUserTask = getUsersTask(user, task.getId());
+                if (targetUserTask != null) {
+                    targetUserTask.setStatus(TaskStatus.valueOf(task.getStatus()).name());
+                    this.taskDao.updateTask(targetUserTask);
+                }
+            }
+        }
     }
 
     @Override
@@ -67,7 +80,21 @@ public  class TaskFacade implements ITaskFacade {
 
     @Override
     public Set<Task> getUserTasks(Long userId) {
-        return this.userDao.getUserTasks(userId);
+        User user = userDao.getById(userId);
+        if (user != null) {
+            Set<Task> userTasks = new HashSet<>();
+            user.getTaskPlans().stream().forEach(taskPlan -> {
+                userTasks.addAll(taskPlan.getTasks());
+            });
+            user.getProjects().stream().forEach(project -> {
+                project.getTaskPlans().stream().forEach(taskPlan -> {
+                    userTasks.addAll(taskPlan.getTasks());
+                });
+
+            });
+            return userTasks;
+        }
+        return new HashSet<>();
     }
 
     @Override
@@ -77,5 +104,24 @@ public  class TaskFacade implements ITaskFacade {
             return user.getTaskPlans();
         }
         return new HashSet<>();
+    }
+
+    private Set<Task> getUsersTasks(User user) {
+        Set<Task> userTasks = new HashSet<>();
+        user.getTaskPlans().stream().forEach(taskPlan -> {
+            userTasks.addAll(taskPlan.getTasks());
+        });
+        user.getProjects().stream().forEach(project -> {
+            project.getTaskPlans().stream().forEach(taskPlan -> {
+                userTasks.addAll(taskPlan.getTasks());
+            });
+        });
+        return userTasks;
+    }
+
+    private Task getUsersTask(User user, Long taskId) {
+        Set<Task> userTasks = getUsersTasks(user);
+        Set<Task> targetUserTask = userTasks.stream().filter(task -> taskId.equals(task.getId())).collect(Collectors.toSet());
+        return targetUserTask.isEmpty() ? null : targetUserTask.iterator().next();
     }
 }

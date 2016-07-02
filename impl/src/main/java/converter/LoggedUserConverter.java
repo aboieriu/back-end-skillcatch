@@ -1,5 +1,7 @@
 package converter;
 
+import domain.RoleConst;
+import model.Role;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import view.BadgeView;
@@ -27,13 +29,27 @@ public class LoggedUserConverter {
 
         user.getTaskPlans().stream().forEach(taskPlan -> {
             badges.addAll(taskPlan.getBadges().stream().map(badge -> badgeConverter.convert(badge, taskPlan)).collect(Collectors.toSet()));
+            taskPlan.getTasks().stream().forEach(task -> {
+                badges.addAll(task.getBadges().stream().map(badge -> badgeConverter.convert(badge, task)).collect(Collectors.toSet()));
+            });
         });
 
         user.getProjects().stream().forEach(project -> {
             project.getTaskPlans().stream().forEach(taskPlan -> {
                 badges.addAll(taskPlan.getBadges().stream().map(badge -> badgeConverter.convert(badge, taskPlan)).collect(Collectors.toSet()));
+                taskPlan.getTasks().stream().forEach(task -> {
+                    badges.addAll(task.getBadges().stream().map(badge -> badgeConverter.convert(badge, task)).collect(Collectors.toSet()));
+                });
             });
         });
+
+        // Check if user is admin
+        Boolean admin = false;
+        for (Role role : user.getUserRole()) {
+           if (RoleConst.ROLE_ADMIN.name().equals(role.getName())){
+               admin = true;
+           }
+        }
 
         return new LoggedUserView(user.getId(),
                 user.getName(),
@@ -44,7 +60,8 @@ public class LoggedUserConverter {
                 user.getPhone(),
                 user.getAddress(),
                 user.getImage(),
-                badges);
+                badges,
+                admin);
     }
 
     public BadgeConverter getBadgeConverter() {

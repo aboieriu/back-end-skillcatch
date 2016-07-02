@@ -40,7 +40,7 @@ public class AuthenticationResource extends BaseService  {
         UsernamePasswordAuthenticationToken authenticationToken =  new UsernamePasswordAuthenticationToken(userCandidate.getUsername(), password);
         Authentication authentication = this.authManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<LoggedUserView>(new LoggedUserView(null, null, null, null, null, null, null, null, null, null), HttpStatus.OK);
+        return new ResponseEntity<LoggedUserView>(new LoggedUserView(null, null, null, null, null, null, null, null, null, null, null), HttpStatus.OK);
     }
 
     @RequestMapping(value="/logout", method = RequestMethod.POST)

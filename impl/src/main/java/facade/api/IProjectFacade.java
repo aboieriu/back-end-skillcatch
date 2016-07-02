@@ -14,4 +14,5 @@ public interface IProjectFacade {
      * @return
      */
     Set<AssignedProjectView> getAssignedProjects(Long userId);
+    AssignedProjectView getAssignedProject(Long userId, Long projectId);
 }

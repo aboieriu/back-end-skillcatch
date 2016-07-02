@@ -27,7 +27,7 @@ public class TaskPlanConverter {
         List<TaskView> taskViewList = taskPlan.getTasks().stream().map(task -> taskConverter.convertWithBadges(task)).collect(Collectors.toList());
         List<BadgeView> badgeViewList = taskPlan.getBadges().stream().map(badge -> badgeConverter.convert(badge, taskPlan)).collect(Collectors.toList());
 
-        return new TaskPlanView(taskPlan.getName(), taskPlan.getDescription(), taskViewList, badgeViewList);
+        return new TaskPlanView(taskPlan.getId(), taskPlan.getName(), taskPlan.getDescription(), taskViewList, badgeViewList);
     }
 
     public BadgeConverter getBadgeConverter() {

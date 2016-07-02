@@ -32,5 +32,17 @@ public class ProjectFacade  implements IProjectFacade{
         User loggedUser = userFacade.getUserById(userId);
         return loggedUser.getProjects().stream().map(project -> assignedProjectConverter.convert(project)).collect(Collectors.toSet());
     }
+
+    @Override
+    public AssignedProjectView getAssignedProject(Long userId, Long projectId) {
+        if (userId == null || projectId == null){
+            return null;
+        }
+        User loggedUser = userFacade.getUserById(userId);
+        Set<AssignedProjectView> assignedProjectViews = loggedUser.getProjects().stream()
+                .filter(project -> projectId.equals(project.getId()))
+                .map(project -> assignedProjectConverter.convert(project)).collect(Collectors.toSet());
+        return assignedProjectViews.isEmpty() ? null : assignedProjectViews.iterator().next();
+    }
 }
 

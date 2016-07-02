@@ -9,6 +9,7 @@ import java.util.List;
  * Created by aboieriu on 6/30/16.
  */
 public class TaskPlanView {
+    private final Long id;
     private final String name;
     private final String description;
     private final List<TaskView> tasks;
@@ -16,14 +17,20 @@ public class TaskPlanView {
 
     @JsonCreator
     public TaskPlanView(
+            @JsonProperty("id") Long id,
             @JsonProperty("name") String name,
             @JsonProperty("description") String description,
             @JsonProperty("tasks") List<TaskView> tasks,
             @JsonProperty("badges") List<BadgeView> badges) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.tasks = tasks;
         this.badges = badges;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -51,6 +58,7 @@ public class TaskPlanView {
 
         if (badges != null ? !badges.equals(that.badges) : that.badges != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (tasks != null ? !tasks.equals(that.tasks) : that.tasks != null) return false;
 
@@ -59,7 +67,8 @@ public class TaskPlanView {
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (tasks != null ? tasks.hashCode() : 0);
         result = 31 * result + (badges != null ? badges.hashCode() : 0);
