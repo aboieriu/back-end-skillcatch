@@ -47,9 +47,9 @@ public class ProjectDao extends GenericDao<Project> implements IProjectDao {
 
         List<Project> result = query.getResultList();
         if (!result.isEmpty()){
-            return new HashSet<Project>(result);
+            return new HashSet<>(result);
         }
-        throw new EmptyResultDataAccessException("No result for this id!", 1);
+        throw new EmptyResultDataAccessException("No result for this!", 1);
     }
 }
 
