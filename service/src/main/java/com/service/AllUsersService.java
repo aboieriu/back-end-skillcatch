@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 import java.util.Set;
 
-@Controller
 @RequestMapping("deprecated/api/user")
 public class AllUsersService extends BaseService {
 
@@ -32,13 +31,6 @@ public class AllUsersService extends BaseService {
     private IUserFacade allUsersFacade;
 
     private AssignedProjectConverter assignedProjectConverter = new AssignedProjectConverter();
-
-    @RequestMapping(value = "" , method = RequestMethod.GET)
-    @ResponseBody
-    public List<User> getAllUsers()
-    {
-        return this.allUsersFacade.getAll();
-    }
 
     @RequestMapping(value = "/{userId}" , method = RequestMethod.GET)
     @ResponseBody

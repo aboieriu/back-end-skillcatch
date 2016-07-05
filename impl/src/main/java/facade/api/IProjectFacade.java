@@ -1,6 +1,8 @@
 package facade.api;
 
+import model.Project;
 import view.AssignedProjectView;
+import view.ProjectView;
 
 import java.util.Set;
 
@@ -15,4 +17,9 @@ public interface IProjectFacade {
      */
     Set<AssignedProjectView> getAssignedProjects(Long userId);
     AssignedProjectView getAssignedProject(Long userId, Long projectId);
+    Set<ProjectView> getAll();
+    ProjectView getOne(Long projectId);
+    void deleteOne(Long projectId);
+    void createOne(Project project);
+    void updateOne(Project project);
 }

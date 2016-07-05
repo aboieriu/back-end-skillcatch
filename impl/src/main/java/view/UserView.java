@@ -1,14 +1,11 @@
 package view;
 
-import org.codehaus.jackson.annotate.JsonCreator;
-
-import java.util.List;
-import java.util.Set;
+import java.util.Date;
 
 /**
- * Created by aboieriu on 6/29/16.
+ * Created by aboieriu on 7/2/16.
  */
-public class LoggedUserView {
+public class UserView {
     private final Long Id;
 
     private final String name;
@@ -25,12 +22,9 @@ public class LoggedUserView {
 
     private final String image;
 
-    private final Set<BadgeView> badges;
+    private final Date addedOn;
 
-    private final Boolean admin;
-
-    @JsonCreator
-    public LoggedUserView(Long id, String name, String surname, String username, String email, String phone, String address, String image, Set<BadgeView> badges, Boolean admin) {
+    public UserView(Long id, String name, String surname, String username, String email, String phone, String address, String image, Date addedOn) {
         Id = id;
         this.name = name;
         this.surname = surname;
@@ -39,8 +33,7 @@ public class LoggedUserView {
         this.phone = phone;
         this.address = address;
         this.image = image;
-        this.badges = badges;
-        this.admin = admin;
+        this.addedOn = addedOn;
     }
 
     public Long getId() {
@@ -75,12 +68,8 @@ public class LoggedUserView {
         return image;
     }
 
-    public Set<BadgeView> getBadges() {
-        return badges;
-    }
-
-    public Boolean getAdmin() {
-        return admin;
+    public Date getAddedOn() {
+        return addedOn;
     }
 
     @Override
@@ -88,18 +77,17 @@ public class LoggedUserView {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LoggedUserView that = (LoggedUserView) o;
+        UserView userView = (UserView) o;
 
-        if (Id != null ? !Id.equals(that.Id) : that.Id != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (admin != null ? !admin.equals(that.admin) : that.admin != null) return false;
-        if (badges != null ? !badges.equals(that.badges) : that.badges != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (image != null ? !image.equals(that.image) : that.image != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
+        if (Id != null ? !Id.equals(userView.Id) : userView.Id != null) return false;
+        if (addedOn != null ? !addedOn.equals(userView.addedOn) : userView.addedOn != null) return false;
+        if (address != null ? !address.equals(userView.address) : userView.address != null) return false;
+        if (email != null ? !email.equals(userView.email) : userView.email != null) return false;
+        if (image != null ? !image.equals(userView.image) : userView.image != null) return false;
+        if (name != null ? !name.equals(userView.name) : userView.name != null) return false;
+        if (phone != null ? !phone.equals(userView.phone) : userView.phone != null) return false;
+        if (surname != null ? !surname.equals(userView.surname) : userView.surname != null) return false;
+        if (username != null ? !username.equals(userView.username) : userView.username != null) return false;
 
         return true;
     }
@@ -114,8 +102,7 @@ public class LoggedUserView {
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (image != null ? image.hashCode() : 0);
-        result = 31 * result + (badges != null ? badges.hashCode() : 0);
-        result = 31 * result + (admin != null ? admin.hashCode() : 0);
+        result = 31 * result + (addedOn != null ? addedOn.hashCode() : 0);
         return result;
     }
 }

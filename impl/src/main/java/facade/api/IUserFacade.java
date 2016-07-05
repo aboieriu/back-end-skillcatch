@@ -4,6 +4,7 @@ import model.Badge;
 import model.Task;
 import model.User;
 import view.AssignedProjectView;
+import view.UserView;
 
 
 import java.util.List;
@@ -15,8 +16,6 @@ public interface IUserFacade {
 
     void addUser(User user);
 
-    List<User> getAll();
-
     User getUserById(Long userId);
 
     void deleteUserById(Long userId);
@@ -25,7 +24,9 @@ public interface IUserFacade {
 
     User findByUserName(String username);
 
-
-
     Set<Badge> getUserBadges(Long userId);
+
+    Set<UserView> getAll();
+
+    UserView getOne(Long userId);
 }

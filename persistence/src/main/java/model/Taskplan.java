@@ -2,11 +2,12 @@ package model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.mapping.Collection;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.Set;
 
-@JsonIgnoreProperties({"taskPlanId", "projectId"})
 @Entity
 @Table(name = "task_plan")
 public class TaskPlan {
@@ -36,6 +37,8 @@ public class TaskPlan {
 
 
     public TaskPlan() {
+        tasks = Collections.emptySet();
+        badges = Collections.emptySet();
     }
 
     public Long getId() {

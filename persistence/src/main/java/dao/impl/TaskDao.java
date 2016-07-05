@@ -8,13 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.Query;
 import java.util.List;
 
-
 public class TaskDao extends GenericDao<Task> implements ITaskDao {
 
     public TaskDao() {
         super(Task.class);
     }
-
 
     public Task getTask(Long groupId, Long taskplanId, Long taskId) {
         Query query = this.entityManager.createQuery("select t from Project as pg join pg.taskplans as tp join tp.tasks as t where tp.id = :targettaskplanId AND t.id = :targettaskId AND pg.id =:targetprojectgroupId ");
@@ -27,6 +25,7 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
         }
         return null;
     }
+
     public Task getUserTask(Long userId,Long taskId) {
         Query query = this.entityManager.createQuery("select t from Task as t join t.userTasks as utsk where utsk.id=:userId");
         query.setParameter("userId", userId);
@@ -36,7 +35,6 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
         }
         return null;
     }
-
 
     public List<Badge> getBadgeFromTask(Long taskId) {
         Task targetTask = this.getById(taskId);
@@ -56,7 +54,6 @@ public class TaskDao extends GenericDao<Task> implements ITaskDao {
 
     @Transactional
     public void add(Task task) {
-
         entityManager.persist(task);
 
     }

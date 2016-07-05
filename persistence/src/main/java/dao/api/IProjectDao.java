@@ -11,6 +11,5 @@ public interface IProjectDao extends IGenericDao<Project> {
 
     public Set<User> getUsers(Long groupId);
     public Set<TaskPlan> getTaskplans(Long groupId);
-    void updateGroup(Project group);
-
-    }
+    void updateProject(Project group);
+}

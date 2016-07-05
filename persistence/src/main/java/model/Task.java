@@ -5,6 +5,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class Task {
     private Set<Badge> badges;
 
     public Task(){
-
+        badges = Collections.emptySet();
     }
 
 

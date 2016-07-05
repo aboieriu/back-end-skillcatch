@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-
-@Controller
 public class UserService extends BaseService {
 
     @Autowired

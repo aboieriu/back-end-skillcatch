@@ -5,6 +5,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -37,8 +39,12 @@ public class User {
     @Column(name = "address")
     private String address;
 
-    @Column(name="image")
+    @Column(name="image", nullable = true)
     private String image;
+
+    @Column(name = "addedOn", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date addedOn;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_has_role",
@@ -59,6 +65,10 @@ public class User {
     private Set<Project> projects;
 
     public User() {
+        this.addedOn = new Date();
+        this.userRole = Collections.emptySet();
+        this.taskPlans = Collections.emptySet();
+        this.projects = Collections.emptySet();
     }
 
     public User(String name, String surname, String username, String password, String email, String phone, String address, String image, Set<Role> userRole, Set<TaskPlan> taskPlans, Set<Project> projects) {
@@ -73,6 +83,22 @@ public class User {
         this.userRole = userRole;
         this.taskPlans = taskPlans;
         this.projects = projects;
+        this.addedOn = new Date();
+    }
+
+    public User(String name, String surname, String username, String password, String email, String phone, String address, String image, Set<Role> userRole, Set<TaskPlan> taskPlans, Set<Project> projects, Date addedOn) {
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.image = image;
+        this.userRole = userRole;
+        this.taskPlans = taskPlans;
+        this.projects = projects;
+        this.addedOn = addedOn;
     }
 
     public Long getId() {
@@ -169,5 +195,13 @@ public class User {
 
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    public Date getAddedOn() {
+        return addedOn;
+    }
+
+    public void setAddedOn(Date addedOn) {
+        this.addedOn = addedOn;
     }
 }

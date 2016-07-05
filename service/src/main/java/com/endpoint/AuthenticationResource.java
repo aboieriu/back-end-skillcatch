@@ -32,7 +32,7 @@ public class AuthenticationResource extends BaseService  {
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<LoggedUserView> authenticateUser(@RequestBody UserCandidate userCandidate){
+    public void authenticateUser(@RequestBody UserCandidate userCandidate){
         String password=userCandidate.getPassword();
         PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
         passwordEncoder.encode(password);
@@ -40,7 +40,6 @@ public class AuthenticationResource extends BaseService  {
         UsernamePasswordAuthenticationToken authenticationToken =  new UsernamePasswordAuthenticationToken(userCandidate.getUsername(), password);
         Authentication authentication = this.authManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<LoggedUserView>(new LoggedUserView(null, null, null, null, null, null, null, null, null, null, null), HttpStatus.OK);
     }
 
     @RequestMapping(value="/logout", method = RequestMethod.POST)
@@ -54,4 +53,3 @@ public class AuthenticationResource extends BaseService  {
         this.authManager = authManager;
     }
 }
-

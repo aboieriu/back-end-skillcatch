@@ -55,7 +55,6 @@ public class LoggedUserConverter {
                 user.getName(),
                 user.getSurname(),
                 user.getUsername(),
-                user.getPassword(),
                 user.getEmail(),
                 user.getPhone(),
                 user.getAddress(),

@@ -1,5 +1,6 @@
 package facade.impl;
 
+import converter.UserConverter;
 import dao.api.IUserDao;
 import facade.api.IUserFacade;
 import model.Badge;
@@ -9,19 +10,30 @@ import model.User;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import view.UserView;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserFacade implements IUserFacade {
 
     @Autowired
     private IUserDao userDao;
 
+    @Autowired
+    private UserConverter userConverter;
+
 
     @Override
-    public List<User> getAll() {
-        return this.userDao.getAll();
+    public Set<UserView> getAll() {
+        return this.userDao.getAll().stream().map(user -> userConverter.convert(user)).collect(Collectors.toSet());
+    }
+
+    @Override
+    public UserView getOne(Long userId) {
+        User user = userDao.getById(userId);
+        return userConverter.convert(user);
     }
 
     @Override
@@ -59,5 +71,6 @@ public class UserFacade implements IUserFacade {
     public Set<Badge> getUserBadges(Long userId) {
         return this.userDao.getUserBadges(userId);
     }
+
 }
 

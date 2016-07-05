@@ -8,22 +8,19 @@ import model.Task;
 import model.User;
 import org.hibernate.procedure.UnknownSqlResultSetMappingException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 
 public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
 
     public UserDao() {
         super(User.class);
     }
-
-
 
     public User getUser(Long groupId,Long userId) {
         if(groupId !=null || userId != null)
@@ -40,16 +37,36 @@ public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
         return null;
     }
 
+    @Override
     @Transactional
-    public void deleteUser(Long groupId , Long userId) {
-        User itemFromDbs = this.getUser(groupId, userId);
-
+    public void deleteById(Long userId) {
+        User itemFromDbs = this.getById(userId);
         if (itemFromDbs != null) {
+            if (itemFromDbs.getTaskPlans() != null) {
+                itemFromDbs.getTaskPlans().stream().forEach(taskPlan -> {
+                    taskPlan.getTasks().stream().forEach(task -> {
+                        task.getBadges().stream().forEach(badge -> {
+                            entityManager.remove(badge);
+                        });
+                        entityManager.remove(task);
+                    });
+                    taskPlan.getBadges().stream().forEach(badge -> {
+                        entityManager.remove(badge);
+                    });
+                    entityManager.remove(taskPlan);
+                });
+            }
+
+            itemFromDbs.setTaskPlans(new HashSet<>());
+            itemFromDbs.setUserRole(new HashSet<>());
+            itemFromDbs.setProjects(new HashSet<>());
+            entityManager.persist(itemFromDbs);
             entityManager.remove(itemFromDbs);
+            entityManager.flush();
+            entityManager.clear();
         }
     }
 
-    @Transactional
     public void updateUser(User myUser){
         User itemFromDbs = this.getById(myUser.getId());
         if (itemFromDbs != null) {
@@ -61,6 +78,7 @@ public class UserDao extends GenericDao<User> implements IUserDao,Serializable{
             itemFromDbs.setPhone(myUser.getPhone());
             itemFromDbs.setImage(myUser.getImage());
             entityManager.persist(itemFromDbs);
+            entityManager.flush();
         }
     }
 

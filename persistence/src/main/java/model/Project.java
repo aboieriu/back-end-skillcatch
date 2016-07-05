@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 
 import javax.persistence.Table;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -24,7 +26,7 @@ public class Project {
     @Column(name = "descriptions")
     private String descriptions;
 
-    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_has_project",
             joinColumns = {@JoinColumn(name = "project_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
@@ -36,13 +38,29 @@ public class Project {
             inverseJoinColumns = {@JoinColumn(name = "task_plan_id")})
     private Set<TaskPlan> taskPlans;
 
-    public Project() {}
+    @Column(name = "createdOn", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
+
+    public Project() {
+        this.createdOn = new Date();
+        this.taskPlans = Collections.emptySet();
+    }
 
     public Project(String name, String descriptions, Set<User> users, Set<TaskPlan> taskPlans) {
         this.name = name;
         this.descriptions = descriptions;
         this.users = users;
         this.taskPlans = taskPlans;
+        this.createdOn = new Date();
+    }
+
+    public Project(String name, String descriptions, Set<User> users, Set<TaskPlan> taskPlans, Date createdOn) {
+        this.name = name;
+        this.descriptions = descriptions;
+        this.users = users;
+        this.taskPlans = taskPlans;
+        this.createdOn = createdOn;
     }
 
     public Set<User> getUsers() {
@@ -85,4 +103,12 @@ public class Project {
         this.descriptions = descriptions;
     }
 
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
 }

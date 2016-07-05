@@ -11,15 +11,10 @@ import java.util.Set;
 
 public interface IUserDao extends IGenericDao<User> {
 
-    public void updateUser(User myUser);
-    public User getUser(Long groupId,Long userId);
-    public void deleteUser(Long groupId , Long userId);
-    public User findByUserName(String username);
-
+    void updateUser(User myUser);
+    User getUser(Long groupId,Long userId);
+    User findByUserName(String username);
     Set<Project> getAssignedProjects(Long userId);
-
     Set<Task> getUserTasks(Long userId);
     Set<Badge> getUserBadges(Long userId);
-
-
 }

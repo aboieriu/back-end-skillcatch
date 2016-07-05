@@ -3,15 +3,14 @@ package dao.impl;
 import dao.api.IBadgeDao;
 import model.Badge;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.Query;
 import java.util.List;
-
 
 public class BadgeDao extends GenericDao<Badge> implements IBadgeDao {
     public BadgeDao() {
         super(Badge.class);
     }
-
 
     public Badge getBadgeById(Long groupId,Long taskPlanId,Long taskId,Long badgeId) {
         if(groupId !=null || taskPlanId != null || taskId != null )
@@ -25,12 +24,9 @@ public class BadgeDao extends GenericDao<Badge> implements IBadgeDao {
             if (!result.isEmpty()) {
                 return result.get(0);
             }
-
         }
         return null;
     }
-
-
 
     @Transactional
     public void updateBadge(Badge badge){
@@ -42,25 +38,19 @@ public class BadgeDao extends GenericDao<Badge> implements IBadgeDao {
         }
     }
 
-
     @Transactional
     public void deleteBadge(Long badgeId) {
         Badge itemFromDbs = this.getById(badgeId);
-
         if (itemFromDbs != null) {
             entityManager.remove(itemFromDbs);
         }
     }
+
     @Transactional
     public void addBadge(Long taskId,Badge badge){
         if(taskId!=null){
-
             entityManager.persist(badge);
         }
-
     }
-
-
-
 }
 

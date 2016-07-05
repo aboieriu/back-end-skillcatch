@@ -43,7 +43,7 @@ public class GroupFacade implements IGroupFacade {
     }
 
     public void updateGroup(Project group){
-        this.groupDao.updateGroup(group);
+        //this.groupDao.updateGroup(group);
     }
 
     public void addUserToGroup(Long groupId , Long userId){
