@@ -1,10 +1,14 @@
 #SkillCATch
 
 For picture upload please use the following instructions:
+
+
 1) Go to the apache-tomcat directory and create a folder called "images"
 	-inside this folder create another folder called badges
 	-also change the destinationFile variable inside UserResource and BadgeResource classes with "Disk:/apache-tomcat-directory/images/" and "Disk:/apache-tomcat-directory/images/badges/"
-2)Modify server.xml file inside "conf" folder in the following way:
+
+	2)Modify server.xml file inside "conf" folder in the following way:
+	
 	<Context docBase="/apache-tomcat-directory/images" path="/images" />
         <!-- Access log processes all example.
              Documentation at: /docs/config/valve.html
