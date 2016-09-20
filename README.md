@@ -4,9 +4,7 @@
  - set the ApacheTomcat at this location "C:/Work"
  - modify the file named "server.xml" located in "ApacheTomcatDirectory/conf" like this:
 	 Context docBase="Work/apache-tomcat-7.0.67/images" path="/images" />
-	<!-- Access log processes all example.
-		 Documentation at: /docs/config/valve.html
-		 Note: The pattern used is equivalent to using pattern="common" -->
+	
 	<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
 		   prefix="localhost_access_log." suffix=".txt"
 		   pattern="%h %l %u %t &quot;%r&quot; %s %b" />
